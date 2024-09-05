@@ -148,7 +148,7 @@ String getBranches( String myurl='' ){
 String getFileBit(){
    println("Enter getFileBit()")
    //if ( !mycmd?.trim() ) { 
-   def  mycmd = """curl -u "hqzhang:LknMlBaa0gKeZMCBweh3AFE0" -X GET https://bitbucket.org/rest/api/1.0/projects/myproject/repos/solution-repo/browse/release"""
+   def  mycmd = """curl -u "hqzhang:0" -X GET https://bitbucket.org/rest/api/1.0/projects/myproject/repos/solution-repo/browse/release"""
    //}
    def mf = mycmd.execute().text
    def ret = mf.readLines().collect{ it.split()[0].minus('.xml')}
