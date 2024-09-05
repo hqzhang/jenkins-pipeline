@@ -1,0 +1,419 @@
+//////////////use shared library same with Jenkinsfile///////////
+
+def brch= scm.branches[0].toString().replace('*/','')
+def libver="bitbucket-groovytest-lib@Menu-demo-good"
+//1) library identifier: "bitbucket-groovytest-lib@${brch}", retriever: modernSCM(
+//  [$class: 'GitSCMSource', remote: repo, credentialsId: ''])  //from any repo without definiation src excluded
+library identifier: "bitbucket-groovytest-lib@${brch}", retriever:legacySCM(scm)  //from local repo without definiation
+//3):library("bitbucket-groovytest-lib@${brch}") _         //from repo defined in system config, src excluded
+//@Library('bitbucket-groovytest-lib@Menu-demo-good')      //from repo defined in system config, vars/src/resouces included
+
+import groovy.json.JsonSlurper
+
+import hudson.model.*
+import jenkins.model.*
+
+// Define the credentials ID used in Jenkins
+def credentialsId = 'accessAndSecretKeys' // Replace with your actual AWS credentials ID
+// Fetch the AWS credentials from Jenkins
+def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+    com.cloudbees.jenkins.plugins.awscredentials.AWSCredentialsImpl.class,
+    jenkins.model.Jenkins.instance,
+    null,
+    null
+).find { it.id == credentialsId }
+
+if (creds == null) {
+    throw new RuntimeException("AWS credentials not found in Jenkins with ID: ${credentialsId}")}
+
+// Extract AWS access key and secret key from the credentials
+def awsAccessKey = creds.accessKey
+def awsSecretKey = creds.secretKey.plainText
+
+// Initialize the S3 client
+def jobstr="${env.JOB_NAME}"
+println "jobstr:$jobstr"
+def ret = getClass().protectionDomain.codeSource.location.path
+println "groovyshell=$ret"
+def wksp = menu.getWksp()
+println "wksp=$ret"
+def repo = scm.getUserRemoteConfigs()[0].toString().replace(' (null)','').replace('null => ','')
+println "repo=$repo"
+def mybr=menu.getURL()
+menu.initEnvars()
+println "repo=$mybr"
+
+/*
+GIT_BRANCH = "GIT_BRANCH";
+    public static final String GIT_LOCAL_BRANCH = "GIT_LOCAL_BRANCH";
+    public static final String GIT_CHECKOUT_DIR = "GIT_CHECKOUT_DIR";
+    public static final String GIT_COMMIT = "GIT_COMMIT";
+    public static final String GIT_PREVIOUS_COMMIT = "GIT_PREVIOUS_COMMIT";
+    public static final String GIT_PREVIOUS_SUCCESSFUL_COMMIT = "GIT_PREVIOUS_SUCCESSFUL_COMMIT";
+    public static final String GIT_URL = "GIT_URL";
+
+*/
+println "---------list all envar------------"
+println "build=${env.BUILD_URL}"
+env.getEnvironment().each { name, value -> println "env.${name}=${value}" }
+//println foo('HQ')
+
+@groovy.transform.Field
+def mybrch="{brch}"
+@groovy.transform.Field
+def envList=['DEV','BAT']
+@groovy.transform.Field
+def serversList=[DEV: ['s111','ss222','ss333'],
+                 BAT: ['s444','s555','s666'] ] 
+@groovy.transform.Field
+def defaultList=['ss333', 's555']
+@groovy.transform.Field
+def target="hongqizhang@localhost"
+println "**********"
+
+println "***********"
+//import com.wavecloud.Hello;
+//def hl=new Hello()
+//println hl.hello("WORLD HQ!")
+String buildDefault(List out,String key){
+   def ret=[]
+   out.each{ if(it.contains(key)){ ret.add(0, it) } else { ret.add(it) } }
+   if (ret.isEmpty()) {return ['NotFound']}
+   return ret
+}
+String setDefault(List out,String key){
+   def ret=[]
+   out.each{ if(it.contains(key)){ ret.add(0,'"'+it+'"') }  else { ret.add('"'+it+'"') } } 
+   if (ret.isEmpty()) {return ['NotFound']}
+   return ret
+}         
+String getServerList(String refvar){
+    def map=[:]
+    envList.eachWithIndex{ it,index->
+       map[it]=setDefault(serversList[it],defaultList[index])
+    }
+    return """def map=${map}
+    |return map[${refvar}]
+    |""".stripMargin()
+}
+
+def getPackList(String mypath, String dft){
+    println("enter getPack()")
+    ret=[]
+    def out="ssh ${target} ls ${mypath}/*.tar.gz".execute().text
+    println "out=$out"
+    out.readLines().each{ if( it.contains(dft) ){ ret.add(0,'"'+it+'"') } else { ret.add('"'+it+'"') } }
+    if (ret.isEmpty()) {return ['NotFound']}
+    return """ return ${ret} """
+}         
+def getPackScript(String mypath, String dft){
+  println("enter getPackScript()")
+  return """ret=[]
+  |def out="ssh ${target} ls ${mypath}/*.tar.gz".execute().text
+  |out.readLines().each{ if( it.contains(\"${dft}\") ){ ret.add(0,it) } else { ret.add(it) } }
+  |return ret
+  |""".stripMargin()
+}
+/*
+def getFileList(String wksp, String dft){
+    println("enter getFile()")
+    def ret=[]
+    def out="ls ${wksp}/release  ".execute().text
+    println "out=$out"
+    out.readLines().each{ 
+        if( it.contains(dft) ){ ret.add(0,'"'+it+'"') } 
+    else { ret.add"'+it+'"') } }
+    if (ret.isEmpty()) {return ['NotFound']}
+    }
+    return """ return ${ret} """
+}  */              
+def getFileScript(String wksp, String dft){
+    println("enter getFileScript()....")
+  return """def ret=[]
+  |def out="ls ${wksp}/release  ".execute().text
+  |out.readLines().each{ if( it.contains(\"${dft}\") ){ ret.add(0,it) } else { ret.add(it) } }
+  |if (ret.isEmpty()) {return ['NotFound']}
+  |return ret
+  |""".stripMargin()
+}
+def getContentScript(String wksp, String refvar,String brch ){
+    println("enter getContentScript()....")
+    return """
+    |def out="cat ${wksp}/\${${refvar}}".execute().text
+    |out="curl https://bitbucket.org/wave-cloud/groovytest/raw/${brch}/\${${refvar}}".execute().text
+    |out=out.replaceAll('components:\\n','')
+    |return \"\"\" <textarea name=\"value\"  value  class=\"setting-input  \" type=\"text\" rows="10" cols="25">\${out}</textarea> \"\"\"
+    | """.stripMargin()
+}
+
+String getBranchList(String refvar){
+   def dft=''
+   def repo='https://fredzhang123@bitbucket.org/wave-cloud/groovytest.git'
+   return """ def ret=[]
+   |def myrepo=\'${repo}\'+${refvar}+'.git'
+   |def out = "git ls-remote --heads ${repo}".execute().text
+   |out = out.readLines().collect { it.split()[1].replaceAll('refs/heads/', '') }
+   |out.each{ if( it.contains('') ){ ret.add(0,it) } else { ret.add(it) } }
+   |return ret
+   |""".stripMargin()
+}
+String getBranchScript(String repo, String dft ){
+   return """def ret=[]
+   |def out = "git ls-remote --heads ${repo}".execute().text
+   |out = out.readLines().collect { it.split()[1].replaceAll('refs/heads/', '') }
+   |out.each{ if( it.contains(\"${dft}\") ){ ret.add(0,it) } else { ret.add(it) } }
+   |return ret
+   | """.stripMargin()
+}
+String getFileHubList(String repo, String folder,String brch ){
+   println "Enter getFileHubList()"
+   def ret=[]
+   def cmd = """curl https://api.github.com/repos/${repo}/git/trees/${brch}?recursive=2  """
+   def out = cmd.execute().text
+   //println "out=$out"
+   def jsonSlurper = new JsonSlurper()
+   def obj = jsonSlurper.parseText(out)
+   obj['tree'].each{ if(it['path'].contains(folder) ) { ret.add('"'+it['path']+'"')}  }
+   //println "obj=$obj"
+   if (ret.isEmpty()) {return ['NotFound']}
+   return """ return ${ret} """
+
+}
+
+String getFileHubScript(String repo, String folder,String brch ){
+   return """import groovy.json.JsonSlurper
+   |def ret=[]
+   |def cmd = "curl https://api.github.com/repos/${repo}/git/trees/${brch}?recursive=2  "
+   |def out = cmd.execute().text
+   |def jsonSlurper = new JsonSlurper()
+   |def obj = jsonSlurper.parseText(out)
+   |obj['tree'].each{ if(it['path'].contains("${folder}/") ) { ret.add(it['path'])}  }
+   |if (ret.isEmpty()) {return ['NotFound']}
+   |return ret
+   | """.stripMargin()
+}
+
+def getFileBitList(String repo, String folder, String brch){
+    println "ener getFileBit()"
+    def repoPR="https://api.bitbucket.org/2.0/repositories/$repo/src/${brch}/release"
+    def ret=[]
+    def cmd="curl --request GET ${repoPR}  "
+    println "$cmd"
+    def out=cmd.execute().text
+    def json=new JsonSlurper()
+    def obj=json.parseText(out)
+    obj['values'].each { ret.add('"'+it['path']+'"')}
+    if (ret.isEmpty()) {return ['NotFound']}
+    return """ return ${ret} """
+    
+}
+
+def getFileBitScript(String repo, String folder, String brch){
+    return """import groovy.json.JsonSlurper
+    |def ret=[]
+    |def repoPR="https://api.bitbucket.org/2.0/repositories/${repo}/src/${brch}/release"
+    |def cmd="curl --request GET \${repoPR}  "
+    |def out=cmd.execute().text
+    |def json=new JsonSlurper()
+    |def obj=json.parseText(out)
+    |obj['values'].each { ret.add(it['path'])}
+    |if (ret.isEmpty()) {return ['NotFound']}
+    |return ret
+    | """.stripMargin()
+}
+def verify(String brch){
+   def SolutionConfig="solution.yaml"
+   def out="cat /var/root/.jenkins/workspace/agroovytest/release/${SolutionConfig}".execute().text
+   out="curl https://bitbucket.org/wave-cloud/groovytest/raw/${brch}/release/${SolutionConfig}".execute().text
+   out=out.replaceAll('components:\n','')
+   return """ <textarea name="value"  value  class="setting-input  " type="text" rows="10" cols="25">${out}</textarea> """
+}
+
+   
+println menu.getContentScript("SolutionConfig")
+//println menu.getTypeScript()
+//println menu.getTypeVerify()
+//println menu.verifytest()
+//println menu.verify2('release/a.yaml')
+
+println "---------parameters start------------"
+
+/*Define the Active Choice parameter
+properties([
+  parameters([
+    activeChoiceParam(
+      name: 'DYNAMIC_PARAM',
+      choiceType: 'SINGLE_SELECT',
+      groovyScript: [
+        script: 'return sharedLibraryMethod()',
+        fallbackScript: 'return ["Default"]'
+      ]
+    )
+  ])
+])
+*/
+def sharedLibraryMethod() {
+  // Logic to generate dynamic choices
+  return ["Choice1", "Choice2", "Choice3"]
+}
+
+//////////////////
+properties([
+    //pipelineTriggers([bitbucketPush()]),
+    parameters([
+        activeChoiceParam(
+      name: 'DYNAMIC_PARAM',
+      choiceType: 'SINGLE_SELECT',
+      groovyScript: [
+        script: 'return sharedLibraryMethod()',
+        fallbackScript: 'return ["Default"]'
+      ]
+    ),
+        base64File('myfile64'), 
+            file('myfile') ,    
+            separator(name: "building"),
+            choice( name: 'Environment', description: '', choices: buildDefault(envList,'BAT') ),
+            choice( name: 'repoName', choices: ['groovytest'], description: '' ),
+            [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+               name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: getBranchList('repoName') ]]],
+
+            //choice( name: 'getFileHub', description: '', choices: getFileHub("hqzhang/groovytest","releases",'mytest') ),
+            [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+               name: 'getFileHubScript', randomName: 'choice-parameter-16677189047450', referencedParameters: 'Environment', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: getFileHubList("hqzhang/groovytest","release",'mytest') ]]],
+            //choice( name: 'getFileBit', description: '', choices: getFileBit("wave-cloud/groovytest","release",brch) ),
+            [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+               name: 'getFileBitScript', randomName: 'choice-parameter-16677189047460', referencedParameters: 'Environment', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: getFileBitScript("wave-cloud/groovytest","release",brch) ]]],
+            [$class: 'CascadeChoiceParameter', choiceType: 'PT_MULTI_SELECT', filterLength: 1, filterable: false,
+               name: 'Server', randomName: 'choice-parameter-16677189047472', referencedParameters: 'Environment', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: getServerList('Environment') ]]],
+
+            [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+               name: 'Package', randomName: 'choice-parameter-16677189047489', referencedParameters: 'filebackup', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: getPackList('~/workspace/myscripts','myfile') ]]],
+
+            [ $class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+               name: 'SolutionConfig', randomName: 'choice-parameter-16677189047798', referencedParameters: 'startRollback', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: menu.getFileBitScript('startRollback')  ]]],
+
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML', 
+                name: 'Component',omitValueField: false, randomName: 'choice-parameter-138673186839723', referencedParameters: 'SolutionConfig', 
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                script: [classpath: [], oldScript: '', sandbox: true, 
+                script: menu.getContentScript('SolutionConfig')]] ], 
+
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML', name: 'Components', 
+                   name: 'Components', omitValueField: false, randomName: 'choice-parameter-138673186839723', referencedParameters: 'SolutionConfig', 
+                   script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                    script: [classpath: [], oldScript: '', sandbox: true, 
+                    script: menu.getContentTable('SolutionConfig' )]] ],
+
+            booleanParam( name: 'startRollback',  defaultValue: true),
+
+            [ $class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+               name: 'RollbackList', randomName: 'choice-parameter-16687189047799', referencedParameters: 'startRollback', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: menu.getRollbackList('startRollback','PRIOR') ]]],
+
+            [ $class: 'CascadeChoiceParameter', choiceType: 'PT_CHECKBOX', filterLength: 1, filterable: false,
+               name: 'RollbackTypeList', randomName: 'choice-parameter-16677189047799', referencedParameters: 'RollbackList', 
+               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+               script: [classpath: [], oldScript: '', sandbox: true, 
+               script: menu.getTypeScript('RollbackList')  ]]],
+
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
+                    name: 'filebackup',randomName: 'choice-parameter-138673286839723', referencedParameters: 'SolutionConfig', 
+                    script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                    script: [classpath: [], oldScript: '', sandbox: true, 
+                    script: menu.getString('SolutionConfig')]] ],
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
+                    name: 'filebackup1',randomName: 'choice-parameter-138683286839723', referencedParameters: 'SolutionConfig', 
+                    script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                    script: [classpath: [], oldScript: '', sandbox: true, 
+                    script: menu.getStringInstant('SolutionConfig')]] ],
+            separator(name: "end"), 
+              
+            
+])
+])////
+//mypipeline( params )
+
+println "-----------begin pipeline-------"
+def map
+def list
+def remote = [:]
+remote.name = "root"
+remote.host = "192.168.0.16"
+remote.allowAnyHosts = true
+//println menu.getCompList('mypack')
+//println menu.gitCompVerify()
+pipeline {
+    agent any
+    stages {
+        stage('Create List') {
+            steps {
+                script {
+                    echo "STAGE: create List..."
+                    myMethods.greet("Alice")
+                    echo "params======$params"
+                    echo "components=${env.compNames}"
+                    echo "init=$env.initMenu"
+                    println "get use function"
+                    def comps=["b","a"]
+                    def versions=["1","2"]
+                    comps.eachWithIndex{ var, id->
+                          echo "com=$comps[id]"
+                          echo "ver=$versions[id]"
+
+                    }
+                     
+                        sh """
+                        echo comp
+                        """
+                  
+                    if (currentBuild.previousBuild) {
+                        try {
+                            copyArtifacts(projectName: currentBuild.projectName,
+                                          selector: specific("${currentBuild.previousBuild.number}"))
+                            def previousFile = readFile(file: "usefulfile.txt")
+                            echo("The current build is ${currentBuild.number}")
+                            echo("The previous build artifact was: ${previousFile}")
+                        } catch(err) {
+                            // ignore error
+                        }
+                    }
+                
+                    //println menu.getCompList('mypack')
+                    def build="${env.BUILD_NUMBER}"
+                    println build
+                    sh "echo ${build} > usefulfile.txt"
+                    archiveArtifacts artifacts: 'usefulfile.txt', fingerprint: true
+    
+                }
+
+            }
+        }
+    }
+   post {
+        always {
+            //archiveArtifacts artifacts: 'file.extension', fingerprint: true
+            println "do nothing"
+        }
+    }
+}
+
