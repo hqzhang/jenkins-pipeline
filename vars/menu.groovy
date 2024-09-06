@@ -489,7 +489,7 @@ def getFileHubFullSW(){
     |import groovy.json.JsonSlurper
     |import jenkins.model.*
     |def envar='DEV'
-    |def ret=[]'INIT.yaml']
+    |def ret=['INIT.yaml']
     |def local="ls workspace/solution-repo/release"
     |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
     |       com.cloudbees.plugins.credentials.Common.StandarUsernameCredentials.class,
