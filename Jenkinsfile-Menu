@@ -250,6 +250,17 @@ properties([
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getFileHubList("hqzhang/groovytest","release",'mytest') ]]],
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML', 
+                name: 'Component',omitValueField: false, randomName: 'choice-parameter-138673186839723', referencedParameters: 'SolutionConfig', 
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                script: [classpath: [], oldScript: '', sandbox: true, 
+                script: menu.getContentScript('SolutionConfig')]] ], 
+
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
+                    name: 'SaveConfig',randomName: 'choice-parameter-138683286839723', referencedParameters: 'Component', 
+                    script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                    script: [classpath: [], oldScript: '', sandbox: true, 
+                    script: menu.getStringInstant('Component')]] ],
            
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
@@ -268,6 +279,7 @@ properties([
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getPackList('~/workspace/myscripts','myfile') ]]],
+            
 /*
             [ $class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'SolutionConfig', randomName: 'choice-parameter-16677189047798', referencedParameters: 'startRollback', 
@@ -306,11 +318,7 @@ properties([
                     script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                     script: [classpath: [], oldScript: '', sandbox: true, 
                     script: menu.getString('SolutionConfig')]] ],
-            [$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
-                    name: 'filebackup1',randomName: 'choice-parameter-138683286839723', referencedParameters: 'SolutionConfig', 
-                    script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
-                    script: [classpath: [], oldScript: '', sandbox: true, 
-                    script: menu.getStringInstant('SolutionConfig')]] ],
+            
             separator(name: "end"), */
               
             
