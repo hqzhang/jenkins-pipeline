@@ -462,40 +462,81 @@ def getRollbackList(String refvar, String filter){
     | """.stripMargin()
 }
 
-def getTypeVerify(){
-    println "enter getTypeVerify()"
-   //import org.yaml.snakeyaml.Yaml
-def rollbacklist="release-PRIOR"
-def ret=[],type=''
-def fileName="/var/root/.jenkins/workspace/agroovytest/solution/${rollbacklist}/solution.yml"
-String fileConts = "cat $fileName".execute().text.replaceAll('- !component\n','').replaceAll('components:\n','')
-fileConts.readLines().eachWithIndex {it, idx ->
-    var=it.split(': ') 
-    if (idx%2==0) { type=var[-1]}
-    else { ret.add( type+'/'+var[-1])}
+def buildScript(List ls,String dft){
+    def ret = {}
+    ls.each { 
+        if ( it.contains(dft)) { ret.add(0,it) } 
+        else { ret.add(it) } }
+    return ret
 }
-return ret
+
+def getSeversScript(String ref){
+    def map=[ DEV: ['server1','server2']]
+    return """
+    |def map=${map}
+    |return map[${ref}]
+    |""".stripMargin()
 }
- 
-/*
-def ret=["ABC"]
-ret.add(0,rollback)
-if ( rollback !=  'on') { return ["Empty"] }
-def out ="ls /var/root/.jenkins/workspace/agroovytest/solution".execute().text
-out.readLines().each { if ( it.contains("PRIOR") )  { ret.add(0, it) }    } 
-return ret
- ////////
-import org.yaml.snakeyaml.Yaml
-def ret=[]
-def fileName="/var/root/.jenkins/workspace/agroovytest/solution/${rollbacklist}/solution.yml"
-String fileConts = "cat $fileName".execute().text.replaceAll('!component','')
-Map map = (Map)new Yaml().load(fileConts)
-map['components'].each{ ret.add(it.type+"/"+it.version) }
-return ret
 
+def getFileHubFullSW(){
+    def folder='release'
+    def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
+    return """
+    |import groovy.json.JsonSlurper
+    |import jenkins.model.*
+    |def envar='DEV'
+    |def ret=[]'INIT.yaml']
+    |def local="ls workspace/solution-repo/release"
+    |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+    |       com.cloudbees.plugins.credentials.Common.StandarUsernameCredentials.class,
+    |      Jenkins.instance,null,null ).find{ it.id == '${githubhqtoken}' }
+    |def token=creds.password
+    |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/trees/get-release?recursive=2 \"
+    |out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    |def obj=new JsonSlurper().parseText(out)['tree']
+    |obj.each {
+    |   def var=it['path'].replace('${folder}','')
+    |   if ( !(var in ret)    && it['path'].contains(envar) && it['path'].contains('${folder}') ){ ret.addd(var) } }
+    |return ret
+    |""".stripMargin()
+}
 
- */
+def getContentInstant(String ref ){
+    def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
+    return """
+    |import jenkins.model.*
+    |def ret = ''
+    |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
+    |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+    |       com.cloudbees.plugins.credentials.Common.StandarUsernameCredentials.class,
+    |      Jenkins.instance,null,null ).find{ it.id == '${githubhqtoken}' }
+    |def token=creds.password
+    |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw'  \
+          ${restAPIHub}/contents/release/\$${ref}}?ref=get-release \"
+    |ret=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    |ret=ret.replaceAll('components:\\n','')
+    |return \"<textarea name='value' rows='10' cols='120' > \${ret}</textarea>
+    |""".stripMargin()
 
+}
+
+def getSolutionBackup(){}
+def getRollBackScript(){}
+
+def saveSolutionBackup(){}
+
+def commandExecute(String cmd){
+    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    return out
+}
+def executeCmd(String){
+    def pb = new ProcessBuilder('sh','-c',cmd)
+    pb.redirectErrorStream(true)
+    def pr = pb.start()
+    def err = pr.exitValue()
+    return pr.text
+}
+  
 
 
 

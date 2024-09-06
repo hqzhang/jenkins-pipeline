@@ -214,23 +214,28 @@ def verify(String brch){
    out=out.replaceAll('components:\n','')
    return """ <textarea name="value"  value  class="setting-input  " type="text" rows="10" cols="25">${out}</textarea> """
 }
-
-   
-println menu.getContentScript("SolutionConfig")
 //println menu.getTypeScript()
 //println menu.getTypeVerify()
 //println menu.verifytest()
 //println menu.verify2('release/a.yaml')
-
 println "---------parameters start------------"
-
-
-
 //////////////////
 properties([
     //pipelineTriggers([bitbucketPush()]),
         parameters([
-            choice( name: 'Environment', description: '', choices: buildDefault(envList,'BAT') ),
+              [$class: ChoiceParameter, choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+                name: Environment, randomName: 'choice-parameter-974670813475178',
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: sandbox: false, script: '']
+                script: [classpath: [], oldScript: 77, sandbox: true,
+                script: menu.buildScript(['DEV','BAT'], 'DEV')]]],
+
+                [$class: 'CascadeChoiceParameter', choiceType: PT SINGLE_SELECT, FilterLength: 1, filterable: false,
+                name: 'Server', randomName: 'choice-parameter-16677189047718', referencedParameters: 'Environment',
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript; sandbox: true, script: 'return ["error"]'],
+                script: [classpath: [], oldScript: '', sandbox: true,
+                script: menu.getServerScript('Environment')]]],
+
+            /*choice( name: 'Environment', description: '', choices: buildDefault(envList,'BAT') ),
             
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
@@ -261,7 +266,7 @@ properties([
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getPackList('~/workspace/myscripts','myfile') ]]],
 
-            /*[ $class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+            [ $class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'SolutionConfig', randomName: 'choice-parameter-16677189047798', referencedParameters: 'startRollback', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
