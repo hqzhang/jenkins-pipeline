@@ -240,7 +240,7 @@ properties([
                 name: 'Environment', randomName: 'choice-parameter-974670813475178',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: '' ],
                 script: [classpath: [], oldScript: 77, sandbox: true,
-                script: buildScript(envList,'BAT')]]],
+                script: buildDefault(envList,'BAT')]]],
 
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
