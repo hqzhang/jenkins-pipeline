@@ -470,7 +470,7 @@ def buildScript(List ls,String dft){
     return ret
 }
 
-def getSeversScript(String ref){
+def getServerScript(String ref){
     def map=[ DEV: ['server1','server2']]
     return """
     |def map=${map}
