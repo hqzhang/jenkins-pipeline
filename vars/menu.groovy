@@ -524,8 +524,8 @@ def getSolutionBackup(String ref){
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
     |def obj=new Yaml().load(${ref})
-    |def name=obj[0]['name']
-    |def version=obj[0]['version']
+    |name=obj[0]['name']
+    |version=obj[0]['version']
     |if (obj.size()> 1){ single='M' }
     |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml'
     |return \"<textarea name='value' rows='1' cols='60' > \${ret}</textarea>\"
