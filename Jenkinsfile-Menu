@@ -267,11 +267,11 @@ properties([
                 script: getContentScript('Configuration')]] ], 
 
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
-                    name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component', 
-                    script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
-                    script: [classpath: [], oldScript: '', sandbox: true, 
-                    script: menu.getSolutionBackup('Component')]] ],                                                                                                                                                                                                                ')]] ],
-           
+                name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component',
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                script: [classpath: [], oldScript: '', sandbox: true, 
+                script: menu.getSolutionBackup('Component')]] ],                                                                                                                                                                                                                ')]] ],
+           /*
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
@@ -290,7 +290,7 @@ properties([
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getPackList('~/workspace/myscripts','myfile') ]]],
             
-/*
+
             [ $class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'SolutionConfig', randomName: 'choice-parameter-16677189047798', referencedParameters: 'startRollback', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
