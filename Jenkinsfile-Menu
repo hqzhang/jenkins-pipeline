@@ -229,7 +229,7 @@ println "---------parameters start------------"
 //////////////////
 properties([
     //pipelineTriggers([bitbucketPush()]),
-    
+        parameters([
             choice( name: 'Environment', description: '', choices: buildDefault(envList,'BAT') ),
             
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
