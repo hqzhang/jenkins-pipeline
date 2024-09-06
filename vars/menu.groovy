@@ -520,7 +520,16 @@ def getContentInstant(String ref ){
 
 }
 
-def getSolutionBackup(){}
+def getSolutionBackup(String ref){
+    return """import org.yaml.snakeyaml.Yaml
+    |def ret='',single='S',name='',version=''
+    |def obj=new Yaml().load(${ref})
+    |def name=obj[0]['name']
+    |def version=obj[0]['version']
+    |if (obj.size()> 1){ single='M' }
+    |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml'
+    |""".stripMargin()
+}
 def getRollBackScript(){}
 
 def saveSolutionBackup(){}

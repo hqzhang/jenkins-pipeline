@@ -270,7 +270,7 @@ properties([
                     name: 'SaveConfig',randomName: 'choice-parameter-138683286839723', referencedParameters: 'Component', 
                     script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                     script: [classpath: [], oldScript: '', sandbox: true, 
-                    script: menu.getStringInstant('Component')]] ],
+                    script: menu.getStringInstant('                                                                                                                                                                                                                     ')]] ],
            
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
