@@ -267,7 +267,7 @@ properties([
                 script: getContentScript('Configuration')]] ], 
 
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
-                    name: 'SaveConfig',randomName: 'choice-parameter-138683286839723', referencedParameters: 'Component', 
+                    name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component', 
                     script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                     script: [classpath: [], oldScript: '', sandbox: true, 
                     script: menu.getSolutionBackup('Component')]] ],                                                                                                                                                                                                                ')]] ],
