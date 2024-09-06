@@ -230,11 +230,8 @@ println "---------parameters start------------"
 properties([
     //pipelineTriggers([bitbucketPush()]),
     
-        base64File('myfile64'), 
-            file('myfile') ,    
-            separator(name: "building"),
             choice( name: 'Environment', description: '', choices: buildDefault(envList,'BAT') ),
-            choice( name: 'repoName', choices: ['groovytest'], description: '' ),
+            
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
