@@ -13,7 +13,7 @@ import groovy.json.JsonSlurper
 import hudson.model.*
 import jenkins.model.*
 
-// Define the credentials ID used in Jenkins
+/*Define the credentials ID used in Jenkins
 def credentialsId = 'accessAndSecretKeys' // Replace with your actual AWS credentials ID
 // Fetch the AWS credentials from Jenkins
 def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(com.cloudbees.jenkins.plugins.awscredentials.AWSCredentialsImpl.class,
@@ -35,7 +35,7 @@ def wksp = menu.getWksp()
 println "wksp=$ret"
 def repo = scm.getUserRemoteConfigs()[0].toString().replace(' (null)','').replace('null => ','')
 println "repo=$repo"
-def mybr=menu.getURL()
+def mybr=menu.getURL()*/
 menu.initEnvars()
 println "repo=$mybr"
 
