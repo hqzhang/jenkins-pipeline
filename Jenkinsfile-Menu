@@ -155,6 +155,7 @@ String getFileHubList(String repo, String folder,String brch ){
    println "Enter getFileHubList()"
    def ret=[]
    def cmd = """curl https://api.github.com/repos/${repo}/git/trees/${brch}?recursive=2  """
+   println "cmd=$cmd"
    def out = cmd.execute().text
    //println "out=$out"
    def jsonSlurper = new JsonSlurper()
