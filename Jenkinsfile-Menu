@@ -266,12 +266,18 @@ properties([
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: getContentScript('Configuration')]] ], 
 
-            [$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
+                    name: 'filebackup',randomName: 'choice-parameter-138673286839723', referencedParameters: 'Component', 
+                    script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                    script: [classpath: [], oldScript: '', sandbox: true, 
+                    script: menu.getString('Component')]] ],
+,
+            /*[$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
                 name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: menu.getSolutionBackup('Component')]] ],                                                                                                                                                                                                                ')]] ],
-           /*
+           
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
