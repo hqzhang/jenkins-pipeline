@@ -248,19 +248,13 @@ properties([
                name: 'Configuration', randomName: 'choice-parameter-16677189047451', referencedParameters: 'Environment', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
-               script: getFileHubList("hqzhang/solution-repo","release",'getsolution') ]]],
+               script: getFileHubList("hqzhang/groovytest","release",'mytest') ]]],
            
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getBranchList('repoName') ]]],
-
-            [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
-               name: 'getFileHubScript', randomName: 'choice-parameter-16677189047450', referencedParameters: 'Environment', 
-               script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
-               script: [classpath: [], oldScript: '', sandbox: true, 
-               script: getFileHubList("hqzhang/groovytest","release",'mytest') ]]],
         
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getFileBitScript', randomName: 'choice-parameter-16677189047460', referencedParameters: 'Environment', 
