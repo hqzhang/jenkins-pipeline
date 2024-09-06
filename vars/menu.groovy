@@ -465,8 +465,8 @@ def getRollbackList(String refvar, String filter){
 def buildScript(List ls,String dft){
     def ret = []
     ls.each { 
-        if ( it.contains(dft)) { ret.add(0,it) } 
-        else { ret.add(it) } }
+        if ( it.contains(dft)) { ret.add(0,'"'+it+'"') } 
+        else { ret.add('"'+it+'"') } }
     return "return ${ret}"
 }
 
