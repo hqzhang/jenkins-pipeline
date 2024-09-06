@@ -125,6 +125,7 @@ def getFileScript(String wksp, String dft){
 def getContentScript(String refvar){
     println("enter getContentScript()....")
     def base="https://raw.githubusercontent.com/hqzhang/groovytest"
+    def brch='mytest'
     return """
     |out="curl ${base}/${brch}/\${${refvar}}".execute().text
     |out=out.replaceAll('components:\\n','')
