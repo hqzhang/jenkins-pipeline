@@ -220,7 +220,7 @@ def verify(String brch){
 //println menu.verify2('release/a.yaml')
 println "---------parameters start------------"
 //////////////////
-def envList=['BAT','DEV']
+//def envList=['BAT','DEV']
 def myMenu(List envList, String dft){
     return """def list=
     return ['C','D']
