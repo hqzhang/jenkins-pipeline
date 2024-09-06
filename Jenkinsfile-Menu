@@ -124,6 +124,17 @@ def getFileScript(String wksp, String dft){
 }
 def getContentScript(String wksp, String refvar,String brch ){
     println("enter getContentScript()....")
+    def base="https://raw.githubusercontent.com/hqzhang/groovytest"
+    return """
+    |def out="cat ${wksp}/\${${refvar}}".execute().text
+    |out="curl ${base}/${brch}/\${${refvar}}".execute().text
+    |out=out.replaceAll('components:\\n','')
+    |return \"\"\" <textarea name=\"value\"  value  class=\"setting-input  \" type=\"text\" rows="10" cols="25">\${out}</textarea> \"\"\"
+    | """.stripMargin()
+}
+
+def getContentHub(String wksp, String refvar,String brch ){
+    println("enter getContentHub()....")
     return """
     |def out="cat ${wksp}/\${${refvar}}".execute().text
     |out="curl https://bitbucket.org/wave-cloud/groovytest/raw/${brch}/\${${refvar}}".execute().text
