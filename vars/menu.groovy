@@ -467,7 +467,7 @@ def buildScript(List ls,String dft){
     ls.each { 
         if ( it.contains(dft)) { ret.add(0,it) } 
         else { ret.add(it) } }
-    return ret
+    return "return ${ret}"
 }
 
 def getServerScript(String ref){

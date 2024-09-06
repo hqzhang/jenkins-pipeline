@@ -220,8 +220,11 @@ def verify(String brch){
 //println menu.verify2('release/a.yaml')
 println "---------parameters start------------"
 //////////////////
-def myMenu(){
-    return "return ['C','D']"
+def envList=['BAT','DEV']
+def myMenu(List envList, String dft){
+    return """def list=
+    return ['C','D']
+    """
 }
 properties([
     //pipelineTriggers([bitbucketPush()]),
@@ -230,7 +233,7 @@ properties([
                 name: 'Environment', randomName: 'choice-parameter-974670813475178',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true,
-                script: myMenu()]]],
+                script: menu.buildScript(envList,'DEV')]]],
 
             /*   [$class: 'CascadeChoiceParameter', choiceType: 'PT SINGLE_SELECT', FilterLength: 1, filterable: false,
                 name: 'Server', randomName: 'choice-parameter-16677189047718', referencedParameters: 'Environment',
