@@ -267,7 +267,7 @@ properties([
                 script: menu.getSolutionBackup('Configuration')]] ], 
 
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
-                    name: 'filebackup',randomName: 'choice-parameter-138673286839723', referencedParameters: 'Component', 
+                    name: 'filebackup',randomName: 'choice-parameter-138673286839733', referencedParameters: 'Component', 
                     script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                     script: [classpath: [], oldScript: '', sandbox: true, 
                     script: menu.getString('Component')]] ],
