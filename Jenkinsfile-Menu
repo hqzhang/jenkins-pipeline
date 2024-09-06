@@ -224,37 +224,12 @@ println menu.getContentScript("SolutionConfig")
 
 println "---------parameters start------------"
 
-/*Define the Active Choice parameter
-properties([
-  parameters([
-    activeChoiceParam(
-      name: 'DYNAMIC_PARAM',
-      choiceType: 'SINGLE_SELECT',
-      groovyScript: [
-        script: 'return sharedLibraryMethod()',
-        fallbackScript: 'return ["Default"]'
-      ]
-    )
-  ])
-])
-*/
-def sharedLibraryMethod() {
-  // Logic to generate dynamic choices
-  return ["Choice1", "Choice2", "Choice3"]
-}
+
 
 //////////////////
 properties([
     //pipelineTriggers([bitbucketPush()]),
-    parameters([
-        activeChoiceParam(
-      name: 'DYNAMIC_PARAM',
-      choiceType: 'SINGLE_SELECT',
-      groovyScript: [
-        script: 'return sharedLibraryMethod()',
-        fallbackScript: 'return ["Default"]'
-      ]
-    ),
+    
         base64File('myfile64'), 
             file('myfile') ,    
             separator(name: "building"),
@@ -266,13 +241,12 @@ properties([
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getBranchList('repoName') ]]],
 
-            //choice( name: 'getFileHub', description: '', choices: getFileHub("hqzhang/groovytest","releases",'mytest') ),
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getFileHubScript', randomName: 'choice-parameter-16677189047450', referencedParameters: 'Environment', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getFileHubList("hqzhang/groovytest","release",'mytest') ]]],
-            //choice( name: 'getFileBit', description: '', choices: getFileBit("wave-cloud/groovytest","release",brch) ),
+        
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getFileBitScript', randomName: 'choice-parameter-16677189047460', referencedParameters: 'Environment', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
