@@ -229,9 +229,9 @@ properties([
                 script: [classpath: [], oldScript: 77, sandbox: true,
                 script: menu.buildScript(['DEV','BAT'], 'DEV')]]],
 
-                [$class: 'CascadeChoiceParameter', choiceType: PT SINGLE_SELECT, FilterLength: 1, filterable: false,
+                [$class: 'CascadeChoiceParameter', choiceType: 'PT SINGLE_SELECT', FilterLength: 1, filterable: false,
                 name: 'Server', randomName: 'choice-parameter-16677189047718', referencedParameters: 'Environment',
-                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript; sandbox: true, script: 'return ["error"]'],
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript; sandbox: true, script: 'return ["error"]' ],
                 script: [classpath: [], oldScript: '', sandbox: true,
                 script: menu.getServerScript('Environment')]]],
 
