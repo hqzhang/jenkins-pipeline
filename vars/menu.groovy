@@ -9,6 +9,10 @@ import hudson.model.Run
 import groovy.json.JsonSlurper
 //import groovy.yaml.YamlSlurper
 //// Remove everything which is currently queued/
+
+@groovy.transform.Field
+def githubhqtoken='myjenkinspipelinekey'
+
 def execmd(String cmd, String directory){
     ProcessBuilder procBuilder = new ProcessBuilder("bash", "-c", cmd);
     procBuilder.directory(new File(directory))

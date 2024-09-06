@@ -259,12 +259,13 @@ properties([
                name: 'Configuration', randomName: 'choice-parameter-16677189047451', referencedParameters: 'Environment', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
-               script: getFileHubList("hqzhang/groovytest","release",'mytest') ]]],
+               script: menu.getFileHubFullSW() ]]],
+
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML', 
                 name: 'Component',omitValueField: false, randomName: 'choice-parameter-138673186839723', referencedParameters: 'Configuration', 
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true, 
-                script: getContentScript('Configuration')]] ], 
+                script: getContentInstant('Configuration')]] ], 
 
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
                     name: 'filebackup',randomName: 'choice-parameter-138673286839724', referencedParameters: 'Component', 
