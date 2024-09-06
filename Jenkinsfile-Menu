@@ -235,11 +235,11 @@ properties([
                 script: [classpath: [], oldScript: '', sandbox: true,
                 script: menu.buildScript(envList,'DEV')]]],
 
-            /*   [$class: 'CascadeChoiceParameter', choiceType: 'PT SINGLE_SELECT', FilterLength: 1, filterable: false,
+            [$class: 'CascadeChoiceParameter', choiceType: 'PT SINGLE_SELECT', FilterLength: 1, filterable: false,
                 name: 'Server', randomName: 'choice-parameter-16677189047718', referencedParameters: 'Environment',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: 'return ["error"]' ],
                 script: [classpath: [], oldScript: '', sandbox: true,
-                script: menu.getServerScript('Environment')]]],*/
+                script: menu.getServerScript('Environment')]]],
 
             //choice( name: 'Environment', description: '', choices: buildDefault(envList,'DEV') ),
             
