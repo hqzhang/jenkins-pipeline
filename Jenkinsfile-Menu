@@ -159,7 +159,7 @@ String getFileHubList(String repo, String folder,String brch ){
    //println "out=$out"
    def jsonSlurper = new JsonSlurper()
    def obj = jsonSlurper.parseText(out)
-   obj['tree'].each{ if (it['path'].contains(folder) && (it['path'].contains('.yaml') ) { ret.add('"'+it['path']+'"')}  }
+   obj['tree'].each{ if ( it['path'].contains(folder) && it['path'].contains('.yaml') ) { ret.add('"'+it['path']+'"') }  }
    //println "obj=$obj"
    if (ret.isEmpty()) {return ['NotFound']}
    return """ return ${ret} """
