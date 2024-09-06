@@ -221,9 +221,7 @@ def verify(String brch){
 println "---------parameters start------------"
 //////////////////
 def myMenu(){
-    return """
-       return ['C','D']
-    """
+    return "return ['C','D']"
 }
 properties([
     //pipelineTriggers([bitbucketPush()]),
