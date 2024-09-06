@@ -519,7 +519,7 @@ def getContentInstant(String ref ){
           ${restAPIHub}/contents/release/\$${ref}}?ref=get-release \"
     |ret=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |ret=ret.replaceAll('components:\\n','')
-    |return \"<textarea name='value' rows='10' cols='120' > \${ret}</textarea>
+    |return \"<textarea name='value' rows='10' cols='120' > \${ret}</textarea>\"
     |""".stripMargin()
 
 }
