@@ -223,19 +223,19 @@ println "---------parameters start------------"
 properties([
     //pipelineTriggers([bitbucketPush()]),
         parameters([
-             [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+             /*[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                 name: 'Environment', randomName: 'choice-parameter-974670813475178',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: '' ],
                 script: [classpath: [], oldScript: 77, sandbox: true,
                 script: menu.buildScript(envList,'BAT')]]],
 
-            /*    [$class: 'CascadeChoiceParameter', choiceType: 'PT SINGLE_SELECT', FilterLength: 1, filterable: false,
+               [$class: 'CascadeChoiceParameter', choiceType: 'PT SINGLE_SELECT', FilterLength: 1, filterable: false,
                 name: 'Server', randomName: 'choice-parameter-16677189047718', referencedParameters: 'Environment',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: 'return ["error"]' ],
                 script: [classpath: [], oldScript: '', sandbox: true,
                 script: menu.getServerScript('Environment')]]],*/
 
-            /*choice( name: 'Environment', description: '', choices: buildDefault(envList,'BAT') ),
+            choice( name: 'Environment', description: '', choices: buildDefault(envList,'DEV') ),
             
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
@@ -265,7 +265,7 @@ properties([
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: getPackList('~/workspace/myscripts','myfile') ]]],
-
+/*
             [ $class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'SolutionConfig', randomName: 'choice-parameter-16677189047798', referencedParameters: 'startRollback', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
