@@ -69,7 +69,6 @@ def uploadFile(String fileName,String workbr, String workspace, String repo){
     return output
 }
 
-
 def gitFinal(String src, String workbr, String mergebr, String directory){
     println "enter gitFinal()"
     def dest="$directory/CI.yml"
