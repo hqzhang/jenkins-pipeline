@@ -528,7 +528,7 @@ def getSolutionBackup(String ref){
     |def version=obj[0]['version']
     |if (obj.size()> 1){ single='M' }
     |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml'
-    |return \"<textarea name='value' rows='1' cols='60' > \${ret}</textarea>
+    |return \"<textarea name='value' rows='1' cols='60' > \${ret}</textarea>\"
     |""".stripMargin()
 }
 def getRollBackScript(){}
