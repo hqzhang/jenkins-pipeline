@@ -265,7 +265,7 @@ properties([
                 name: 'Component',omitValueField: false, randomName: 'choice-parameter-138673186839723', referencedParameters: 'Configuration', 
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true, 
-                script: getContentInstant('Configuration')]] ], 
+                script: menu.getContentInstant('Configuration')]] ], 
 
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
                     name: 'filebackup',randomName: 'choice-parameter-138673286839724', referencedParameters: 'Component', 
