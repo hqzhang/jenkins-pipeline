@@ -366,7 +366,8 @@ pipeline {
                 script {
                     echo "STAGE: create List..."
                     myMethods.greet("Alice")
-                    echo "params======$params"
+                    echo "params======${env.Componets}"
+
                     echo "components=${env.compNames}"
                     echo "init=$env.initMenu"
                     println "get use function"
