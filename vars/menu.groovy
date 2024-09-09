@@ -7,6 +7,8 @@ import hudson.*
 import hudson.model.*
 import hudson.model.Run
 import groovy.json.JsonSlurper
+import groovy.json.JsonOutput 
+import jenkins.model.*
 
 //import groovy.yaml.YamlSlurper
 //// Remove everything which is currently queued/
