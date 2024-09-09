@@ -596,14 +596,18 @@ def saveSolutionBackup(String component,String solutionBackup){
     }
 
     if (obj.sha != sha ) {
-        println "create or update file !!!!"
+        println "create or update file !!!! ${obj.sha}"
         sha=obj.sha
         body=[  branch: 'mytest',
                 message: "${msg}",
                 committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
                 content: "${content}",
                 sha: "${sha}}"]
-        if (obj.sha == null)  { body.remove('sha')}
+        if (obj.sha == null)  { 
+            body.remove('sha')
+            println "new body=$body"
+        }
+        
         body=JsonOutput.toJson(JsonOutput.toJson(body))
         println "create body=$body"
         cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
