@@ -509,7 +509,7 @@ def getFileHubFullSW(){
     |try {
     |   def credentials = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[])
     | } catch(Exception ex) {
-    |    return [ "${e}" ]
+    |    return [ "${ex}" ]
     |  }
     |credentials.each { cred ->
     |println "Found credential: \${cred.id} - \${cred.username}"}
