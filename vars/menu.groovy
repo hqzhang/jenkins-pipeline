@@ -617,7 +617,7 @@ def getPrintEnv(){
     |   def cmd=\"printenv \"
     |   ret =new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text }
     |catch (Exception e) { ret += e }
-    |return \"<textarea name='value' rows='20' cols='120' > \${ret}</textarea>\"
+    |return \"<textarea name='value' rows='5' cols='120' > \${ret}</textarea>\"
     |""".stripMargin()
 
 }
