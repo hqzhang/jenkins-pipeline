@@ -507,9 +507,10 @@ def getFileHubFullSW(){
     |def envar='DEV'
     |def ret=['INIT.yaml']
     |//return ret
-    |def credential = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-    |    com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials.class,
-    |    Jenkins.instance,null,null).find{ it.id == 'myjenkinspipelinekey' }
+    |def credentials = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[])
+    |return ret
+    |credentials.each { cred ->
+    |println "Found credential: \${cred.id} - \${cred.username}"}
     |return ret
     |def token=credential.password
     |return ['debug1']
