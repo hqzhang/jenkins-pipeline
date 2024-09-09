@@ -510,7 +510,7 @@ def getFileHubFullSW(){
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
     |def token=credential.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/git/trees/mytest?recursive=2 \"
-    |out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |def obj=new JsonSlurper().parseText(out)['tree']
     |obj.each {
     |   def var=it['path'].replace('${folder}','')
