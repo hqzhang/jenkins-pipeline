@@ -581,28 +581,35 @@ def saveSolutionBackup(String component,String solutionBackup){
     println "cmd=$cmd"
     def out=commandExecute(cmd)
     println "out=$out"
-    def obj=new JsonSlurper().parseText(out)
-    println "get file sha!!!!!!!!!!!"
-    println "obj=$obj"
-    if (obj.sha !=null  ) msg='update file message'
-
-    /*if (obj.sha != sha ) {
-        sha=obj.sha
-
-        body=[  branch: 'mytest',
-                message: "${msg}",
-                committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
-                content: "${content}",
-                sha: "${sha}}"]
-        body=JsonOutput.toJson(JsonOutput.toJson(body))
-        cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
-             ${base}/${solutionBackup} --data ${body}"
-        out=commandExecute(cmd).trim()
-        if (out!='200' && out!='201') { error("Create file Failure!!")}
-        return out
+    if (out==200) {
+        def obj=new JsonSlurper().parseText(out)
+        println "get file sha!!!!!!!!!!!"
+        println "obj=$obj"
+        if (obj.sha !=null  ) msg='update file message'
+        print msg=$msg
+        if (obj.sha != sha ) {
+            sha=obj.sha
+            body=[  branch: 'mytest',
+                    message: "${msg}",
+                    committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
+                    content: "${content}",
+                    sha: "${sha}}"]
+            body=JsonOutput.toJson(JsonOutput.toJson(body))
+            cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
+                ${base}/${solutionBackup} --data ${body}"
+            out=commandExecute(cmd).trim()
+            if (out!='200' && out!='201') { error("Create file Failure!!")}
+            return out
+        }
+        println 'File existed and content is the same'
+    } else {
+        println "create new file"
+        def obj=new JsonSlurper().parseText(out)
+        println "get file sha!!!!!!!!!!!"
+        println "obj=$obj"
     }
-    println 'File existed and content is the same'
-    return '200'*/
+
+    return '200'
 }
 
 def commandExecute(String cmd){
