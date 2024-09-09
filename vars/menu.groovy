@@ -567,9 +567,11 @@ def saveSolutionBackup(String component,String solutionBackup){
     def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     def base="${restAPIHub}/contents/release"
 
-    def sha=commandExecute("cat release/${solutionBackup}| git hash-object --stin")
+    def process = ['git', 'hash-object', '--stdin'].execute()
+    process.withWriter { it.write(data) }
+    def sha = process.text.trim()
     println "sha=$sha"
-    def content=commandExecute("base64 release/${solutionBackup}")
+    def content = Base64.encoder.encodeToString(component.bytes)
     println "content=$content"
     def msg="create file message"
     def token=getToken(githubtokenid)
