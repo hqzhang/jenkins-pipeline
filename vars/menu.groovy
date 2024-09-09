@@ -509,6 +509,7 @@ def getContentInstant(String ref ){
     def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     return """
     |import jenkins.model.*
+    |import com.cloudbees.plugins.credentials.*
     |def ret = ''
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
     |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
@@ -537,7 +538,36 @@ def getSolutionBackup(String ref){
 }
 def getRollBackScript(){}
 
-def saveSolutionBackup(){}
+def saveSolutionBackup(String solutionBackup){
+    def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
+    def base="${restAPIHub}/contents/release"
+    def sha=runScriptStdout("cat release/${solutionBackup}| git hash-object --stin")
+    def content=runScriptStdout("base64 release/${solutionBackup}")
+    def msg="create file message"
+    def token=getGithubToken()
+    def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
+         ${base}/${solutionBackup}?ref=mytest "
+    def out=commandExecute(cmd)
+    def obj=new JsonSlurper.parseText(out)
+    if (obj.sha !=null  ) msg='update file message'
+    if (obj.sha != sha ) {
+        sha=obj.sha
+
+        body=[  branch: 'mytest',
+                message="${msg}",
+                committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
+                content: "${content}",
+                sha: "${sha}}"]
+        body=JsonOutput.toJson(JsonOutput.toJson(body))
+        cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
+             ${base}/${solutionBackup} --data ${body}"
+        out=commandExecute(cmd).trim()
+        if (out!='200' && out!='201') { error("Create file Failure!!")}
+        return out
+    }
+    println 'File existed and content is the same'
+    return '200'
+}
 
 def commandExecute(String cmd){
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
