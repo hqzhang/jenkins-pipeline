@@ -567,9 +567,9 @@ def saveSolutionBackup(String component,String solutionBackup){
     def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     def base="${restAPIHub}/contents/release"
 
-    def sha=runScriptStdout("cat release/${solutionBackup}| git hash-object --stin")
+    def sha=commandExecute("cat release/${solutionBackup}| git hash-object --stin")
 
-    def content=runScriptStdout("base64 release/${solutionBackup}")
+    def content=commandExecute("base64 release/${solutionBackup}")
 
     def msg="create file message"
     def token=getToken(githubtokenid)
