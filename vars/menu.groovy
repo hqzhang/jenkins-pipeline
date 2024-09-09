@@ -576,8 +576,10 @@ def saveSolutionBackup(String component,String solutionBackup){
     def msg="create file message"
     def token=getToken(githubtokenid)
     println "token=$token"
-    def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
+    //def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' 
+    def cmd="curl -kls  -H 'Authorization: Bearer ${token}' \
          ${base}/${solutionBackup}?ref=mytest "
+    println "cmd=$cmd"
     def out=commandExecute(cmd)
     println "out=$out"
     def obj=new JsonSlurper().parseText(out)
