@@ -544,6 +544,7 @@ def getContentInstant(String ref ){
     |def token=credential.password
     |ret+=token
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${restAPIHub}/contents/releases/\$${ref}}?ref=mytest \"
+    |ret+=token
     |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |ret=Base64.decoder.decode(obj)
