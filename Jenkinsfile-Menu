@@ -245,13 +245,15 @@ println "####################################"
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
 import hudson.security.ACL
+@groovy.transform.Field
+def githubhqtoken='myjenkinspipelinekey'
 
 def credentials = CredentialsProvider.lookupCredentials(
     StandardUsernamePasswordCredentials.class,
-    Jenkins.instance, ACL.SYSTEM,[] )
-credentials.each { cred ->
-    println "Found credential: ${cred.id} - ${cred.username}"
-}
+    Jenkins.instance, ACL.SYSTEM,[] ).find{ it.id == '${githubhqtoken}' }
+
+println "Found credential: ${cred.username} - ${cred.password}"
+
 println "####################################"
 return 
 properties([
