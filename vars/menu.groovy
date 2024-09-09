@@ -503,12 +503,17 @@ def getFileHubFullSW(){
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
+    |import hudson.security.ACL
     |def envar='DEV'
     |def ret=['INIT.yaml']
     |//return ret
-    |def local="ls workspace/solution-repo/release"
-    |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
-    |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
+    |def credentials = CredentialsProvider.lookupCredentials(
+    |             StandardUsernamePasswordCredentials.class,
+    |             Jenkins.instance,
+    |             ACL.SYSTEM,[])
+    |return ret
+    |credentials.each { cred ->
+    |println "Found credential: \${cred.id} - \${cred.username}"}
     |return ret
     |def token=credential.password
     |return ['debug1']
