@@ -169,6 +169,7 @@ def initEnvars(){
     env.scmBranch = scm.branches[0].toString().replace('*/','')
 }
 def stringConvert(String str){
+    println("enter stringConvert:"+str)
     return str.repalceAll(/\\n/, '\n').replaceAll(',','')
 }
 
