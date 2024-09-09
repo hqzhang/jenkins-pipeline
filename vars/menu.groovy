@@ -12,7 +12,18 @@ import groovy.json.JsonSlurper
 //// Remove everything which is currently queued/
 
 @groovy.transform.Field
-def githubhqtoken='myjenkinspipelinekey'
+def githubtokenid='myjenkinspipelinekey'
+
+import com.cloudbees.plugins.credentials.CredentialsProvider
+import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
+
+def getToken(String id){
+  def credential = CredentialsProvider.lookupCredentials(
+      StandardUsernamePasswordCredentials.class,
+      Jenkins.instance,null,null).find { it.id == 'myjenkinspipelinekey' }
+  return  credential.password
+}
+
 
 def execmd(String cmd, String directory){
     ProcessBuilder procBuilder = new ProcessBuilder("bash", "-c", cmd);
@@ -494,7 +505,7 @@ def getFileHubFullSW(){
     |def local="ls workspace/solution-repo/release"
     |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
     |       com.cloudbees.plugins.credentials.Common.StandarUsernameCredentials.class,
-    |      Jenkins.instance,null,null ).find{ it.id == '${githubhqtoken}' }
+    |      Jenkins.instance,null,null ).find{ it.id == '${githubtokenid}' }
     |def token=creds.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/trees/get-release?recursive=2 \"
     |out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
@@ -515,7 +526,7 @@ def getContentInstant(String ref ){
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
     |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
     |       com.cloudbees.plugins.credentials.Common.StandarUsernameCredentials.class,
-    |      Jenkins.instance,null,null ).find{ it.id == '${githubhqtoken}' }
+    |      Jenkins.instance,null,null ).find{ it.id == '${githubtokenid}' }
     |def token=creds.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw'  \
           ${restAPIHub}/contents/release/\$${ref}}?ref=get-release \"
@@ -545,7 +556,7 @@ def saveSolutionBackup(String solutionBackup){
     def sha=runScriptStdout("cat release/${solutionBackup}| git hash-object --stin")
     def content=runScriptStdout("base64 release/${solutionBackup}")
     def msg="create file message"
-    def token=getGithubToken()
+    def token=getToken(githubtokenid)
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
          ${base}/${solutionBackup}?ref=mytest "
     def out=commandExecute(cmd)
