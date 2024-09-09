@@ -535,6 +535,7 @@ def getContentInstant(String ref ){
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
+    |import jenkins.model.Jenkins
     |def ret = ''
     |//if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
     |try {
