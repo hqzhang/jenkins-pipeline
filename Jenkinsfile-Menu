@@ -37,7 +37,7 @@ def repo = scm.getUserRemoteConfigs()[0].toString().replace(' (null)','').replac
 println "repo=$repo"
 def mybr=menu.getURL()*/
 menu.initEnvars()
-//println "repo=$mybr"
+println "printenv".execute().text
 
 println "---------list all envar------------"
 println "build=${env.BUILD_URL}"
