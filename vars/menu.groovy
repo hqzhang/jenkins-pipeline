@@ -530,8 +530,11 @@ def getContentInstant(String ref ){
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
     |def token=credential.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw'  \
-          ${restAPIHub}/contents/release/\$${ref}}?ref=mytest \"
-    |ret=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+          ${restAPIHub}/contents/releases/\$${ref}}?ref=mytest \"
+    |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    |def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\s','')
+    |ret=Base64.decoder.decode(obj)
+    |ret=new String(ret, "UTF-8")
     |ret=ret.replaceAll('components:\\n','')
     |return \"<textarea name='value' rows='10' cols='120' > \${ret}</textarea>\"
     |""".stripMargin()
