@@ -499,14 +499,14 @@ def getFileHubFullSW(){
     def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     return """
     |import groovy.json.JsonSlurper
-    |import jenkins.model.*
+    |import com.cloudbees.plugins.credentials.CredentialsProvider
+    |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |def envar='DEV'
     |def ret=['INIT.yaml']
     |def local="ls workspace/solution-repo/release"
-    |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-    |       com.cloudbees.plugins.credentials.Common.StandarUsernameCredentials.class,
-    |      Jenkins.instance,null,null ).find{ it.id == '${githubtokenid}' }
-    |def token=creds.password
+    |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
+    |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
+    |def token=credential.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/trees/get-release?recursive=2 \"
     |out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |def obj=new JsonSlurper().parseText(out)['tree']
@@ -520,14 +520,14 @@ def getFileHubFullSW(){
 def getContentInstant(String ref ){
     def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     return """
-    |import jenkins.model.*
-    |import com.cloudbees.plugins.credentials.*
+    |import groovy.json.JsonSlurper
+    |import com.cloudbees.plugins.credentials.CredentialsProvider
+    |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |def ret = ''
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
-    |def creds=com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-    |       com.cloudbees.plugins.credentials.Common.StandarUsernameCredentials.class,
-    |      Jenkins.instance,null,null ).find{ it.id == '${githubtokenid}' }
-    |def token=creds.password
+    |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
+    |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
+    |def token=credential.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw'  \
           ${restAPIHub}/contents/release/\$${ref}}?ref=get-release \"
     |ret=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
