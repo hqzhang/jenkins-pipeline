@@ -523,8 +523,10 @@ def getFileHubFullSW(){
     |//return ret
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/git/trees/mytest?recursive=2 \"
     |ret.add(cmd)
-    |return ret
+    |//return ret
     |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    |ret.add(out)
+    |return ret
     |def obj=new JsonSlurper().parseText(out)
     |obj['tree'].each {
     |    def var=it['path'].replaceAll('releases/','')
