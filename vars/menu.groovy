@@ -512,8 +512,9 @@ def getFileHubFullSW(){
     |import hudson.model.Run
     |def envar='DEV'
     |def ret=['INIT.yaml']
+    |def credential
     |try {
-    |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
+    |   credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
     | } catch (Exception e) {
     |  ret.add( e.message) }
     |def token=credential.password
