@@ -509,9 +509,12 @@ def getFileHubFullSW(){
     |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
     |def token=credential.password
+    |return ['debug1']
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/git/trees/mytest?recursive=2 \"
     |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    |return ['debug1=2']
     |def obj=new JsonSlurper().parseText(out)
+    |return ['debug3']
     |obj['tree'].each {
     |    def var=it['path'].replaceAll('releases/','')
     |    if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  }
