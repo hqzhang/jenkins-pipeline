@@ -574,19 +574,26 @@ def saveSolutionBackup(String component,String solutionBackup){
     println "sha=$sha"
     def content = Base64.encoder.encodeToString(component.bytes)
     println "content=$content"
-    def msg="create file message"
+    def msg=""
     def token=getToken(githubtokenid)
     println "token=$token"
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${base}/${solutionBackup}?ref=mytest "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
     println "out=$out"
-    if (out==200) {
+    
         def obj=new JsonSlurper().parseText(out)
         println "get file sha!!!!!!!!!!!"
         println "obj=$obj"
-        if (obj.sha !=null  ) msg='update file message'
+        if (obj.sha != null  ) { 
+            println("update file !!!!")
+            msg='update file message'}
+        else {
+            println("update file !!!!")
+            msg='create file message'}
+        }
         print msg=$msg
+        
         if (obj.sha != sha ) {
             sha=obj.sha
             body=[  branch: 'mytest',
@@ -602,12 +609,7 @@ def saveSolutionBackup(String component,String solutionBackup){
             return out
         }
         println 'File existed and content is the same'
-    } else {
-        println "create new file"
-        def obj=new JsonSlurper().parseText(out)
-        println "get file sha!!!!!!!!!!!"
-        println obj.sha
-    }
+   
 
     return '200'
 }
