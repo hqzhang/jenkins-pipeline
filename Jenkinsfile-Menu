@@ -358,6 +358,9 @@ remote.host = "192.168.0.16"
 remote.allowAnyHosts = true
 //println menu.getCompList('mypack')
 //println menu.gitCompVerify()
+def stringConvert(String data){
+    return data.replaceAll("\\n",'\n').replace(/,/,'')
+}
 pipeline {
     agent any
     stages {
@@ -368,7 +371,7 @@ pipeline {
                     myMethods.greet("Alice")
                     echo "Configuration======${env.Configuration}"
                     echo "Component=${env.Component}"
-                    def comp = menu.stringConvert(env.Component)
+                    def comp = stringConvert(env.Component)
                     echo "comp=${comp}"
                     def backup = env.filebackup.replaceAll(',','').trim()
                     println "backup=$backup"
