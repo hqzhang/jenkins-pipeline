@@ -267,13 +267,18 @@ properties([
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: menu.getContentInstant('Configuration')]] ], 
-
+            
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
                     name: 'filebackup',randomName: 'choice-parameter-138673286839724', referencedParameters: 'Component', 
                     script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                     script: [classpath: [], oldScript: '', sandbox: true, 
                     script: menu.getSolutionBackup('Component')]] ],
 
+            [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML', 
+                name: 'PrintEnv',omitValueField: false, randomName: 'choice-parameter-138673186839723', referencedParameters: 'Configuration', 
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                script: [classpath: [], oldScript: '', sandbox: true, 
+                script: menu.getPrintEnv()]] ], 
             /*[$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
                 name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],

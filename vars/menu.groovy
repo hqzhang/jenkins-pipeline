@@ -602,6 +602,26 @@ def executeCmd(String){
     def err = pr.exitValue()
     return pr.text
 }
+
+def getPringEnv(String ref ){
+    return """
+    |import groovy.json.JsonSlurper
+    |import com.cloudbees.plugins.credentials.CredentialsProvider
+    |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
+    |import jenkins.model.Jenkins
+    |def ret = ''
+    |try {
+    |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
+    |                    Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
+    |   def token=credential.password
+    |   def cmd=\"printenv \"
+    |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text }
+    |catch (Exception e) { ret += e }
+    |return \"<textarea name='value' rows='20' cols='120' > \${ret}</textarea>\"
+    |""".stripMargin()
+
+}
+
   
 
 
