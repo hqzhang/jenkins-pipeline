@@ -503,6 +503,7 @@ def getFileHubFullSW(){
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
+    |import groovy.lang.Binding
     |import hudson.security.ACL
     |def envar='DEV'
     |def ret=['INIT.yaml']
