@@ -7,6 +7,7 @@ import hudson.*
 import hudson.model.*
 import hudson.model.Run
 import groovy.json.JsonSlurper
+
 //import groovy.yaml.YamlSlurper
 //// Remove everything which is currently queued/
 
@@ -548,7 +549,7 @@ def saveSolutionBackup(String solutionBackup){
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
          ${base}/${solutionBackup}?ref=mytest "
     def out=commandExecute(cmd)
-    def obj=new JsonSlurper.parseText(out)
+    def obj=new JsonSlurper().parseText(out)
     if (obj.sha !=null  ) msg='update file message'
     if (obj.sha != sha ) {
         sha=obj.sha
