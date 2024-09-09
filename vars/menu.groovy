@@ -505,6 +505,7 @@ def getFileHubFullSW(){
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |def envar='DEV'
     |def ret=['INIT.yaml']
+    |return ret
     |def local="ls workspace/solution-repo/release"
     |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
