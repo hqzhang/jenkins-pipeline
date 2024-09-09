@@ -566,13 +566,17 @@ def getSolutionBackup(String ref){
 }
 def getRollBackScript(){}
 
-def saveSolutionBackup(String solutionBackup){
+def saveSolutionBackup(String component,String solutionBackup){
     def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     def base="${restAPIHub}/contents/release"
+
     def sha=runScriptStdout("cat release/${solutionBackup}| git hash-object --stin")
+
     def content=runScriptStdout("base64 release/${solutionBackup}")
+
     def msg="create file message"
     def token=getToken(githubtokenid)
+
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
          ${base}/${solutionBackup}?ref=mytest "
     def out=commandExecute(cmd)

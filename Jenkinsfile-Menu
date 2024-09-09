@@ -369,7 +369,9 @@ pipeline {
                     echo "Configuration======${env.Configuration}"
                     echo "Component=${env.Component}"
                     def comp = menu.stringConvert(env.Component)
+                    def backup = env.filebackup.replaceAll(',','')
                     println "comp=$comp"
+                    menu.saveSolutionBackup(comp, backup)
                     echo "init=$env.initMenu"
                     println "get use function"
                     def comps=["b","a"]
