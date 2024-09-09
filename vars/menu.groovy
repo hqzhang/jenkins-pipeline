@@ -568,13 +568,13 @@ def saveSolutionBackup(String component,String solutionBackup){
     def base="${restAPIHub}/contents/release"
 
     def sha=commandExecute("cat release/${solutionBackup}| git hash-object --stin")
-
+    println "sha=$sha"
     def content=commandExecute("base64 release/${solutionBackup}")
-
+    println "content=$content"
     def msg="create file message"
     def token=getToken(githubtokenid)
-
-    def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
+    println "token=$token"
+    /*def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
          ${base}/${solutionBackup}?ref=mytest "
     def out=commandExecute(cmd)
     def obj=new JsonSlurper().parseText(out)
@@ -591,7 +591,7 @@ def saveSolutionBackup(String component,String solutionBackup){
         cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
              ${base}/${solutionBackup} --data ${body}"
         out=commandExecute(cmd).trim()
-        if (out!='200' && out!='201') { error("Create file Failure!!")}
+        if (out!='200' && out!='201') { error("Create file Failure!!")}*/
         return out
     }
     println 'File existed and content is the same'
