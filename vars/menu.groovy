@@ -505,6 +505,11 @@ def getFileHubFullSW(){
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |import groovy.lang.Binding
     |import hudson.security.ACL
+    |import jenkins.model.Jenkins
+    |import jenkins.*
+    |import hudson.*
+    |import hudson.model.*
+    |import hudson.model.Run
     |def envar='DEV'
     |def ret=['INIT.yaml']
     |try {
