@@ -568,6 +568,7 @@ def getRollBackScript(){}
 def saveSolutionBackup(String component,String solutionBackup){
     println( "Enter saveSolutionBackup:${component}")
     def data=component.replace("\\n", "\n")
+    println "data=$data"
     def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
     def base="${restAPIHub}/contents/releases"
     def process = ['git', 'hash-object', '--stdin'].execute()
