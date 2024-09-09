@@ -582,33 +582,33 @@ def saveSolutionBackup(String component,String solutionBackup){
     def out=commandExecute(cmd)
     println "out=$out"
     
-        def obj=new JsonSlurper().parseText(out)
-        println "get file sha!!!!!!!!!!!"
-        println "obj=$obj"
-        if (obj.sha != null  ) { 
-            println("update file !!!!")
-            msg='update file message'}
-        else {
-            println("update file !!!!")
-            msg='create file message'}
-        }
-        print msg=$msg
-        
-        if (obj.sha != sha ) {
-            sha=obj.sha
-            body=[  branch: 'mytest',
-                    message: "${msg}",
-                    committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
-                    content: "${content}",
-                    sha: "${sha}}"]
-            body=JsonOutput.toJson(JsonOutput.toJson(body))
-            cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
-                ${base}/${solutionBackup} --data ${body}"
-            out=commandExecute(cmd).trim()
-            if (out!='200' && out!='201') { error("Create file Failure!!")}
-            return out
-        }
-        println 'File existed and content is the same'
+    def obj=new JsonSlurper().parseText(out)
+    println "get file sha!!!!!!!!!!!"
+    println "obj=$obj"
+    if (obj.sha != null  ) { 
+        println("update file !!!!")
+        msg='update file message'}
+    else {
+        println("update file !!!!")
+        msg='create file message'
+    }
+    print msg=$msg
+
+    if (obj.sha != sha ) {
+        sha=obj.sha
+        body=[  branch: 'mytest',
+                message: "${msg}",
+                committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
+                content: "${content}",
+                sha: "${sha}}"]
+        if (obj.sha == null)  { body.remove('sha')}
+        body=JsonOutput.toJson(JsonOutput.toJson(body))
+        cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
+            ${base}/${solutionBackup} --data ${body}"
+        out=commandExecute(cmd).trim()
+        if (out!='200' && out!='201') { error("Create file Failure!!") }
+        return out
+    }
    
 
     return '200'
