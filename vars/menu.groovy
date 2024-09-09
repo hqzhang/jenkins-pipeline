@@ -519,9 +519,7 @@ def getFileHubFullSW(){
     | } catch (Exception e) {
     |  ret.add( e.message) }
     |def token=credential.password
-    |ret.add(token)
     |def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${restAPIHub}/git/trees/mytest?recursive=2 \"\"\"
-    |ret.add(cmd)
     |try{ out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text 
     |   ret.add(out.readLines()[1])  }
     | catch (Exception e) { ret.add( e.message) }
