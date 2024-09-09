@@ -367,8 +367,10 @@ pipeline {
                     echo "STAGE: create List..."
                     myMethods.greet("Alice")
                     echo "Configuration======${env.Configuration}"
-
                     echo "Component=${env.Component}"
+                    def tmp=env.Component
+                    def comp=tmp.replaceAll(/\\n/,'').repalceAll(/,/,'')
+                    println "comp=$comp"
                     echo "init=$env.initMenu"
                     println "get use function"
                     def comps=["b","a"]
