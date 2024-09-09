@@ -564,6 +564,7 @@ def getSolutionBackup(String ref){
 def getRollBackScript(){}
 
 def saveSolutionBackup(String component,String solutionBackup){
+    println( "Enter saveSolutionBackup:",solutionBackup)
     def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     def base="${restAPIHub}/contents/release"
 
