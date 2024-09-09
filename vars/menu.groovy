@@ -513,20 +513,14 @@ def getFileHubFullSW(){
     |def envar='DEV'
     |def ret=['INIT.yaml']
     |try {
-    |   def credentials = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[])
+    |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
     | } catch (Exception e) {
     |  ret.add( e.message) }
-    |return ['INIT111111.yaml']
-    |credentials.each { cred ->
-    |println "Found credential: \${cred.id} - \${cred.username}"}
-    |return ret
     |def token=credential.password
-    |return ['debug1']
+    |ret.add(token)
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/git/trees/mytest?recursive=2 \"
     |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    |return ['debug1=2']
     |def obj=new JsonSlurper().parseText(out)
-    |return ['debug3']
     |obj['tree'].each {
     |    def var=it['path'].replaceAll('releases/','')
     |    if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  }
