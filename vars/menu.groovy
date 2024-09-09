@@ -170,7 +170,9 @@ def initEnvars(){
 }
 def stringConvert(String str){
     println("enter stringConvert:"+str)
-    return str.repalceAll(/\\n/, '\n').replaceAll(',','')
+
+    def ret = str.replceAll(/\\n/, '\n').replaceAll(',','')
+    return ret
 }
 
 def getFileContent(String SolutionDetail){
