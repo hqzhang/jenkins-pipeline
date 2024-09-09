@@ -606,7 +606,7 @@ def saveSolutionBackup(String component,String solutionBackup){
         println "create new file"
         def obj=new JsonSlurper().parseText(out)
         println "get file sha!!!!!!!!!!!"
-        println "obj=$obj"
+        println obj.sha
     }
 
     return '200'
