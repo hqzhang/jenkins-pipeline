@@ -537,6 +537,7 @@ def getContentInstant(String ref ){
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |def ret = ''
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
+    |try {
     |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
     |def token=credential.password
@@ -545,7 +546,8 @@ def getContentInstant(String ref ){
     |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |ret=Base64.decoder.decode(obj)
-    |ret=new String(ret, "UTF-8")
+    |ret=new String(ret, "UTF-8") }
+    | catch (Exception e) { ret += e }
     |ret=ret.replaceAll('components:\\n','')
     |return \"<textarea name='value' rows='10' cols='120' > \${ret}</textarea>\"
     |""".stripMargin()
