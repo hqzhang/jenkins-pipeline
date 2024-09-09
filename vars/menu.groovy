@@ -14,6 +14,9 @@ import groovy.json.JsonSlurper
 @groovy.transform.Field
 def githubtokenid='myjenkinspipelinekey'
 
+@groovy.transform.Field
+def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
+
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
 
@@ -495,8 +498,7 @@ def getServerScript(String ref){
 }
 
 def getFileHubFullSW(){
-    def folder='release'
-    def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
+    def folder='releases'
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
@@ -507,7 +509,7 @@ def getFileHubFullSW(){
     |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
     |def token=credential.password
-    |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/trees/get-release?recursive=2 \"
+    |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/trees/mytest?recursive=2 \"
     |out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |def obj=new JsonSlurper().parseText(out)['tree']
     |obj.each {
@@ -518,7 +520,6 @@ def getFileHubFullSW(){
 }
 
 def getContentInstant(String ref ){
-    def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
@@ -529,7 +530,7 @@ def getContentInstant(String ref ){
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
     |def token=credential.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw'  \
-          ${restAPIHub}/contents/release/\$${ref}}?ref=get-release \"
+          ${restAPIHub}/contents/release/\$${ref}}?ref=mytest \"
     |ret=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |ret=ret.replaceAll('components:\\n','')
     |return \"<textarea name='value' rows='10' cols='120' > \${ret}</textarea>\"
