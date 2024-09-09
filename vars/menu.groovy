@@ -508,7 +508,7 @@ def getFileHubFullSW(){
     |def ret=['INIT.yaml']
     |try {
     |   def credentials = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[])
-    | catch(Exception e) {
+    | }catch(Exception e) {
     | println("Exception: ${e}")
     | ret.add("Exception: ${e}") }
     |return ret
