@@ -537,7 +537,7 @@ def getContentInstant(String ref ){
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |import jenkins.model.Jenkins
     |def ret = ''
-    |//if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
+    |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
     |try {
     |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
