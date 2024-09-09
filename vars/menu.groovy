@@ -508,18 +508,16 @@ def getFileHubFullSW(){
     |import jenkins.model.Jenkins
     |def envar='DEV'
     |def ret=['INIT.yaml']
-    |def credential
-    |def out
     |try {
-    |   credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
-    |def token=credential.password
-    |def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${restAPIHub}/git/trees/mytest?recursive=2 \"\"\"
-    |out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text   }
-    |def obj=new JsonSlurper().parseText(out)
+    |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
+    |   def token=credential.password
+    |   def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${restAPIHub}/git/trees/mytest?recursive=2 \"\"\"
+    |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text   }
+    |   def obj=new JsonSlurper().parseText(out)
+    |   obj['tree'].each {
+    |       def var=it['path'].replaceAll('releases/','')
+    |       if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  } 
     |catch (Exception e) { ret.add( e.message) }
-    |obj['tree'].each {
-    |    def var=it['path'].replaceAll('releases/','')
-    |    if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  }
     |return ret
     |""".stripMargin()
 }
@@ -533,17 +531,16 @@ def getContentInstant(String ref ){
     |def ret = ''
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
     |try {
-    |def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
-    |  Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
-    |def token=credential.password
-    |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${restAPIHub}/contents/releases/\${${ref}}?ref=mytest \"
-    |ret+=cmd
-    |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    |def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
-    |ret=Base64.decoder.decode(obj)
-    |ret=new String(ret, "UTF-8") }
-    | catch (Exception e) { ret += e }
-    |ret=ret.replaceAll('components:\\n','')
+    |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
+    |                    Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
+    |   def token=credential.password
+    |   def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${restAPIHub}/contents/releases/\${${ref}}?ref=mytest \"
+    |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    |   def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
+    |   ret=Base64.decoder.decode(obj)
+    |   ret=new String(ret, "UTF-8") }
+    |   ret=ret.replaceAll('components:\\n','') }
+    |catch (Exception e) { ret += e }
     |return \"<textarea name='value' rows='10' cols='120' > \${ret}</textarea>\"
     |""".stripMargin()
 
