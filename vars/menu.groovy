@@ -603,7 +603,7 @@ def executeCmd(String){
     return pr.text
 }
 
-def getPringEnv(String ref ){
+def getPringEnv(){
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
