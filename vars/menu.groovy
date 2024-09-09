@@ -592,7 +592,6 @@ def saveSolutionBackup(String component,String solutionBackup){
         println("update file !!!!")
         msg='create file message'
     }
-    print msg=$msg
 
     if (obj.sha != sha ) {
         sha=obj.sha
