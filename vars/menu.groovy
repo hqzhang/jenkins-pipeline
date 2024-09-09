@@ -566,7 +566,7 @@ def getSolutionBackup(String ref){
 def getRollBackScript(){}
 
 def saveSolutionBackup(String component,String solutionBackup){
-    println( "Enter saveSolutionBackup:${solutionBackup}")
+    println( "Enter saveSolutionBackup:${component}")
     def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
     def base="${restAPIHub}/contents/releases"
 
@@ -618,7 +618,6 @@ def saveSolutionBackup(String component,String solutionBackup){
         if (out!='200' && out!='201') { error("Create file Failure!!") }
         return out
     }
-   
 
     return '200'
 }
