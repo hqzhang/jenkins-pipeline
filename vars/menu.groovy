@@ -516,7 +516,7 @@ def getFileHubFullSW(){
     |   def credentials = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[])
     | } catch (Exception e) {
     |  ret.add( e.message) }
-    |return ret
+    |return ['INIT111111.yaml']
     |credentials.each { cred ->
     |println "Found credential: \${cred.id} - \${cred.username}"}
     |return ret
