@@ -520,8 +520,7 @@ def getFileHubFullSW(){
     |  ret.add( e.message) }
     |def token=credential.password
     |def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${restAPIHub}/git/trees/mytest?recursive=2 \"\"\"
-    |try{ out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text 
-    |   ret.add(out.readLines()[1])  }
+    |try { out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text   }
     | catch (Exception e) { ret.add( e.message) }
     |def obj=new JsonSlurper().parseText(out)
     |obj['tree'].each {
