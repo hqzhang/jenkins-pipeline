@@ -368,8 +368,7 @@ pipeline {
                     myMethods.greet("Alice")
                     echo "Configuration======${env.Configuration}"
                     echo "Component=${env.Component}"
-                    def tmp=env.Component
-                    def comp=tmp.replaceAll("\\n",'').repalceAll(/,/,'')
+                    def comp=stringConvert(env.Components)
                     println "comp=$comp"
                     echo "init=$env.initMenu"
                     println "get use function"

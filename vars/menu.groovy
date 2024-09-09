@@ -168,6 +168,9 @@ def initEnvars(){
     env.scmURL = scm.userRemoteConfigs[0].getUrl()
     env.scmBranch = scm.branches[0].toString().replace('*/','')
 }
+def stringConvert(String str){
+    return st.repalceAll(/\\n/, '\n').replaceAll(',','')
+}
 
 def getFileContent(String SolutionDetail){
     def wksp=getWksp()
