@@ -532,7 +532,7 @@ def getContentInstant(String ref ){
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw'  \
           ${restAPIHub}/contents/releases/\$${ref}}?ref=mytest \"
     |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    |def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\s','')
+    |def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |ret=Base64.decoder.decode(obj)
     |ret=new String(ret, "UTF-8")
     |ret=ret.replaceAll('components:\\n','')
