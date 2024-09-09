@@ -511,10 +511,10 @@ def getFileHubFullSW(){
     |def token=credential.password
     |def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' ${restAPIHub}/git/trees/mytest?recursive=2 \"
     |def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    |def obj=new JsonSlurper().parseText(out)['tree']
-    |obj.each {
-    |   def var=it['path'].replace('${folder}','')
-    |   if ( !(var in ret)    && it['path'].contains(envar) && it['path'].contains('${folder}') ){ ret.addd(var) } }
+    |def obj=new JsonSlurper().parseText(out)
+    |obj['tree'].each {
+    |    def var=it['path'].replaceAll('releases/','')
+    |    if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  }
     |return ret
     |""".stripMargin()
 }
