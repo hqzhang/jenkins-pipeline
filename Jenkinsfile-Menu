@@ -252,7 +252,7 @@ def cred = CredentialsProvider.lookupCredentials(
     StandardUsernamePasswordCredentials.class,
     Jenkins.instance, ACL.SYSTEM,[] ).find{ it.id == '${githubhqtoken}' }
 
-println "Found credential: ${cred.username} - ${cred.password}"
+println "Found credential: ${cred.password} - ${cred.username}"
 
 println "####################################"
 return 
