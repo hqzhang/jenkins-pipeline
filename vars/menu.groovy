@@ -518,17 +518,13 @@ def getFileHubFullSW(){
     |   credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
     | } catch (Exception e) {
     |  ret.add( e.message) }
-    |//return ret
     |def token=credential.password
     |ret.add(token)
-    |//return ret
     |def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${restAPIHub}/git/trees/mytest?recursive=2 \"\"\"
     |ret.add(cmd)
-    |//return ret
     |try{ out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text 
     |   ret.add(out.readLines()[1])  }
     | catch (Exception e) { ret.add( e.message) }
-    |//return ret
     |def obj=new JsonSlurper().parseText(out)
     |obj['tree'].each {
     |    def var=it['path'].replaceAll('releases/','')
