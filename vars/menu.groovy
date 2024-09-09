@@ -503,26 +503,20 @@ def getFileHubFullSW(){
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
-    |import groovy.lang.Binding
+    |//import groovy.lang.Binding
     |import hudson.security.ACL
     |import jenkins.model.Jenkins
-    |import jenkins.*
-    |import hudson.*
-    |import hudson.model.*
-    |import hudson.model.Run
     |def envar='DEV'
     |def ret=['INIT.yaml']
     |def credential
     |def out
     |try {
     |   credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
-    | } catch (Exception e) {
-    |  ret.add( e.message) }
     |def token=credential.password
     |def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${restAPIHub}/git/trees/mytest?recursive=2 \"\"\"
-    |try { out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text   }
-    | catch (Exception e) { ret.add( e.message) }
+    |out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text   }
     |def obj=new JsonSlurper().parseText(out)
+    |catch (Exception e) { ret.add( e.message) }
     |obj['tree'].each {
     |    def var=it['path'].replaceAll('releases/','')
     |    if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  }
