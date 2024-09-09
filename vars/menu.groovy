@@ -554,7 +554,7 @@ def saveSolutionBackup(String solutionBackup){
         sha=obj.sha
 
         body=[  branch: 'mytest',
-                message="${msg}",
+                message: "${msg}",
                 committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
                 content: "${content}",
                 sha: "${sha}}"]
