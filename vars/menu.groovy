@@ -615,7 +615,7 @@ def getPrintEnv(){
     |                    Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
     |   def token=credential.password
     |   def cmd=\"printenv \"
-    |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text }
+    |   ret =new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text }
     |catch (Exception e) { ret += e }
     |return \"<textarea name='value' rows='20' cols='120' > \${ret}</textarea>\"
     |""".stripMargin()
