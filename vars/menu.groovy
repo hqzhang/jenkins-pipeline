@@ -548,11 +548,13 @@ def getContentInstant(String ref ){
 def getSolutionBackup(String ref){
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
+    |try {
     |def obj=new Yaml().load(${ref})
     |name=obj[0]['name']
     |version=obj[0]['version']
-    |if (obj.size()> 1){ single='M' }
-    |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml'
+    |if (obj.size()> 1){ single='M' } 
+    |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml' }
+    |catch (Exception e) { ret += e }
     |return \"<textarea name='value' rows='1' cols='60' > \${ret}</textarea>\"
     |""".stripMargin()
 }
