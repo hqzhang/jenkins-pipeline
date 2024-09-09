@@ -579,6 +579,7 @@ def saveSolutionBackup(String component,String solutionBackup){
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
          ${base}/${solutionBackup}?ref=mytest "
     def out=commandExecute(cmd)
+    println "out=$out"
     def obj=new JsonSlurper().parseText(out)
     println "get file sha!!!!!!!!!!!"
     println "obj=$obj"
