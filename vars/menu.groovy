@@ -528,7 +528,7 @@ def getFileHubFullSW(){
     |try{ out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text 
     |   ret.add(out.readLines()[1])  }
     | catch (Exception e) { ret.add( e.message) }
-    |return ret
+    |//return ret
     |def obj=new JsonSlurper().parseText(out)
     |obj['tree'].each {
     |    def var=it['path'].replaceAll('releases/','')
