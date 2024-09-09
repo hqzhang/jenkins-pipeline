@@ -516,7 +516,7 @@ def getFileHubFullSW(){
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
     |       def var=it['path'].replaceAll('releases/','')
-    |       if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  } 
+    |       if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  }  }
     |catch (Exception e) { ret.add( e.message) }
     |return ret
     |""".stripMargin()
