@@ -368,7 +368,7 @@ pipeline {
                     myMethods.greet("Alice")
                     echo "Configuration======${env.Configuration}"
                     echo "Component=${env.Component}"
-                    def comp = menu.stringConvert(env.Components)
+                    def comp = menu.stringConvert(env.Component)
                     println "comp=$comp"
                     echo "init=$env.initMenu"
                     println "get use function"
