@@ -603,7 +603,7 @@ def saveSolutionBackup(String component,String solutionBackup){
                 content: "${content}",
                 sha: "${sha}}"]
         if (obj.sha == null)  { body.remove('sha')}
-        body=JsonOutput.toJson(body)
+        body=JsonOutput.toJson(JsonOutput.toJson(body))
         cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
             ${base}/${solutionBackup} --data ${body}"
         out=commandExecute(cmd).trim()
