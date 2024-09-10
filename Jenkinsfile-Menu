@@ -382,11 +382,9 @@ pipeline {
                     println "Component=${env.Component}"
                     def comp ='components:\n'+stringConvert(env.Component)
                     println "comp=${comp}"
-                    def backup = env.filebackup.replaceAll(',','').trim()
-                    println "backup=$backup"
-                    menu.setParas()
-                    menu.saveSolutionBackup(comp, backup)
-
+                    
+                    menu.saveSolutionBackup(backupFile)
+       
                    
                     println "init=$env.initMenu"
                     println "get use function"

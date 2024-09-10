@@ -565,8 +565,8 @@ def getSolutionBackup(String ref){
 }
 def getRollBackScript(){}
 
-def saveSolutionBackup(String component,String solutionBackup){
-    println( "Enter saveSolutionBackup:${component}")
+def saveSolutionBackup(String solutionBackup){
+    println( "Enter saveSolutionBackup:${solutionBackup}")
     
     def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
     def base="${restAPIHub}/contents/releases"
@@ -574,11 +574,13 @@ def saveSolutionBackup(String component,String solutionBackup){
     process.withWriter { it.write(component) }
     def sha = process.text.trim()
     println "sha=$sha"
-    def content = Base64.encoder.encodeToString(component.bytes)
+    //def content = Base64.encoder.encodeToString(component.bytes)
+    def content="base64 "
     println "content=$content"
     def msg=""
     def token=getToken(githubtokenid)
     println "token=$token"
+    return 
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${base}/${solutionBackup}?ref=mytest "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
