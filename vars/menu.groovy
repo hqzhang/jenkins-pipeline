@@ -653,6 +653,16 @@ def getPrintEnv(){
 
 }
 
+def saveBackupFile(String components,String backupFile){
+    def config = [:]
+    configContent=stringConvert(components)
+    writeFile file: backupFile, text: 'components:\n'+configContent
+
+    config=readYaml text: configContent
+    return config
+}
+
+
   
 
 

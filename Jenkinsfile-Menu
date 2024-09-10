@@ -269,7 +269,7 @@ properties([
                 script: menu.getContentInstant('Configuration')]] ], 
             
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
-                    name: 'filebackup',randomName: 'choice-parameter-138673286839724', referencedParameters: 'Component', 
+                    name: 'SolutionBackup',randomName: 'choice-parameter-138673286839724', referencedParameters: 'Component', 
                     script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                     script: [classpath: [], oldScript: '', sandbox: true, 
                     script: menu.getSolutionBackup('Component')]] ],
@@ -282,7 +282,7 @@ properties([
             /*[$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
                 name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
-                script: [classpath: [], oldScript: '', sandbox: true, 
+                script: [classpath: [], oldScroipt: '', sandbox: true, 
                 script: menu.getSolutionBackup('Component')]] ],                                                                                                                                                                                                                ')]] ],
            
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
@@ -363,6 +363,12 @@ def stringConvert(String data){
 }
 pipeline {
     agent any
+    environment {
+        SolutionBackup="${env.SolutionBackup}".replaceAll(',','')
+        backupFile="${env.WORKSPACE}/release/${SolutionBackup}"
+
+
+    }
     stages {
         stage('Create List') {
             steps {
@@ -371,13 +377,14 @@ pipeline {
                     myMethods.greet("Alice")
                     println "download solution repo"
                     Utils.gitCloneGithub('groovytest','mytest')
-
+                    menu.saveBackupFile(String components,String backupFile){
                     println "Configuration======${env.Configuration}"
                     println "Component=${env.Component}"
                     def comp ='components:\n'+stringConvert(env.Component)
                     println "comp=${comp}"
                     def backup = env.filebackup.replaceAll(',','').trim()
                     println "backup=$backup"
+                    menu.setParas()
                     menu.saveSolutionBackup(comp, backup)
 
                    
