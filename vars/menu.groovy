@@ -560,7 +560,7 @@ def getSolutionBackup(String ref){
     |if (obj.size()> 1){ single='M' } 
     |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml' }
     |catch (Exception e) { ret += e }
-    |return \"<textarea name='value' rows='1' cols='60' > \${ret}</textarea>\"
+    |return \"<textarea name='value' rows='1' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
 }
 def getRollBackScript(){}
@@ -648,7 +648,7 @@ def getPrintEnv(){
     |   def cmd=\"printenv \"
     |   ret =new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text }
     |catch (Exception e) { ret += e }
-    |return \"<textarea name='value' rows='5' cols='120' > \${ret}</textarea>\"
+    |return \"<textarea name='value' rows='5' cols='120' >\${ret}</textarea>\"
     |""".stripMargin()
 
 }
