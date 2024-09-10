@@ -616,8 +616,7 @@ def saveSolutionBackup(String solutionBackupPath){
         
         body=JsonOutput.toJson(JsonOutput.toJson(body))
         println "create body=$body"
-        //cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
-        cmd="curl -kLs -X PUT -H 'Authorization: Bearer ${token}' \
+        cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
             ${base}/${solutionBackup} --data ${body}"
         println "create cmd=$cmd"
         out=commandExecute(cmd).trim()
