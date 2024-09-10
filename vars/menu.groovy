@@ -512,6 +512,7 @@ def getServerScript(String ref){
 def getFileHubFullSW(){
     println("Enter getFileHubFullSW()")
     def baseUrl="${restAPIHub}/git/trees"
+    def branch='getsolution'
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
@@ -525,7 +526,7 @@ def getFileHubFullSW(){
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,ACL.SYSTEM,[]).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
-    |   def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${baseUrl}/getsolution?recursive=2 \"\"\"
+    |   def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${baseUrl}/${branch}?recursive=2 \"\"\"
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
@@ -563,7 +564,7 @@ def getContentInstant(String ref ){
 }
 
 def getSolutionBackup(String ref){
-    println("Enger getSolutionBackup()")
+    println("Enter getSolutionBackup()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
     |try {
