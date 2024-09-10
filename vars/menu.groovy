@@ -565,17 +565,19 @@ def getSolutionBackup(String ref){
 }
 def getRollBackScript(){}
 
-def saveSolutionBackup(String solutionBackup){
+def saveSolutionBackup(String solutionBackupPath){
     println( "Enter saveSolutionBackup:${solutionBackup}")
-    
+    def solutionBackup=solutionBackupPath.split('/')[-1]
     def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
     def base="${restAPIHub}/contents/releases"
-    def process = ['git', 'hash-object', '--stdin'].execute()
-    process.withWriter { it.write(component) }
-    def sha = process.text.trim()
+
+    //def process = ['git', 'hash-object', '--stdin'].execute()
+    //process.withWriter { it.write(component) }
+    //def sha = process.text.trim()
+    def sha =c ommandExecute("cat ${commandExecute}| git hash-object --stdin")
     println "sha=$sha"
     //def content = Base64.encoder.encodeToString(component.bytes)
-    def content="base64 "
+    def content = commandExecute("base64 ${ç}")
     println "content=$content"
     def msg=""
     def token=getToken(githubtokenid)
