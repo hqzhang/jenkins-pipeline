@@ -568,12 +568,12 @@ def getRollBackScript(){}
 def saveSolutionBackup(String component,String solutionBackup){
     println( "Enter saveSolutionBackup:${component}")
 
-    def data='components:\n'+component
-    println "data=$data"
+    
+    
     def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
     def base="${restAPIHub}/contents/releases"
     def process = ['git', 'hash-object', '--stdin'].execute()
-    process.withWriter { it.write(data) }
+    process.withWriter { it.write(component) }
     def sha = process.text.trim()
     println "sha=$sha"
     def content = Base64.encoder.encodeToString(component.bytes)
