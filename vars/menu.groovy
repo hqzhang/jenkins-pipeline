@@ -574,7 +574,7 @@ def saveSolutionBackup(String solutionBackupPath){
     //def process = ['git', 'hash-object', '--stdin'].execute()
     //process.withWriter { it.write(component) }
     //def sha = process.text.trim()
-    def sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin")
+    def sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin").trim()
     println "sha=$sha"
     //def content = Base64.encoder.encodeToString(component.bytes)
     def content = commandExecute("base64 ${solutionBackupPath}")
@@ -596,7 +596,7 @@ def saveSolutionBackup(String solutionBackupPath){
         println("update file !!!!")
         msg='update file message'}
     else {
-        println("update file !!!!")
+        println("create file !!!!")
         msg='create file message'
     }
     println "sha=$sha"
