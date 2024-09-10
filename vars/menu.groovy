@@ -171,7 +171,7 @@ def initEnvars(){
     env.scmBranch = scm.branches[0].toString().replace('*/','')
 }
 def stringConvert(String data){
-    return data.replaceAll("\\n",'\n').replace(/,/,'')
+    return data.replaceAll(/\\n/,'\n').replace(/,/,'')
 }
 
 def getFileContent(String SolutionDetail){
