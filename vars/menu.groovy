@@ -658,8 +658,9 @@ def saveBackupFile(String components,String backupFile){
     println("And  BackupFile: $backupFile")
     def config = [:]
     configContent=stringConvert(components)
+    println "content=$configContent"
     writeFile file: backupFile, text: 'components:\n'+configContent
-
+    
     config=readYaml text: configContent
     return config
 }
