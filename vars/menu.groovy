@@ -17,7 +17,11 @@ import jenkins.model.*
 def githubtokenid='myjenkinspipelinekey'
 
 @groovy.transform.Field
-def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
+def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
+@groovy.transform.Field
+def folder='release'
+@groovy.transform.Field
+def branch='getsolution'
 
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
@@ -503,7 +507,7 @@ def getServerScript(String ref){
 }
 
 def getFileHubFullSW(){
-    def folder='releases'
+    def baseUrl="${restAPIHub}/git/trees/${branch}"
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
@@ -514,20 +518,22 @@ def getFileHubFullSW(){
     |def envar='DEV'
     |def ret=['INIT.yaml']
     |try {
-    |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,Jenkins.instance,ACL.SYSTEM,[]).find {it.id == '${githubtokenid}' }
+    |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
+    |                    Jenkins.instance,ACL.SYSTEM,[]).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
-    |   def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${restAPIHub}/git/trees/mytest?recursive=2 \"\"\"
+    |   def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${baseUrl}?recursive=2 \"\"\"
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
-    |       def var=it['path'].replaceAll('releases/','')
-    |       if ( !(var in ret) && it['path'].contains('releases') ){ ret.add(var) }  }  }
+    |       def var=it['path'].replaceAll('${folder}/','')
+    |       if ( !(var in ret) && it['path'].contains('${folder}') ){ ret.add(var) }  }  }
     |catch (Exception e) { ret.add( e.message) }
     |return ret
     |""".stripMargin()
 }
 
 def getContentInstant(String ref ){
+    def baseUrl="${restAPIHub}/contents/${folder}"
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
@@ -537,9 +543,9 @@ def getContentInstant(String ref ){
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
-    |                    Jenkins.instance,null,null).find{ it.id == '${githubtokenid}' }
+    |                    Jenkins.instance,null,null).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
-    |   def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${restAPIHub}/contents/releases/\${${ref}}?ref=mytest \"
+    |   def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${restAPIHub}/\${${ref}}?ref=${branch}} \"
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |   def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |   ret=new String(Base64.decoder.decode(obj), "UTF-8") 
@@ -568,8 +574,7 @@ def getRollBackScript(){}
 def saveSolutionBackup(String solutionBackupPath){
     println( "Enter saveSolutionBackup:${solutionBackup}")
     def solutionBackup=solutionBackupPath.split('/')[-1]
-    def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
-    def base="${restAPIHub}/contents/releases"
+    def baseUrl="${restAPIHub}/contents/${folder}"
 
     //def process = ['git', 'hash-object', '--stdin'].execute()
     //process.withWriter { it.write(component) }
@@ -583,7 +588,7 @@ def saveSolutionBackup(String solutionBackupPath){
     def token=getToken(githubtokenid)
     println "token=$token"
     
-    def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${base}/${solutionBackup}?ref=mytest "
+    def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${branch} "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
     println "out=$out"
@@ -617,7 +622,7 @@ def saveSolutionBackup(String solutionBackupPath){
         body=JsonOutput.toJson(JsonOutput.toJson(body))
         println "create body=$body"
         cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
-            ${base}/${solutionBackup} --data ${body}"
+            ${baseUrl}/${solutionBackup} --data ${body}"
         println "create cmd=$cmd"
         out=commandExecute(cmd).trim()
         println "result=$out"
