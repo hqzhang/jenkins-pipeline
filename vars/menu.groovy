@@ -622,7 +622,7 @@ def saveSolutionBackup(String solutionBackupPath){
         if (out!='200' && out!='201') { error("Create file Failure!!") }
         else { println "update file successfully"}
         return out
-    } else { println "No need update file successfully"}}
+    } else { println "No need update file successfully"}
 
     return '200'
 }
