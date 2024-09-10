@@ -370,9 +370,10 @@ pipeline {
                     echo "STAGE: create List..."
                     myMethods.greet("Alice")
                     echo "Configuration======${env.Configuration}"
-                    echo "Component=${env.Component}"
+                    println "Component=${env.Component}"
                     def comp = stringConvert(env.Component)
-                    echo "comp=${comp}"
+                    println "comp=${comp}"
+                    return
                     def backup = env.filebackup.replaceAll(',','').trim()
                     println "backup=$backup"
                     menu.saveSolutionBackup(comp, backup)
