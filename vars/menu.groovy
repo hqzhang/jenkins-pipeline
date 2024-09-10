@@ -582,7 +582,7 @@ def saveSolutionBackup(String solutionBackupPath){
     def msg=""
     def token=getToken(githubtokenid)
     println "token=$token"
-    return 
+    
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${base}/${solutionBackup}?ref=mytest "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
@@ -620,8 +620,9 @@ def saveSolutionBackup(String solutionBackupPath){
         out=commandExecute(cmd).trim()
         println "result=$out"
         if (out!='200' && out!='201') { error("Create file Failure!!") }
+        else { println "update file successfully"}
         return out
-    }
+    } else { println "No need update file successfully"}}
 
     return '200'
 }
