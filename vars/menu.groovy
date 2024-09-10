@@ -608,7 +608,7 @@ def saveSolutionBackup(String solutionBackupPath){
                 message: "${msg}",
                 committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
                 content: "${content}",
-                sha: "${sha}}"]
+                sha: "${sha}"]
         if (obj.sha == null)  { 
             body.remove('sha')
             println "new body=$body"
