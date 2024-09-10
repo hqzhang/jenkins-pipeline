@@ -169,7 +169,7 @@ def getURL(){
 }
 
 def initEnvars(){
-    println("Enter getBranch()")
+    println("Enter initEnvars()")
     def wksp = getClass().protectionDomain.codeSource.location.path
     env.scmWksp = wksp.replace('/jobs/','/workspace/').split('/builds/')[0]
     env.jobName = env.JOB_NAME
@@ -537,8 +537,9 @@ def getFileHubFullSW(){
 }
 
 def getContentInstant(String ref ){
-    println("Enger getContentInstant()")
+    println("Enter getContentInstant()")
     def baseUrl="${restAPIHub}/contents/${folder}"
+    def branch='getsolution'
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
