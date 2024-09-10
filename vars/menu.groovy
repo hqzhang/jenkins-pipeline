@@ -654,6 +654,8 @@ def getPrintEnv(){
 }
 
 def saveBackupFile(String components,String backupFile){
+    println("Enter saveBackupFile: $components")
+    println("And  BackupFile: $backupFile")
     def config = [:]
     configContent=stringConvert(components)
     writeFile file: backupFile, text: 'components:\n'+configContent
