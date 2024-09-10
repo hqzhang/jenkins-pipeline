@@ -10,9 +10,9 @@ def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
 
   checkout([$class: 'gitSCM',
             branches: [[name: '*/'+repoBranch]],
-            extensions:[[$class: 'RelativeTargetDirectory', relativeTargetDir: myDir]],
+            extensions:[ [$class: 'RelativeTargetDirectory', relativeTargetDir: myDir] ],
             userRemoteConfigs: [[credentialsId: githubtokenid, url: urlBaseGithub+repoName]]
-            ] )
+            ])
 }
 
 def hello(){
