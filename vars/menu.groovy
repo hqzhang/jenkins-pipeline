@@ -21,7 +21,7 @@ def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
 @groovy.transform.Field
 def folder='releases'
 @groovy.transform.Field
-def branch='mytest'
+def mybranch='mytest'
 
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
@@ -526,7 +526,7 @@ def getFileHubFullSW(){
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,ACL.SYSTEM,[]).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
-    |   def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${baseUrl}/${branch}?recursive=2 \"\"\"
+    |   def cmd=\"\"\"curl -kLs -H "Authorization: Bearer \${token}" ${baseUrl}/${mybranch}?recursive=2 \"\"\"
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
@@ -552,7 +552,7 @@ def getContentInstant(String ref ){
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,null,null).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
-    |   def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${restAPIHub}/\${${ref}}?ref=${branch} \"
+    |   def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${restAPIHub}/\${${ref}}?ref=${mybranch} \"
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |   def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |   ret=new String(Base64.decoder.decode(obj), "UTF-8") 
