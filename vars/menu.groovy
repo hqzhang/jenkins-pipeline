@@ -583,7 +583,6 @@ def saveSolutionBackup(String solutionBackupPath){
     println( "Enter saveSolutionBackup:${solutionBackup}")
     def solutionBackup=solutionBackupPath.split('/')[-1]
     def baseUrl="${restAPIHub}/contents/${folder}"
-
     //def process = ['git', 'hash-object', '--stdin'].execute()
     //process.withWriter { it.write(component) }
     //def sha = process.text.trim()
@@ -617,7 +616,7 @@ def saveSolutionBackup(String solutionBackupPath){
     if (obj.sha != sha ) {
         println "create or update file !!!! ${obj.sha}"
         sha=obj.sha
-        body=[  branch: 'mytest',
+        body=[  branch: "${mybranch}",
                 message: "${msg}",
                 committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
                 content: "${content}",
