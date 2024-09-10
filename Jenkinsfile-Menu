@@ -370,8 +370,8 @@ pipeline {
                     println "STAGE: create List..."
                     myMethods.greet("Alice")
                     println "download solution repo"
-                    utils.gitCloneGithub('groovytest','mytest')
-                    
+                    Utils.gitCloneGithub('groovytest','mytest')
+
                     println "Configuration======${env.Configuration}"
                     println "Component=${env.Component}"
                     def comp ='components:\n'+stringConvert(env.Component)
@@ -380,7 +380,7 @@ pipeline {
                     println "backup=$backup"
                     menu.saveSolutionBackup(comp, backup)
 
-                    utils.gitCloneGithub('groovytest','mytest')
+                   
                     println "init=$env.initMenu"
                     println "get use function"
                     def comps=["b","a"]
