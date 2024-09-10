@@ -567,8 +567,6 @@ def getRollBackScript(){}
 
 def saveSolutionBackup(String component,String solutionBackup){
     println( "Enter saveSolutionBackup:${component}")
-
-    
     
     def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
     def base="${restAPIHub}/contents/releases"

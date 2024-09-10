@@ -359,7 +359,7 @@ remote.allowAnyHosts = true
 //println menu.getCompList('mypack')
 //println menu.gitCompVerify()
 def stringConvert(String data){
-    return data.replaceAll(/\\n/,'\n').replace(/,/,'')
+    return data.replaceAll(/\\n/,'\n').replace(/,/,'').trim()
 }
 pipeline {
     agent any
