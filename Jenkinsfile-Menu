@@ -369,11 +369,13 @@ pipeline {
                 script {
                     println "STAGE: create List..."
                     myMethods.greet("Alice")
+                    println "download solution repo"
+                    utils.gitCloneGithub('groovytest','mytest')
+                    
                     println "Configuration======${env.Configuration}"
                     println "Component=${env.Component}"
                     def comp ='components:\n'+stringConvert(env.Component)
                     println "comp=${comp}"
-                  
                     def backup = env.filebackup.replaceAll(',','').trim()
                     println "backup=$backup"
                     menu.saveSolutionBackup(comp, backup)
