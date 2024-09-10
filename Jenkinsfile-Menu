@@ -371,7 +371,7 @@ pipeline {
                     myMethods.greet("Alice")
                     println "Configuration======${env.Configuration}"
                     println "Component=${env.Component}"
-                    def comp = stringConvert(env.Component)
+                    def comp ='components:\n'+stringConvert(env.Component)
                     println "comp=${comp}"
                     println comp.replaceAll(/\\n/,'\n').replace(/,/,'')
                     return
