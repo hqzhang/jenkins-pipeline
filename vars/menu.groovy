@@ -574,10 +574,10 @@ def saveSolutionBackup(String solutionBackupPath){
     //def process = ['git', 'hash-object', '--stdin'].execute()
     //process.withWriter { it.write(component) }
     //def sha = process.text.trim()
-    def sha =c ommandExecute("cat ${solutionBackupPath}| git hash-object --stdin")
+    def sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin")
     println "sha=$sha"
     //def content = Base64.encoder.encodeToString(component.bytes)
-    def content =commandExecute("base64 ${solutionBackupPath}")
+    def content = commandExecute("base64 ${solutionBackupPath}")
     println "content=$content"
     def msg=""
     def token=getToken(githubtokenid)
