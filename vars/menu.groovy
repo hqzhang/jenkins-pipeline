@@ -154,10 +154,12 @@ String convertScript( String str){
     return  "return $ret"
 }
 def getBranch(){
+    println("Enter getBranch()")
     return scm.branches.toString().substring(3,9)
 }
 
 def getURL(){
+    println("Enter getURL()")
     def obj=scm.userRemoteConfigs[0]
     println obj.getUrl()
     println obj.getCredentialsId()
@@ -167,6 +169,7 @@ def getURL(){
 }
 
 def initEnvars(){
+    println("Enter getBranch()")
     def wksp = getClass().protectionDomain.codeSource.location.path
     env.scmWksp = wksp.replace('/jobs/','/workspace/').split('/builds/')[0]
     env.jobName = env.JOB_NAME
@@ -507,6 +510,7 @@ def getServerScript(String ref){
 }
 
 def getFileHubFullSW(){
+    println("Enger getFileHubFullSW()")
     def baseUrl="${restAPIHub}/git/trees/${branch}"
     return """
     |import groovy.json.JsonSlurper
@@ -533,6 +537,7 @@ def getFileHubFullSW(){
 }
 
 def getContentInstant(String ref ){
+    println("Enger getContentInstant()")
     def baseUrl="${restAPIHub}/contents/${folder}"
     return """
     |import groovy.json.JsonSlurper
@@ -557,6 +562,7 @@ def getContentInstant(String ref ){
 }
 
 def getSolutionBackup(String ref){
+    println("Enger getSolutionBackup()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
     |try {
