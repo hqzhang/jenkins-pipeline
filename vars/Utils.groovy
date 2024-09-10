@@ -8,7 +8,7 @@ def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
   String tmp=myDir
   if (!myDir?.trim()) { tmp = repoName}
 
-  checkout([$class: 'gitSCM',
+  checkout([$class: 'GitSCM',
             branches: [[name: '*/'+repoBranch]],
             extensions:[ [$class: 'RelativeTargetDirectory', relativeTargetDir: myDir] ],
             userRemoteConfigs: [[credentialsId: githubtokenid, url: urlBaseGithub+repoName]]
