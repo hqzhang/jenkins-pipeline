@@ -367,23 +367,24 @@ pipeline {
         stage('Create List') {
             steps {
                 script {
-                    echo "STAGE: create List..."
+                    println "STAGE: create List..."
                     myMethods.greet("Alice")
-                    echo "Configuration======${env.Configuration}"
+                    println "Configuration======${env.Configuration}"
                     println "Component=${env.Component}"
                     def comp = stringConvert(env.Component)
                     println "comp=${comp}"
+                    println comp
                     return
                     def backup = env.filebackup.replaceAll(',','').trim()
                     println "backup=$backup"
                     menu.saveSolutionBackup(comp, backup)
-                    echo "init=$env.initMenu"
+                    println "init=$env.initMenu"
                     println "get use function"
                     def comps=["b","a"]
                     def versions=["1","2"]
                     comps.eachWithIndex{ var, id->
-                          echo "com=$comps[id]"
-                          echo "ver=$versions[id]"
+                          println "com=$comps[id]"
+                          println "ver=$versions[id]"
 
                     }
                   
