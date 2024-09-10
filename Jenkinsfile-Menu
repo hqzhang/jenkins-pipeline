@@ -238,8 +238,8 @@ def myMenu(List envList, String dft){
     """
 }
 
-println getFileHubList("hqzhang/groovytest","release",'mytest')
-println menu.getContentScript('SolutionConfig')
+//println getFileHubList("hqzhang/solution-repo","release",'getsolution')
+//println menu.getContentScript('SolutionConfig')
 
 properties([
     //pipelineTriggers([bitbucketPush()]),
