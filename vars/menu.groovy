@@ -590,6 +590,7 @@ def saveSolutionBackup(String solutionBackupPath){
     
     def obj=new JsonSlurper().parseText(out)
     println "get file sha!!!!!!!!!!!"
+    println "obj.sha=${obj.sha}"
     println "obj=$obj"
     if (obj.sha != null  ) { 
         println("update file !!!!")
