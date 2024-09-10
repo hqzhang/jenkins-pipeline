@@ -17,11 +17,11 @@ import jenkins.model.*
 def githubtokenid='myjenkinspipelinekey'
 
 @groovy.transform.Field
-def restAPIHub='https://api.github.com/repos/hqzhang/groovytest'
+def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
 @groovy.transform.Field
-def folder='releases'
+def folder='release'
 @groovy.transform.Field
-def mybranch='mytest'
+def mybranch='getsolution'
 
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
