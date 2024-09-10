@@ -377,12 +377,11 @@ pipeline {
                     myMethods.greet("Alice")
                     println "download solution repo"
                     Utils.gitCloneGithub('groovytest','mytest')
+
+                    println "save backup file locally"
                     menu.saveBackupFile(env.Components, backupFile)
-                    println "Configuration======${env.Configuration}"
-                    println "Component=${env.Component}"
-                    def comp ='components:\n'+stringConvert(env.Component)
-                    println "comp=${comp}"
-                    
+
+                    println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
        
                    
