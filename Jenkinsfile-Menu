@@ -373,7 +373,7 @@ pipeline {
                     println "Component=${env.Component}"
                     def comp = stringConvert(env.Component)
                     println "comp=${comp}"
-                    println comp
+                    println comp.replaceAll(/\\n/,'\n')
                     return
                     def backup = env.filebackup.replaceAll(',','').trim()
                     println "backup=$backup"
