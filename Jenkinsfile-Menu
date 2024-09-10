@@ -41,7 +41,7 @@ println "printenv".execute().text
 
 println "---------list all envar------------"
 println "build=${env.BUILD_URL}"
-env.getEnvironment().each { name, value -> println "env.${name}=${value}" }
+//env.getEnvironment().each { name, value -> println "env.${name}=${value}" }
 //println foo('HQ')
 
 @groovy.transform.Field
@@ -377,6 +377,8 @@ pipeline {
                     def backup = env.filebackup.replaceAll(',','').trim()
                     println "backup=$backup"
                     menu.saveSolutionBackup(comp, backup)
+
+                    utils.gitCloneGithub('groovytest','mytest')
                     println "init=$env.initMenu"
                     println "get use function"
                     def comps=["b","a"]
