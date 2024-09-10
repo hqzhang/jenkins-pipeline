@@ -594,10 +594,10 @@ def saveSolutionBackup(String solutionBackupPath){
     println "obj=$obj"
     if (obj.sha != null  ) { 
         println("update file !!!!")
-        msg='update file message'}
+        msg='Update file message'}
     else {
         println("create file !!!!")
-        msg='create file message'
+        msg='Create file message'
     }
     println "sha=$sha"
     println "obj.sha=${obj.sha}"
@@ -622,8 +622,8 @@ def saveSolutionBackup(String solutionBackupPath){
         println "create cmd=$cmd"
         out=commandExecute(cmd).trim()
         println "result=$out"
-        //if (out!='200' && out!='201') { error("Create file Failure!!") }
-        //else { println "update file successfully"}
+        if (out!='200' && out!='201') { error("Create file Failure!!") }
+        else { println "${msg} successfull"}
         return out
     } else { println "No need update file successfully"}
 
