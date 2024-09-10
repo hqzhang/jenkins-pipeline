@@ -598,7 +598,8 @@ def saveSolutionBackup(String solutionBackupPath){
         println("update file !!!!")
         msg='create file message'
     }
-
+    println "sha=$sha"
+    println "obj.sha=${obj.sha}"
     if (obj.sha != sha ) {
         println "create or update file !!!! ${obj.sha}"
         sha=obj.sha
