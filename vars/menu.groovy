@@ -596,7 +596,7 @@ def saveSolutionBackup(String solutionBackupPath){
     def token=getToken(githubtokenid)
     println "token=$token"
     
-    def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${branch} "
+    def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${mybranch} "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
     println "out=$out"
