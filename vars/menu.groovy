@@ -512,12 +512,10 @@ def getServerScript(String ref){
 def getFileHubFullSW(){
     println("Enter getFileHubFullSW()")
     def baseUrl="${restAPIHub}/git/trees"
-    def branch='getsolution'
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
-    |//import groovy.lang.Binding
     |import hudson.security.ACL
     |import jenkins.model.Jenkins
     |def envar='DEV'
@@ -540,7 +538,6 @@ def getFileHubFullSW(){
 def getContentInstant(String ref ){
     println("Enter getContentInstant()")
     def baseUrl="${restAPIHub}/contents/${folder}"
-    def branch='getsolution'
     return """
     |import groovy.json.JsonSlurper
     |import com.cloudbees.plugins.credentials.CredentialsProvider
@@ -583,34 +580,21 @@ def saveSolutionBackup(String solutionBackupPath){
     println( "Enter saveSolutionBackup:${solutionBackup}")
     def solutionBackup=solutionBackupPath.split('/')[-1]
     def baseUrl="${restAPIHub}/contents/${folder}"
-    //def process = ['git', 'hash-object', '--stdin'].execute()
-    //process.withWriter { it.write(component) }
-    //def sha = process.text.trim()
     def sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin").trim()
-    println "sha=$sha"
-    //def content = Base64.encoder.encodeToString(component.bytes)
     def content = commandExecute("base64 ${solutionBackupPath}")
     println "content=$content"
     def msg=""
     def token=getToken(githubtokenid)
-    println "token=$token"
     
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${mybranch} "
-    println "cmd=$cmd"
     def out=commandExecute(cmd)
-    println "out=$out"
-    
     def obj=new JsonSlurper().parseText(out)
-    println "get file sha!!!!!!!!!!!"
+
     println "obj.sha=${obj.sha}"
     println "obj=$obj"
-    if (obj.sha != null  ) { 
-        println("update file !!!!")
-        msg='Update file message'}
-    else {
-        println("create file !!!!")
-        msg='Create file message'
-    }
+    if (obj.sha != null  ) { msg='Update file message'}
+    else { msg='Create file message' }
+
     println "sha=$sha"
     println "obj.sha=${obj.sha}"
     if (obj.sha != sha ) {
@@ -684,7 +668,50 @@ def saveBackupFile(String components,String backupFile){
     return config
 }
 
+def deployInstallBin(String components, Map binPath){
+    println("Enter saveBackupFile: $components")
+    def config = setInstallPath(components)
+    config.each { comp ->
+        baseBin = comp['file_sys']+'/bin'
+        myPath = comp['Path'].replaceAll('\$MKVBINDIR') 
+                    
+        binPath.each { type, source ->
+            if (type==comp['type']){
+                cmd="""ssh -q -t ${target} "mkdir -p ${baseBin}${myPath} && \
+                    cp -rf ${baseBin}${myPath}/" """
+                commandExecute(cmd)
+            }
+        }
+    }
+}
 
+def setInstallPath(components){
+    def myyaml=new Yaml()
+
+    def fileBase="${env.scmWksp}/solution/${env.destFile}"
+    def config = stringConvert(components)
+    config=new Yaml().load(config)
+    def machines=new File("$fileBase/machines.yml").text.replaceAll(/!w*/,'')
+    machines=new Yaml().load(machines)
+    def solution=new File("$fileBase/solution.yml").text.replaceAll(/!w*/,'')
+    solution=new Yaml().load(solution)['daemons_allocation']
+
+    file_sys=machines['file_sys'].values()[0]
+
+    config.each { comp ->
+        comp['file_sys']=file_sys
+        if(!comp.containsKey('daemon_allocation')) {
+            comp['daemon_allocation']=solution[comp['name']]
+        }
+        comp['daemon_allocation'].split().each{ daemon ->
+            machines['machines'].each { machine ->
+                if ( !daemon.contains('~') && machine.containsKey('file_sys') && daemon == machine['daemon_name']) {
+                    comp['file_sys']=machine['file_sys']
+                }
+            }
+        }
+    }
+}
   
 
 

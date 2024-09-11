@@ -361,6 +361,10 @@ remote.allowAnyHosts = true
 def stringConvert(String data){
     return data.replaceAll(/\\n/,'\n').replace(/,/,'').trim()
 }
+def binPath=[ ARC: '/app/anvil/repositoy/ARC/430',
+                                  ADS: '/app/anvil/repositoy/ARC/123' ]
+                    menu.deployInstallBin(env.Components, binPath)
+return
 pipeline {
     agent any
     environment {
@@ -385,8 +389,13 @@ pipeline {
 
                     println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
-       
                    
+                    println "save backup file to repo"
+                    def binPath=[ ARC: '/app/anvil/repositoy/ARC/430',
+                                  ADS: '/app/anvil/repositoy/ARC/123' ]
+                    menu.deployInstallBin(env.Components, binPath)
+                   
+
                     println "init=$env.initMenu"
                     println "get use function"
                     def comps=["b","a"]
