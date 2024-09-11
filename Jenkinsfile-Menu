@@ -393,7 +393,7 @@ pipeline {
                    
                     println "update Solution yml files"
                     sh """
-                        pip list |grep ruamel
+                        /Users/hongqizhang/anaconda3/bin/pip list |grep ruamel
                         cd solution;
                         ./solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
                     """
