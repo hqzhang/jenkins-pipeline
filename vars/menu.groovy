@@ -567,7 +567,7 @@ def getSolutionBackup(String ref){
     |try {
     |def obj=new Yaml().load(${ref})
     |name=obj[0]['name']
-    |version=obj[0]['Path'].split(',')[-1]
+    |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
     |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml' }
     |catch (Exception e) { ret += e }
