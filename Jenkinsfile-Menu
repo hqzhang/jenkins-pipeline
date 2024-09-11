@@ -373,7 +373,7 @@ pipeline {
         inputDir='examples'
         outputDir='output'
         config='config.yaml'
-        inputFull='example'
+        inputFull='examples'
 
     }
     stages {
