@@ -1,0 +1,39 @@
+file_sys:
+  root_LINUX64: /app/anvil/share
+
+jvms:
+  jdk1.1.0_2: /app/anvil/java/jdk-11.0.2/binn/java
+  jdk1.8.00_333: /app/anvil/java/jdk1.8.0_333/jre/bin/java
+
+machines:
+  - !machine
+    address: 10.215.145.77:16000
+    daemon_name: DS_BAGRPAPV07
+    daemon_settings:
+      DEBUG: 1
+    jvms:
+        jdk1.8.00_333: /app/anvil/java/jdk1.8.0_333/jre/bin/java
+  - !machine
+    address: 10.225.56.6:17000
+    daemon_name: DS_NWGRPAPVR01
+    daemon_settings:
+       DEBUG: 1
+    file_sys: /app/anvil/dev/share
+    jvms:
+        jdk1.8.00_333: /app/anvil/java/jdk1.8.0_333/jre/bin/java
+  - !machine
+    address: 10.225.56.8:17000
+    daemon_name: DS_BAGRPAPV02
+    daemon_settings:
+      DEBUG: 1
+    file_sys: /app/anvil/dev/share
+    jvms:
+        jdk1.8.00_333: /app/anvil/java/jdk1.8.0_333/jre/bin/java
+  - !machine
+    address: 10.225.56.18:17000
+    daemon_name: DS_BAGRPAPV03
+    daemon_settings:
+      DEBUG: 1
+    file_sys: /app/anvil/dev/share
+    jvms:
+        jdk1.8.00_333: /app/anvil/java/jdk1.8.0_333/jre/bin/java

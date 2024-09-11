@@ -1,0 +1,7 @@
+components:
+  - !component
+    type: ARC
+    versions: 508p6
+  - !component
+    type: ADS
+    versions: 123

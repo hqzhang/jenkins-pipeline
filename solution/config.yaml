@@ -1,0 +1,18 @@
+components:
+  - name: Anvil_ARC
+    Path: $MKVBINDIR/ARC/508p6
+    executable: JAVA_HOME(jdk-17.0.12)
+    type: ARC
+    Anvil_ARC: DS_BAGRPAPV07
+    DB.USER: mhydbname  
+    DB.PASSWORD: :A0 2F 58 78 47 21 C1 6D
+    DB_CHANGELOG: mydbchangelog
+  - name: ANV_ADS_GL
+    Path: $MKVBINDIR/ADS/123
+    LaunchScript:
+    executable: JAVA_HOME(jdk1.8.0_161)
+    DB.USER: yourdbname                                                                                                                                                                                             
+    DB.PASSWORD: :A0 2F 58 78 47 21 C1 6D
+    DB_CHANGELOG: yourdbchangelog
+    type: ADS
+    daemons_allocation: ~DS_BAGRPAPV01 ~DS_BAGRPAPV02

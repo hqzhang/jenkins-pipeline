@@ -1,0 +1,33 @@
+daemons_allocation:
+  ANV_ADS_GL: DS_BAGRPAPV01 ~DS_BAGRPAPV02
+  Anvil_ARC: DS_BAGRPAPV07
+
+dbsources:
+  - !dbsource
+    NAME: Anvil_ARC
+    DB_PWD: PASS
+    DB_TYPE: ORACLE
+    DB_URL: URL
+    DB_USER: USER
+    DB_CHANGELOG: mydbchangelog
+  - !dbsource
+    NAME: ANV_ADS_GL
+    DB_PWD: PASS
+    DB_TYPE: ORACLE
+    DB_URL: URL
+    DB_USER: USER
+
+    DB_CHANGELOG: yourdbchangelog
+schedules:
+  - !schedule
+    name: Anvil_ARC_component_schedule
+    components: Anvil_ARC xxxx
+    friday: 0000-2330
+    monday: 0000-2330
+    sunday: 0000-2330
+    thursday: 0000-2330
+    tuesday: 0000-2330
+    wednesday: 0000-2400
+variables:
+  ANVIL_ARC_ENV_DB_TYPE: ORACLE
+

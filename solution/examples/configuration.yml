@@ -1,0 +1,25 @@
+components:
+  - !component
+    name: Anvil_ARC
+    configurations:
+      Path: $MKVBINDIR/ARC/508p6
+    executable: JAVA_HOME(jdk-17.0.12)
+    java_setttings:
+      _JVM_CLASSPATH: ./*;lib/*
+    settings:
+      _JVM_NP_JAVAARGS:
+      DB.USER: xxx
+      DB.PASSWORD: xxxx
+    type: ARC
+  - !component
+    name: ANV_ADS_GL
+    configurations:
+      Path: $MKVBINDIR/ADS/123
+      LaunchScript:
+    executable: JAVA_HOME(jdk1.8.0_161)
+    java_setttings:
+      _JVM_CLASSPATH: '*:/app/anvil/share/bin/ADS/123/lib/*'
+    settings:
+      DB.USER: yyy
+      DB.PASSWORD: :A0 2F 58 78 47 21 C1 6D
+    type: ADS
