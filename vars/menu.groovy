@@ -669,35 +669,43 @@ def saveBackupFile(String components,String backupFile){
 }
 
 def deployInstallBin(String components, Map binPath){
-    println("Enter saveBackupFile: $components")
+    println("Enter deployInstallBin()")
+    def target='tgrpanvl@bagrpapv06'
     def config = setInstallPath(components)
+    //println config
+    
     config.each { comp ->
+        //println comp
         baseBin = comp['file_sys']+'/bin'
-        myPath = comp['Path'].replaceAll('\$MKVBINDIR') 
-                    
+        //println baseBin
+        myPath = comp['Path'].replaceAll('\\$MKVBINDIR/','')
+        //println myPath
         binPath.each { type, source ->
             if (type==comp['type']){
-                cmd="""ssh -q -t ${target} "mkdir -p ${baseBin}${myPath} && \
-                    cp -rf ${baseBin}${myPath}/" """
-                commandExecute(cmd)
+                cmd="""ssh -q -t ${target} "mkdir -p ${baseBin}/${myPath} && cp -rf ${source}/* ${baseBin}/${myPath}/" """
+                println "cmd=$cmd"
+                //commandExecute(cmd)
             }
         }
     }
 }
-
 def setInstallPath(components){
+    println("Enter setInstallPath()")
     def myyaml=new Yaml()
-
-    def fileBase="${env.scmWksp}/solution/${env.destFile}"
     def config = stringConvert(components)
     config=new Yaml().load(config)
-    def machines=new File("$fileBase/machines.yml").text.replaceAll(/!w*/,'')
-    machines=new Yaml().load(machines)
-    def solution=new File("$fileBase/solution.yml").text.replaceAll(/!w*/,'')
-    solution=new Yaml().load(solution)['daemons_allocation']
-
+    //println config
+    def scmWksp="/Users/hongqizhang/workspace/jenkins-pipeline"
+    def destFile='examples'
+    def fileBase="${scmWksp}/solution/${destFile}"
+    def machines=new File("${fileBase}/machines.yml").text.replaceAll(/!\w*/,'')
+    machines=myyaml.load(machines)
+    //println machines
+    def solution=new File("${fileBase}/environment.yml").text.replaceAll(/!\w*/,'')
+    solution=myyaml.load(solution)['daemons_allocation']
+    //println solution
     file_sys=machines['file_sys'].values()[0]
-
+    //println file_sys
     config.each { comp ->
         comp['file_sys']=file_sys
         if(!comp.containsKey('daemon_allocation')) {
@@ -712,7 +720,6 @@ def setInstallPath(components){
         }
     }
 }
-  
 
 
 
