@@ -388,7 +388,7 @@ pipeline {
                     menu.saveSolutionBackup(backupFile)
                    
                     println "save backup file to repo"
-                    binPath=[ ARC: '/app/anvil/repositoy/ARC508p6',
+                    def binPath=[ ARC: '/app/anvil/repositoy/ARC508p6',
                                     ADS: '/app/anvil/repositoy/ADS123' ]
                     menu.deployInstallBin(Components, binPath)
                    
