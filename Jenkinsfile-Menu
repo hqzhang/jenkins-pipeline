@@ -394,7 +394,7 @@ pipeline {
                     println "update Solution yml files"
                     sh """
                         cd solution;
-                        python3 solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
+                        ./solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
                     """
 
                     println "save backup file to repo"
