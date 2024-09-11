@@ -695,9 +695,9 @@ def setInstallPath(components){
     def config = stringConvert(components)
     config=new Yaml().load(config)
     //println config
-    def scmWksp="/Users/hongqizhang/workspace/jenkins-pipeline"
-    def destFile='examples'
-    def fileBase="${scmWksp}/solution/${destFile}"
+    //def scmWksp="/Users/hongqizhang/workspace/jenkins-pipeline"
+    
+    def fileBase="${env.scmWksp}/solution/${env.destFile}"
     def machines=new File("${fileBase}/machines.yml").text.replaceAll(/!\w*/,'')
     machines=myyaml.load(machines)
     //println machines

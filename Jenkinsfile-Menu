@@ -369,7 +369,7 @@ pipeline {
         backupFile="${env.WORKSPACE}/release/${SolutionBackup}"
         repoName='solution-repo'
         repoBranch='getsolution'
-
+        destFile='examples'
 
     }
     stages {
