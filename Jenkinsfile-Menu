@@ -370,7 +370,10 @@ pipeline {
         repoName='solution-repo'
         repoBranch='getsolution'
         target="tgrpanv@${env.Server}"
-        destFile='examples'
+        inputDir='examples'
+        outputDir='output'
+        config='config.yaml'
+        inputFull='example'
 
     }
     stages {
@@ -388,6 +391,12 @@ pipeline {
                     println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
                    
+                    println "update Solution yml files"
+                    sh """
+                        cd solution;
+                        python3 solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
+                    """
+
                     println "save backup file to repo"
                     def binPath=[ ARC: '/app/anvil/repositoy/ARC508p6',
                                     ADS: '/app/anvil/repositoy/ADS123' ]
