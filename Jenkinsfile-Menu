@@ -395,7 +395,7 @@ pipeline {
                     sh """
                         /Users/hongqizhang/anaconda3/bin/pip install ruamel.yaml
                         cd solution;
-                        ./solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
+                        python3 solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
                     """
 
                     println "save backup file to repo"
