@@ -670,7 +670,7 @@ def saveBackupFile(String components,String backupFile){
 
 def deployInstallBin(String components, Map binPath){
     println("Enter deployInstallBin()")
-    def target='tgrpanvl@bagrpapv06'
+    //def target='tgrpanvl@bagrpapv06'
     def config = setInstallPath(components)
     //println config
     
