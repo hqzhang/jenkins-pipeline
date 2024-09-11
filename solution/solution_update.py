@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #import ruamel_yaml as ruamelyaml
-import ruamel.yaml as ruamelyaml
+import ruamel.yaml
 import sys
 import os
 import shutil
@@ -20,13 +20,13 @@ cpJava='_JAVA_CLASSPATH'
 dmkey='daemons_allocation'
 
 def loadFile(fileName):
-    myyaml = ruamelyaml.YAML()
+    myyaml = ruamel.yaml.YAML()
     yamlstr = Path(fileName).read_text()
     return myyaml.load(yamlstr)
 
 def saveFile(fileName, data):
     with open(fileName, "w") as file:
-        myyaml = ruamelyaml.YAML()
+        myyaml = ruamel.yaml.YAML()
         myyaml.indent(sequence=4, offset=2)
         myyaml.dump(data, file)
 
