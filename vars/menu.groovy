@@ -698,6 +698,7 @@ def setInstallPath(components){
     //def scmWksp="/Users/hongqizhang/workspace/jenkins-pipeline"
     
     def fileBase="${env.scmWksp}/solution/${env.destFile}"
+    println("fileBase=$fileBase")
     def machines=new File("${fileBase}/machines.yml").text.replaceAll(/!\w*/,'')
     machines=myyaml.load(machines)
     //println machines
