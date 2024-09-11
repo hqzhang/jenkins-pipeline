@@ -393,7 +393,8 @@ pipeline {
                    
                     println "update Solution yml files"
                     sh """
-                        /Users/hongqizhang/anaconda3/bin/pip install ruamel.yaml
+                         who am i
+                        /Users/hongqizhang/anaconda3/bin/activate
                         cd solution;
                         python3 solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
                     """
