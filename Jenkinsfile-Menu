@@ -9,16 +9,40 @@ library identifier: "bitbucket-groovytest-lib@${brch}", retriever:legacySCM(scm)
 //@Library('bitbucket-groovytest-lib@Menu-demo-good')      //from repo defined in system config, vars/src/resouces included
 
 import groovy.json.JsonSlurper
+
 import hudson.model.*
 import jenkins.model.*
 
+/*Define the credentials ID used in Jenkins
+def credentialsId = 'accessAndSecretKeys' // Replace with your actual AWS credentials ID
+// Fetch the AWS credentials from Jenkins
+def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(com.cloudbees.jenkins.plugins.awscredentials.AWSCredentialsImpl.class,
+    jenkins.model.Jenkins.instance,null,null).find { it.id == credentialsId }
+
+if (creds == null) {
+    throw new RuntimeException("AWS credentials not found in Jenkins with ID: ${credentialsId}")}
+
+// Extract AWS access key and secret key from the credentials
+def awsAccessKey = creds.accessKey
+def awsSecretKey = creds.secretKey.plainText
+
+// Initialize the S3 client
+def jobstr="${env.JOB_NAME}"
+println "jobstr:$jobstr"
+def ret = getClass().protectionDomain.codeSource.location.path
+println "groovyshell=$ret"
+def wksp = menu.getWksp()
+println "wksp=$ret"
+def repo = scm.getUserRemoteConfigs()[0].toString().replace(' (null)','').replace('null => ','')
+println "repo=$repo"
+def mybr=menu.getURL()*/
 menu.initEnvars()
-/*
 println "printenv".execute().text
 
 println "---------list all envar------------"
 println "build=${env.BUILD_URL}"
 //env.getEnvironment().each { name, value -> println "env.${name}=${value}" }
+//println foo('HQ')
 
 @groovy.transform.Field
 def mybrch="{brch}"
@@ -32,6 +56,9 @@ def defaultList=['ss333', 's555']
 @groovy.transform.Field
 def target="hongqizhang@localhost"
 
+//import com.wavecloud.Hello;
+//def hl=new Hello()
+//println hl.hello("WORLD HQ!")
 String buildDefault(List out,String key){
    def ret=[]
    out.each{ if(it.contains(key)){ ret.add(0, it) } else { ret.add(it) } }
@@ -71,7 +98,19 @@ def getPackScript(String mypath, String dft){
   |return ret
   |""".stripMargin()
 }
-         
+/*
+def getFileList(String wksp, String dft){
+    println("enter getFile()")
+    def ret=[]
+    def out="ls ${wksp}/release  ".execute().text
+    println "out=$out"
+    out.readLines().each{ 
+        if( it.contains(dft) ){ ret.add(0,'"'+it+'"') } 
+    else { ret.add"'+it+'"') } }
+    if (ret.isEmpty()) {return ['NotFound']}
+    }
+    return """ return ${ret} """
+}  */              
 def getFileScript(String wksp, String dft){
     println("enter getFileScript()....")
   return """def ret=[]
@@ -183,10 +222,23 @@ def verify(String brch){
    out="curl https://bitbucket.org/wave-cloud/groovytest/raw/${brch}/release/${SolutionConfig}".execute().text
    out=out.replaceAll('components:\n','')
    return """ <textarea name="value"  value  class="setting-input  " type="text" rows="10" cols="25">${out}</textarea> """
-}*/
-
+}
+//println menu.getTypeScript()
+//println menu.getTypeVerify()
+//println menu.verifytest()
+//println menu.verify2('release/a.yaml')
 println "---------parameters start------------"
-/*
+//////////////////
+//def envList=['BAT','DEV']
+def myMenu(List envList, String dft){
+    return """def list=
+    return ['C','D']
+    """
+}
+
+//println getFileHubList("hqzhang/solution-repo","release",'getsolution')
+//println menu.getContentScript('SolutionConfig')
+
 properties([
     //pipelineTriggers([bitbucketPush()]),
         parameters([
@@ -226,7 +278,12 @@ properties([
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: menu.getRollBackScript('Components')]] ], 
 
-            /*
+            /*[$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
+                name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component',
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
+                script: [classpath: [], oldScroipt: '', sandbox: true, 
+                script: menu.getSolutionBackup('Component')]] ],                                                                                                                                                                                                                ')]] ],
+           
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                name: 'getBranchList', randomName: 'choice-parameter-16677189047440', referencedParameters: 'repoName', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
@@ -287,9 +344,10 @@ properties([
             separator(name: "end"), */
               
             
-//])])
+])
+])////
 //mypipeline( params )
-/*
+
 println "-----------begin pipeline-------"
 def map
 def list
@@ -387,4 +445,4 @@ pipeline {
         }
     }
 }
-*/
+

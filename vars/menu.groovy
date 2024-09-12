@@ -588,7 +588,7 @@ def getRollBackScript(){
     |return \"<textarea name='value' rows='1' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
 }
-}
+
 
 def saveSolutionBackup(String solutionBackupPath){
     println( "Enter saveSolutionBackup:${solutionBackup}")
