@@ -11,8 +11,9 @@ library identifier: "bitbucket-groovytest-lib@${brch}", retriever:legacySCM(scm)
 import groovy.json.JsonSlurper
 import hudson.model.*
 import jenkins.model.*
-/*
+
 menu.initEnvars()
+/*
 println "printenv".execute().text
 
 println "---------list all envar------------"
