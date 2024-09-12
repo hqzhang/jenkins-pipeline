@@ -279,7 +279,7 @@ properties([
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: menu.getRollBackScript('Components')]] ], 
-                
+
             /*[$class: 'DynamicReferenceParameter', choiceType: 'ET_TEXT_BOX',  omitValueField: false, 
                 name: 'SaveConfig',randomName: 'choice-parameter-138683286839733', referencedParameters: 'Component',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
@@ -374,7 +374,7 @@ pipeline {
         destFile='output'
         sourceFile='examples'
         destFile='output'
-        backupFile="${env.SolutionBackup}"
+        //backupFile="${env.SolutionBackup}"
         inputFull='examples'
 
     }
