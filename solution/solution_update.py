@@ -252,10 +252,9 @@ if __name__== "__main__":
     os.makedirs(output)
     parseConfig(config)
 
-    print("Update all solution Files")
-    
-    #updateSolution (input, output)
-    #updateConfiguration(input, output)
+    print("Update four solution yml Files")
+    updateSolution (input, output)
+    updateConfiguration(input, output)
     updateEnvironment (input, output)
-    #updateMachine(fulldir, output)
+    updateMachine(fulldir, output)
     print("end solution update.")
