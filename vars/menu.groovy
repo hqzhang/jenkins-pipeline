@@ -574,7 +574,7 @@ def getSolutionBackup(String ref){
     |return \"<textarea name='value' rows='1' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
 }
-def getRollBackScript(){
+def getRollBackScript(String ref){
     println("Enter getRollBackScript()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
