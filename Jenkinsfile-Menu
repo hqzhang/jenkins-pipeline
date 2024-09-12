@@ -370,9 +370,10 @@ pipeline {
         repoName='solution-repo'
         repoBranch='getsolution'
         target="tgrpanv@${env.Server}"
-        inputDir='examples'
-        outputDir='output'
-        config='config.yaml'
+        destFile='output'
+        sourceFile='examples'
+        destFile='output'
+        backupFile="${env.SolutionBackup}"
         inputFull='examples'
 
     }
@@ -396,7 +397,7 @@ pipeline {
                          who am i
                         /Users/hongqizhang/anaconda3/bin/activate
                         cd solution;
-                        python3 solution_update.py ${inputDir} ${outputDir} ${config} ${inputFull}
+                        python3 solution_update.py ${sourceFile} ${destFile} ${backupFile} ${inputFull}
                     """
 
                     println "save backup file to repo"
