@@ -55,9 +55,7 @@ def serversList=[DEV: ['s111','ss222','ss333'],
 def defaultList=['ss333', 's555']
 @groovy.transform.Field
 def target="hongqizhang@localhost"
-println "**********"
 
-println "***********"
 //import com.wavecloud.Hello;
 //def hl=new Hello()
 //println hl.hello("WORLD HQ!")
@@ -349,7 +347,7 @@ properties([
 ])
 ])////
 //mypipeline( params )
-
+/*
 println "-----------begin pipeline-------"
 def map
 def list
@@ -447,4 +445,4 @@ pipeline {
         }
     }
 }
-
+*/
