@@ -11,14 +11,14 @@ library identifier: "bitbucket-groovytest-lib@${brch}", retriever:legacySCM(scm)
 import groovy.json.JsonSlurper
 import hudson.model.*
 import jenkins.model.*
-
+/*
 menu.initEnvars()
 println "printenv".execute().text
 
 println "---------list all envar------------"
 println "build=${env.BUILD_URL}"
 //env.getEnvironment().each { name, value -> println "env.${name}=${value}" }
-/*
+
 @groovy.transform.Field
 def mybrch="{brch}"
 @groovy.transform.Field
@@ -185,7 +185,7 @@ def verify(String brch){
 }*/
 
 println "---------parameters start------------"
-
+/*
 properties([
     //pipelineTriggers([bitbucketPush()]),
         parameters([
@@ -286,8 +286,7 @@ properties([
             separator(name: "end"), */
               
             
-])
-])////
+//])])
 //mypipeline( params )
 /*
 println "-----------begin pipeline-------"
