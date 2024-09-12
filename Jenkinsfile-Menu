@@ -371,7 +371,7 @@ pipeline {
         repoName='solution-repo'
         repoBranch='getsolution'
         target="tgrpanv@${env.Server}"
-        destFile='output'
+        
         sourceFile='examples'
         destFile='output'
         //backupFile="${env.SolutionBackup}"
@@ -388,7 +388,7 @@ pipeline {
                     Utils.gitCloneGithub(repoName,repoBranch)
 
                     println "save backup file locally"
-                    menu.saveBackupFile(env.Components, backupFile)
+                    menu.saveBackupFile(env.Components, backupFile)ƒ
 
                     println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
@@ -398,7 +398,7 @@ pipeline {
                          who am i
                         /Users/hongqizhang/anaconda3/bin/activate
                         cd solution;
-                        python3 solution_update.py ${sourceFile} ${destFile} ${backupFile} ${inputFull}
+                        python3 solution_update.py ${sourceFile} ${destFile} ${backupFileƒ} ${inputFull}
                     """
 
                     println "save backup file to repo"
