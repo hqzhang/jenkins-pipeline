@@ -565,12 +565,13 @@ def getSolutionBackup(String ref,String envar){
     |def ret='',single='S',name='',version=''
     |try {
     |def obj=new Yaml().load(${ref})
+    |ret += obj
     |name=obj[0]['name']
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-'+version+'.yaml' }
     |catch (Exception e) { ret += e }
-    |return \"<textarea name='value' rows='1' cols='60' >\${ret}</textarea>\"
+    |return \"<textarea name='value' rows='10' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
 }
 def getRollBackScript(String ref,String envar){
