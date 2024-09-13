@@ -380,6 +380,7 @@ pipeline {
 
     }
     stages {
+        when { expression { return !env.Configuration.contain('INIT') } }
         stage('Create List') {
             steps {
                 script {

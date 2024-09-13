@@ -544,6 +544,7 @@ def getContentInstant(String ref ){
     |import jenkins.model.Jenkins
     |def ret = ''
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
+    |if ( ${ref}.contains('INIT') ) { ret = "Please choose correct Configuration"  }
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,null,null).find { it.id == '${githubtokenid}' }
@@ -563,6 +564,7 @@ def getSolutionBackup(String ref,String envar){
     println("Enter getSolutionBackup()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
+    |if ( ${ref}.contains('Please') ) { ret = "Please choose correct Configuration"  }
     |try {
     |def obj=new Yaml().load(${ref})
     |name=obj[0]['name']
@@ -577,6 +579,7 @@ def getRollBackScript(String ref,String envar){
     println("Enter getRollBackScript()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
+    |if ( ${ref}.contains('Please') ) { ret = "Please choose correct Configuration"  }
     |try {
     |def obj=new Yaml().load(${ref})
     |name=obj[0]['name']
