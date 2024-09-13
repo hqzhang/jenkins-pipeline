@@ -566,7 +566,7 @@ def getSolutionBackup(String ref,String envar){
     println("Enter getSolutionBackup()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
-    |if ( ${ref}.contains('Please') ) { ret = ${msg}  }
+    |if ( ${ref}.contains('Please') ) { ret = '${msg}'  }
     |try {
     |def obj=new Yaml().load(${ref})
     |name=obj[0]['name']
