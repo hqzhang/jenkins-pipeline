@@ -523,7 +523,7 @@ def getFileHubFullSW(String ref){
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,ACL.SYSTEM,[]).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
-    |   def cmd="curl -kLs -H "Authorization: Bearer \${token}" ${baseUrl}/${mybranch}?recursive=2 "
+    |   def cmd=\"\"\"curl -kLs -H 'Authorization: Bearer \${token}' ${baseUrl}/${mybranch}?recursive=2 \"\"\"
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
@@ -554,7 +554,7 @@ def getContentInstant(String ref ){
     |   def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |   ret=new String(Base64.decoder.decode(obj), "UTF-8") 
     |   ret=ret.replaceAll('components:\\n','') }
-    |catch (Exception e) { ret += '\\n'+e }
+    |catch (Exception e) { ret += e }
     |return \"<textarea name='value' rows='10' cols='120' >\${ret}</textarea>\"
     |""".stripMargin()
 
@@ -574,7 +574,7 @@ def getSolutionBackup(String ref,String envar){
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-'+version+'.yaml' }
     |catch (Exception e) { ret += e }
-    |return "<textarea name='value' rows='10' cols='60' >\${ret}</textarea>"
+    |return \"<textarea name='value' rows='10' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
 }
 def getRollBackScript(String ref,String envar){
@@ -589,7 +589,7 @@ def getRollBackScript(String ref,String envar){
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-RollBack-'+version }
     |catch (Exception e) { ret += e }
-    |return "<textarea name='value' rows='10' cols='60' >\${ret}</textarea>"
+    |return \"<textarea name='value' rows='10' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
 }
 
