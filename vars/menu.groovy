@@ -554,7 +554,7 @@ def getContentInstant(String ref ){
     |   def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |   ret=new String(Base64.decoder.decode(obj), "UTF-8") 
     |   ret=ret.replaceAll('components:\\n','') }
-    |catch (Exception e) { ret += e }
+    |catch (Exception e) { ret += '\\n'+e }
     |return \"<textarea name='value' rows='10' cols='120' >\${ret}</textarea>\"
     |""".stripMargin()
 
