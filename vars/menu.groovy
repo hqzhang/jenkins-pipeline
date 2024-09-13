@@ -549,7 +549,7 @@ def getContentInstant(String ref ){
     |if ( ${ref}.contains('INIT') ) { ret = ${msg} }
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
-    |                    Jenkins.instance,null,null).find { it.id == ‘${githubtokenid}’ }
+    |                    Jenkins.instance,null,null).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
     |   def cmd="curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${baseUrl}/\${${ref}}?ref=${mybranch} "
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
