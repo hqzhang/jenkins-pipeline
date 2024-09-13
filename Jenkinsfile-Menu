@@ -255,7 +255,7 @@ properties([
                script: getServerList('Environment') ]]],
 
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
-               name: 'Configuration', randomName: 'choice-parameter-16677189047451', referencedParameters: 'Environment', 
+               name: 'Configuration', randomName: 'choice-parameter-16677189047451', referencedParameters: 'Environment,Server', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
                script: menu.getFileHubFullSW() ]]],
