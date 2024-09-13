@@ -444,11 +444,10 @@ pipeline {
         }
     }
    post {
-        if (!env.Configuration.contains('INIT') ){
-            always {
-                //archiveArtifacts artifacts: 'file.extension', fingerprint: true
-                println "do nothing"
-            }
+        
+        always {
+            //archiveArtifacts artifacts: 'file.extension', fingerprint: true
+            println "do nothing"
         }
     }
 }
