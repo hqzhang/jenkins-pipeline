@@ -565,7 +565,6 @@ def getSolutionBackup(String ref,String envar){
     |def ret='',single='S',name='',version=''
     |try {
     |def obj=new Yaml().load(${ref})
-    |ret += obj
     |name=obj[0]['name']
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
@@ -580,7 +579,6 @@ def getRollBackScript(String ref,String envar){
     |def ret='',single='S',name='',version=''
     |try {
     |def obj=new Yaml().load(${ref})
-    |ret += obj
     |name=obj[0]['name']
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
