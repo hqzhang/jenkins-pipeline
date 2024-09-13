@@ -549,7 +549,7 @@ def getContentInstant(String ref ){
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,null,null).find { it.id == '${githubtokenid}' }
     |   def token=credential.password
-    |   def cmd=\"curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${baseUrl}/\${${ref}}?ref=${mybranch} \"
+    |   def cmd="curl -kLs -H 'Authorization: Bearer \${token}' -H 'Accept application/vnd.github.v3.raw' ${baseUrl}/\${${ref}}?ref=${mybranch} "
     |   def out=new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     |   def obj=new JsonSlurper().parseText(out)['content'].replaceAll('\\\\s','')
     |   ret=new String(Base64.decoder.decode(obj), "UTF-8") 
