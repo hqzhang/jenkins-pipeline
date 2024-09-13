@@ -509,7 +509,7 @@ def getServerScript(String ref){
     |""".stripMargin()
 }
 @groovy.transform.Field
-def msg='PleasechoosecorrectConfiguration'
+def msg='PleasechoosecorrectConfiguration\\n'
 
 def getFileHubFullSW(String ref){
     println("Enter getFileHubFullSW()")
@@ -546,7 +546,7 @@ def getContentInstant(String ref ){
     |import jenkins.model.Jenkins
     |def ret = ''
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
-    |if ( ${ref}.contains('INIT') ) { ret = '${msg}' }
+    |if ( ${ref}.contains('INIT') ) { return "<textarea name='value' rows='10' cols='120' >\${msg}</textarea>" }
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,null,null).find { it.id == '${githubtokenid}' }
