@@ -255,10 +255,10 @@ properties([
                script: getServerList('Environment') ]]],
 
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
-               name: 'Configuration', randomName: 'choice-parameter-16677189047451', referencedParameters: 'Environment,Server', 
+               name: 'Configuration', randomName: 'choice-parameter-16677189047451', referencedParameters: 'Environment', 
                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                script: [classpath: [], oldScript: '', sandbox: true, 
-               script: menu.getFileHubFullSW() ]]],
+               script: menu.getFileHubFullSW('Environment') ]]],
 
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML', 
                 name: 'Components',omitValueField: false, randomName: 'choice-parameter-138673186839723', referencedParameters: 'Configuration', 

@@ -509,7 +509,7 @@ def getServerScript(String ref){
     |""".stripMargin()
 }
 
-def getFileHubFullSW(){
+def getFileHubFullSW(String ref){
     println("Enter getFileHubFullSW()")
     def baseUrl="${restAPIHub}/git/trees"
     return """
@@ -518,7 +518,6 @@ def getFileHubFullSW(){
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |import hudson.security.ACL
     |import jenkins.model.Jenkins
-    |def envar='DEV'
     |def ret=['INIT.yaml']
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
@@ -529,7 +528,7 @@ def getFileHubFullSW(){
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
     |       def var=it['path'].replaceAll('${folder}/','')
-    |       if ( !(var in ret) && it['path'].contains('${folder}') ){ ret.add(var) }  }  }
+    |       if ( it['path'].contains(${ref}) && !(var in ret) && it['path'].contains('${folder}') ){ ret.add(var) }  }  }
     |catch (Exception e) { ret.add( e.message) }
     |return ret
     |""".stripMargin()
@@ -560,7 +559,7 @@ def getContentInstant(String ref ){
 
 }
 
-def getSolutionBackup(String ref){
+def getSolutionBackup(String ref,String envar){
     println("Enter getSolutionBackup()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
@@ -569,12 +568,12 @@ def getSolutionBackup(String ref){
     |name=obj[0]['name']
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
-    |ret = 'DEV-'+name+'-'+single+'-'+version+'.yaml' }
+    |ret = ${envar}+'-'+name+'-'+single+'-'+version+'.yaml' }
     |catch (Exception e) { ret += e }
     |return \"<textarea name='value' rows='1' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
 }
-def getRollBackScript(String ref){
+def getRollBackScript(String ref,String envar){
     println("Enter getRollBackScript()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
@@ -583,7 +582,7 @@ def getRollBackScript(String ref){
     |name=obj[0]['name']
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
-    |ret = 'DEV-'+name+'-'+single+'-RollBack-'+version}
+    |ret = ${envar}+name+'-'+single+'-RollBack-'+version}
     |catch (Exception e) { ret += e }
     |return \"<textarea name='value' rows='1' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
