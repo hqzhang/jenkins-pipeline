@@ -559,12 +559,14 @@ def getContentInstant(String ref ){
     |""".stripMargin()
 
 }
+@groovy.transform.Field
+def msg='Please choose correct Configuration'
 
 def getSolutionBackup(String ref,String envar){
     println("Enter getSolutionBackup()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
-    |if ( ${ref}.contains('Please') ) { ret = "Please choose correct Configuration"  }
+    |if ( ${ref}.contains('Please') ) { ret = ${msg}  }
     |try {
     |def obj=new Yaml().load(${ref})
     |name=obj[0]['name']
@@ -579,7 +581,7 @@ def getRollBackScript(String ref,String envar){
     println("Enter getRollBackScript()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
-    |if ( ${ref}.contains('Please') ) { ret = "Please choose correct Configuration"  }
+    |if ( ${ref}.contains('Please') ) { ret = ${msg}  }
     |try {
     |def obj=new Yaml().load(${ref})
     |name=obj[0]['name']
