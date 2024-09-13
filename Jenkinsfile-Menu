@@ -382,7 +382,7 @@ pipeline {
     stages {
         
         stage('Create List') {
-            when { expression { return !env.Configuration.contain('INIT') } }
+            when { expression { return !env.Configuration.contains('INIT') } }
             steps {
                 script {
                     println "STAGE: create List..."
