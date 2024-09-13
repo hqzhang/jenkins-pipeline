@@ -509,7 +509,7 @@ def getServerScript(String ref){
     |""".stripMargin()
 }
 @groovy.transform.Field
-def msg='Please-choose-correct-Configuration'
+def msg='PleasechoosecorrectConfiguration'
 
 def getFileHubFullSW(String ref){
     println("Enter getFileHubFullSW()")
