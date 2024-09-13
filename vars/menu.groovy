@@ -560,7 +560,7 @@ def getContentInstant(String ref ){
 
 }
 @groovy.transform.Field
-def msg='Please choose correct Configuration'
+def msg='Please choose correct Configuration\n'
 
 def getSolutionBackup(String ref,String envar){
     println("Enter getSolutionBackup()")
