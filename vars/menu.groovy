@@ -508,6 +508,8 @@ def getServerScript(String ref){
     |return map[${ref}]
     |""".stripMargin()
 }
+@groovy.transform.Field
+def msg='Please choose correct Configuration\\n'
 
 def getFileHubFullSW(String ref){
     println("Enter getFileHubFullSW()")
@@ -544,7 +546,7 @@ def getContentInstant(String ref ){
     |import jenkins.model.Jenkins
     |def ret = ''
     |if ( ${ref} == null || ${ref}.isEmpty() ) { return null }
-    |if ( ${ref}.contains('INIT') ) { ret = "Please choose correct Configuration"  }
+    |if ( ${ref}.contains('INIT') ) { ret = '${msg}' }
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,null,null).find { it.id == '${githubtokenid}' }
@@ -559,8 +561,7 @@ def getContentInstant(String ref ){
     |""".stripMargin()
 
 }
-@groovy.transform.Field
-def msg='Please choose correct Configuration\\n'
+
 
 def getSolutionBackup(String ref,String envar){
     println("Enter getSolutionBackup()")
