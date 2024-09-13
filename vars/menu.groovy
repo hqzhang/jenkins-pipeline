@@ -575,7 +575,7 @@ def getSolutionBackup(String ref,String envar){
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-'+version+'.yaml' }
     |catch (Exception e) { ret += e }
-    |return "<textarea name='value' rows='10' cols='60' >\${ret}</textarea>"
+    |return "<textarea name='value' rows='1' cols='60' >\${ret}</textarea>"
     |""".stripMargin()
 }
 def getRollBackScript(String ref,String envar){
@@ -590,7 +590,7 @@ def getRollBackScript(String ref,String envar){
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-RollBack-'+version }
     |catch (Exception e) { ret += e }
-    |return "<textarea name='value' rows='10' cols='60' >\${ret}</textarea>"
+    |return "<textarea name='value' rows='1' cols='60' >\${ret}</textarea>"
     |""".stripMargin()
 }
 
