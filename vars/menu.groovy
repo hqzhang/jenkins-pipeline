@@ -582,7 +582,7 @@ def getRollBackScript(String ref,String envar){
     |name=obj[0]['name']
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
-    |ret = ${envar}+name+'-'+single+'-RollBack-'+version}
+    |ret = ${envar}+'-'+name+'-'+single+'-RollBack-'+version }
     |catch (Exception e) { ret += e }
     |return \"<textarea name='value' rows='1' cols='60' >\${ret}</textarea>\"
     |""".stripMargin()
