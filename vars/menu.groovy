@@ -746,5 +746,33 @@ def setInstallPath(components){
 
 
 
+def createHosts(String fileName, List target){
+
+    def repeatArtifact ="""
+    [all:vars] \n  \
+    ansible_user: tgrpanvl\n\
+    \n\
+    [remoteserver]
+    """
+    target.each { artifactName ->
+        tmp=artifactName.split('@')[1]
+        echo "tmp=$tmp"
+        repeatArtifact+="""$tmp\n\
+    """
+    }
+     writeFe file: fileName, text: data
+}
+
+def createValues(String fileName){
+    def data ="""
+        installDir: ${installDir}
+        snapshotFull: ${snapshotFull}
+        """
+    writeFe file: fileName, text: data
+
+}
+
+
+
 
 
