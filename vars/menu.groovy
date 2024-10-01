@@ -574,7 +574,7 @@ def getSolutionBackup(String ref,String envar,String conf){
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-'+version+'.yaml' }
-    |catch (Exception e) { ret += conf}
+    |catch (Exception e) { ret += ${conf} }
     |return "<textarea name='value' rows='1' cols='60' >\${ret}</textarea>"
     |""".stripMargin()
 }
