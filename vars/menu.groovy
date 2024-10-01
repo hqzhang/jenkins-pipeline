@@ -578,7 +578,7 @@ def getSolutionBackup(String ref,String envar,String conf){
     |return "<textarea name='value' rows='1' cols='60' >\${ret}</textarea>"
     |""".stripMargin()
 }
-def getRollBackScript(String ref,String envar){
+def getRollBackScript(String ref,String envar,String conf){
     println("Enter getRollBackScript()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
@@ -589,7 +589,7 @@ def getRollBackScript(String ref,String envar){
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-RollBack-'+version }
-    |catch (Exception e) { ret += e }
+    |catch (Exception e) { ret += ${conf}.replaceAll('.yaml','') }
     |return "<textarea name='value' rows='1' cols='60' >\${ret}</textarea>"
     |""".stripMargin()
 }
