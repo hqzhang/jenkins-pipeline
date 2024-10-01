@@ -394,10 +394,10 @@ pipeline {
                     menu.saveBackupFile(env.Components, backupFile)
 
                     println "save backup file to repo"
-                    menu.saveSolutionBackup(backupFile)
+                    /*menu.saveSolutionBackup(backupFile)
                    
                     println "update Solution yml files"
-                    /*sh """
+                    sh """
                          who am i
                         /Users/hongqizhang/anaconda3/bin/activate
                         cd solution;
