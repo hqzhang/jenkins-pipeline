@@ -407,7 +407,7 @@ pipeline {
                     println "save backup file to repo"
                     def binPath=[ ARC: '/app/anvil/repositoy/ARC508p6',
                                     ADS: '/app/anvil/repositoy/ADS123' ]
-                    menu.deployInstallBin(Components, binPath)
+                    //menu.deployInstallBin(Components, binPath)
                    
                     println "Play ansible"
                     menu.createHosts()
