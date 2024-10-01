@@ -75,7 +75,7 @@ def updateDataModel(String fileName, String configName){
     println("Enter parseConfig() ")
     String fileConts = new File(fileName).text
     String configConts = new File(configName).text
-    def config = new Yaml().load(configConts)
+    def config = new Yaml().load(configConts).components
     println("config="+config)
     def map = new Yaml().load(fileConts)
     map.items.each { kind ->
