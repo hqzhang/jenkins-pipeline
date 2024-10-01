@@ -420,7 +420,7 @@ pipeline {
 
 
                     println "Play openshift"
-                    openshift.updateDataModel('ocmodel/mydatamodel.yaml','ocmodel/config.yaml')
+                    openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",env.scmWksp+"/ocmodel/config.yaml")
 
 
                     println "init=$env.initMenu"
