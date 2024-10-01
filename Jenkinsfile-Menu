@@ -409,14 +409,14 @@ pipeline {
                                     ADS: '/app/anvil/repositoy/ADS123' ]
                     //menu.deployInstallBin(Components, binPath)
                    
-                    println "Play ansible"
-                    menu.createHosts()
-                    menu.createValues()
+                    /*println "Play ansible"
+                    menu.createHosts(String fileName, List target)
+                    menu.createValues(String fileName)
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'generate-solution.yml')
 
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')*/
 
 
                     println "Play openshift"
