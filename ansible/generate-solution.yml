@@ -1,0 +1,34 @@
+---
+  - name: run python script
+    hosts: all
+    tasks:
+      - incude_vars: ./values.yml
+
+      - name: Generate soluton
+        regiester: getsolution
+        shell:
+          chdir: "../solution}}"
+          cmd: "python solution_update.py {{sourceFile}}  {{destFile}}   {{buckupFile}}   {{sourceFile_full}} "
+        delegate_to: localhost
+
+      - debug:
+        var: getsolution.stdout_lines
+
+      - name: upload solutiondir
+        regiester: uploadsolution
+        copy:
+          src: "{{wksp}}/solution/{{destFile}}"
+          dest: "{{solutionDir}}"
+
+      - debug:
+        msg: "{{wksp}}/solution/{{destFile}}"
+
+      - name: download comp package
+        regiester: uploadsolution
+        shell:
+          chdir: "{{installDir}}}}"
+          cmd: "./io.sh download -so {{solutionDir}} "
+      - debug:
+        var: getsolution.stdout_lines
+
+      

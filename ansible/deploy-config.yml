@@ -1,0 +1,66 @@
+---
+  - name: upgrade component
+    hosts: all
+    tasks:
+      - incude_vars: ./values.yml
+
+      - name: stop component
+        regiester: stopcomp
+        shell:
+          chdir: "{{installDir}}"
+          cmd: "./ion.sh stop -so {{solutionDir}} -cl {{compNames}} -ss"
+      - debug:
+        var: stopcomp.stdout_lines
+
+      - name: wait a while
+        pause:
+          seconds: 8
+
+      - name: deploy comp package
+        regiester: deploycomp   
+        shell:
+          chdir: "{{installDir}}"
+          cmd: "./ion.sh deploy -so {{solutionDir}} -ss"
+        ignore_errors: true
+
+      - debug:
+        var: deploycomp.stdout_lines
+     
+
+      - name: pull test
+        synchronize:
+          mode: pull
+          src: "{{snapshotFull}}"
+          dest: "../solution"
+
+      - name: config comp
+        regiester: configcomp   
+        shell:
+          chdir: "{{installDir}}"
+          cmd: "./ion.sh config -so {{solutionDir}} -fl"
+        ignore_errors: true
+
+      - debug:
+        var: configcomp.stdout_lines
+     
+
+      - name: wait a while
+        pause:
+          seconds: 8
+
+
+      - debug:
+        msg: "cd {{installDir}}; ./io.sh start -so {{solutionDir}} -cl {{compNames}}  -ss"
+
+      - name: start comp
+        regiester: startcomp   
+        shell:
+          chdir: "{{installDir}}"
+          cmd: "./ion.sh start -so {{solutionDir}} -cl {{compNames}}  -ss"
+
+      - debug:
+        msg: "cd {{installDir}}; ./io.sh start -so {{solutionDir}} -cl {{compNames}}  -ss"
+
+        
+
+

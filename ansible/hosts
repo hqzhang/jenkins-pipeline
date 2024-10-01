@@ -1,0 +1,5 @@
+[all:vars]
+ansible_user=tgrpanvl
+
+[remoteserver]
+bagrpapv06

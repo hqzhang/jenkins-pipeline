@@ -1,0 +1,58 @@
+---
+  - name: generate snapshot
+    hosts: all
+    tasks:
+      - incude_vars: ./values.yml
+      - name: Get full snapshot
+        regiester: fullsnapshot
+        shell:
+          chdir: "{{installDir}}"
+          cmd: "./on.sh snapshot -cp {{snapshotFull}}"
+      - debug:
+        var: fullsnapshot.stdout_lines
+
+      - name: generate specified snapshot
+        regiester: specsnapshot
+        shell:
+          chdir: "{{installDir}}"
+          cmd: "./on.sh snapshot -cp {{sourceDir}} -cl {{compNames}}"
+        ignore_errors: true
+      - debug:
+        var: specsnapshot.stdout_lines
+      - debug:
+        msg: "{{lookup('env','PWD')}}"
+
+      - name: pull test
+        synchronize:
+          mode: pull
+          src: "{{snapshotFull}}"
+          dest: "../solution"
+
+      - name: pull snapshot component
+        synchronize:
+          mode: pull
+          src: "{{sourceDir}}"
+          dest: "../solution"
+
+      - name: copy full machines.yml
+        copy:
+          mode: pull
+          src: "../solution/{{napshotFile}}/machines.yml"
+          dest: "./solution/{{sourceFile}}"
+
+      - name: remove destFile
+        file:
+          path: pull
+          state: "../solution{{destFie}}"
+          mode: absent
+        delegate_to: localhost
+
+      - name: create destFile 
+        file:
+          path: pull
+          state: directory
+        delegate_to: localhost
+
+        
+
+

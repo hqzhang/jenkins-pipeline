@@ -1,0 +1,23 @@
+---
+  - name: verify comp
+    hosts: all
+    tasks:
+      - incude_vars: ./values.yml
+
+      - name: string split
+        set_fact: fullsnapshot
+          condlist: "{{compNames.spit(',')| map('regex_replae', '^(.*)$') , \"component \\1 is running \" ) |join(']n')   }}"
+         
+      - debug:
+        var: condlist
+
+      - name: Verify comp
+        regiester: verifycomp
+        shell:
+          chdir: "{{installDir}}"
+          cmd: "./ion.sh status -so {{solutionDir}} -ss"
+        until: verifycomp.stout is search(condlist)
+        retries: 10
+        delay: 5
+     
+      
