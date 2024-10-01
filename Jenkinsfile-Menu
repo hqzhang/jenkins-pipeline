@@ -397,18 +397,31 @@ pipeline {
                     menu.saveSolutionBackup(backupFile)
                    
                     println "update Solution yml files"
-                    sh """
+                    /*sh """
                          who am i
                         /Users/hongqizhang/anaconda3/bin/activate
                         cd solution;
                         python3 solution_update.py ${sourceFile} ${destFile} ${backupFile} ${inputFull}
-                    """
+                    """*/
 
                     println "save backup file to repo"
                     def binPath=[ ARC: '/app/anvil/repositoy/ARC508p6',
                                     ADS: '/app/anvil/repositoy/ADS123' ]
                     menu.deployInstallBin(Components, binPath)
                    
+                    println "Play ansible"
+                    menu.createHosts()
+                    menu.createValues()
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'generate-solution.yml')
+
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')
+
+
+                    println "Play openshift"
+                    openshift.updateDataModel('ocmodel/mydatamodel.yaml','ocmodel/config.yaml')
+
 
                     println "init=$env.initMenu"
                     println "get use function"
