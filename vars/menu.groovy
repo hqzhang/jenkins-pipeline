@@ -563,7 +563,7 @@ def getContentInstant(String ref ){
 }
 
 
-def getSolutionBackup(String ref,String envar){
+def getSolutionBackup(String ref,String envar,String conf){
     println("Enter getSolutionBackup()")
     return """import org.yaml.snakeyaml.Yaml
     |def ret='',single='S',name='',version=''
@@ -574,7 +574,7 @@ def getSolutionBackup(String ref,String envar){
     |version=obj[0]['Path'].split('/')[-1]
     |if (obj.size()> 1){ single='M' } 
     |ret = ${envar}+'-'+name+'-'+single+'-'+version+'.yaml' }
-    |catch (Exception e) { ret += e }
+    |catch (Exception e) { ret += conf}
     |return "<textarea name='value' rows='1' cols='60' >\${ret}</textarea>"
     |""".stripMargin()
 }

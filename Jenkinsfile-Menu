@@ -269,10 +269,10 @@ properties([
             
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML',  omitValueField: false, 
                 name: 'SolutionBackup',randomName: 'choice-parameter-138673286839724', 
-                referencedParameters: 'Components,Environment', 
+                referencedParameters: 'Components,Environment,Configuration', 
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true, 
-                script: menu.getSolutionBackup('Components','Environment')]] ],
+                script: menu.getSolutionBackup('Components','Environment','Configuration')]] ],
 
             [$class: 'DynamicReferenceParameter', choiceType: 'ET_FORMATTED_HTML', 
                 name: 'saveRollBack',omitValueField: false, randomName: 'choice-parameter-138673186839723', 
