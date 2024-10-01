@@ -76,7 +76,7 @@ def updateDataModel(String fileName, String configName){
     String fileConts = new File(fileName).text
     String configConts = new File(configName).text
     def config = new Yaml().load(configConts)
-    println(config)
+    println("config="+config)
     def map = new Yaml().load(fileConts)
     map.items.each { kind ->
        println ("In data model:----------"+kind.kind)
