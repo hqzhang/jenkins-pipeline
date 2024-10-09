@@ -1,7 +1,8 @@
-  namespace: myproject
-  app: nginx-app
-  label: dcnginx
-  DeploymentConfig: nginx-dc
-  Route: nginx-oc
-  Service: nginx-oc
-  ImageStream: nginx-oc
+applications:
+  - app: nginx-app
+    name: dcnginx
+    namespace: myproject
+    DeploymentConfig: nginx-dc
+    Route: nginx-oc
+    Service: nginx-oc
+    ImageStream: nginx-oc

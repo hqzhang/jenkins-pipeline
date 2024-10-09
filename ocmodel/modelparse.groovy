@@ -64,7 +64,6 @@ def updateImage(Map kind, Map config){
     kind.metadata.labels.app=config.app
     kind.metadata.labels.name=config.label
     
-    println ('spec.tags='+kind.spec.tags.from)
     println ('meta.ns='+kind.metadata.namespace)
     println ('meta.name='+kind.metadata.name)
     println ('meta.labels='+kind.metadata.labels)
@@ -75,8 +74,8 @@ def updateDataModel(String fileName, String configName){
     println("Enter parseConfig() ")
     String fileConts = new File(fileName).text
     String configConts = new File(configName).text
-    def config = new Yaml().load(configConts)
-    println(config)
+    def config = new Yaml().load(configConts).applications[0]
+    println("config=$config")
     def map = new Yaml().load(fileConts)
     map.items.each { kind ->
        println ("In data model:----------"+kind.kind)
@@ -97,7 +96,8 @@ def updateDataModel(String fileName, String configName){
     }
 
 }
+def wksp='/Users/hongqizhang/workspace/jenkins-pipeline/ocmodel'
 
 //println parseConfig('projectkube.yaml.std')
-updateDataModel('mydatamodel.yaml','config.yaml')
+updateDataModel(wksp+'/mydatamodel.yaml',wksp+'/config.yaml')
 

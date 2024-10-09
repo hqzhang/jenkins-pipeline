@@ -9,7 +9,7 @@ items:
       app: nginx-app
       name: dcnginx
     name: nginx-dc
-    namespace: myproject
+    namespace: hongqi-zhang-dev
   spec:
     replicas: 1
     revisionHistoryLimit: 10
@@ -61,7 +61,7 @@ items:
         from:
           kind: ImageStreamTag
           name: nginx-oc:latest
-          namespace: myproject
+          namespace: hongqi-zhang-dev
         lastTriggeredImage: wavecloud/nginx-oc@sha256:fd7354b90dccbd27a73e2a9b82491dd0855518ba51d766a72d9d5176b36724a5
       type: ImageChange
 - apiVersion: image.openshift.io/v1
@@ -74,7 +74,7 @@ items:
       app: nginx-app
       name: dcnginx
     name: nginx-oc
-    namespace: myproject
+    namespace: hongqi-zhang-dev
   spec:
     lookupPolicy:
       local: false
@@ -97,7 +97,7 @@ items:
       app: nginx-app
       name: dcnginx
     name: nginx-oc
-    namespace: myproject
+    namespace: hongqi-zhang-dev
   spec:
     host: nginx-oc-myproject.127.0.0.1.nip.io
     port:
@@ -116,7 +116,7 @@ items:
       app: nginx-app
       name: dcnginx
     name: nginx-oc
-    namespace: myproject
+    namespace: hongqi-zhang-dev
   spec:
     clusterIP: 172.30.76.238
     ports:

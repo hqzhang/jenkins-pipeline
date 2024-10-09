@@ -421,7 +421,10 @@ pipeline {
 
                     println "Play openshift"
                     openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
-
+                    
+                    sh '''
+                        ./playrc
+                    '''
 
                     println "init=$env.initMenu"
                     println "get use function"
