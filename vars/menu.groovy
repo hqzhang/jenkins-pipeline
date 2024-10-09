@@ -531,7 +531,7 @@ def getFileHubFullSW(String ref){
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
     |       def var=it['path'].replaceAll('${folder}/','')
-    |       if ( it['path'].contains(envar) && !(var in ret) && it['path'].contains('${folder}') ){ ret.add(var) }  }  }
+    |       if ( it['path'].contains('DEV') && !(var in ret) && it['path'].contains('${folder}') ){ ret.add(var) }  }  }
     |catch (Exception e) { ret.add( e.message) }
     |return ret
     |""".stripMargin()
