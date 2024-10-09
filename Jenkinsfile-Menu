@@ -458,6 +458,39 @@ pipeline {
 
             }
         }
+        stage('Stage: Verification Test'){
+            steps {
+                script {
+                    echo "Stage: Verification Test"
+                    openshift.withCluster(url, token){
+                        openshift.withProject(proj){  
+                            echo "Get route url.."
+                            def route  = openshift.selector('route','mynginx').object().spec.host
+                    	    echo "${route}"
+                     	    def myres="Welcome"
+                            echo "curl route url"
+                     	    def mycurl= "curl -k https://$route | grep $myres"
+                     	    def proc= mycurl.execute().text
+                            echo "compare result..."
+                     	    def myproc= proc.contains(myres)
+                     	    println(myproc)
+                     	    if ( myproc) {
+                         	echo "TEST PASS!"
+                                writeFile(file: 'release', text: 'sbms-release-v3')
+                                archiveArtifacts artifacts: "release"
+                                //mail bcc: '', body: 'just test', cc: '', from: '', replyTo: '', subject: 'test', to: 'zhanghongqi@hotmail.com'
+                                sh "open https://$route"
+                     	    }
+                     	    else {
+                         	echo "TEST ERROR!"
+                                //mail bcc: '', body: 'just test', cc: '', from: '', replyTo: '', subject: 'test', to: 'zhanghongqi@hotmail.com'
+                                exit 1;
+                            }
+                        }
+                    }                           
+                }
+            }
+        }
     }
    post {
         
