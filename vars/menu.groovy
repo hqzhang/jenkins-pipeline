@@ -520,6 +520,7 @@ def getFileHubFullSW(String ref){
     |import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
     |import hudson.security.ACL
     |import jenkins.model.Jenkins
+    |def envar='${env.Environment}'
     |def ret=['INIT.yaml']
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
@@ -530,7 +531,7 @@ def getFileHubFullSW(String ref){
     |   def obj=new JsonSlurper().parseText(out)
     |   obj['tree'].each {
     |       def var=it['path'].replaceAll('${folder}/','')
-    |       if ( it['path'].contains(${ref}) && !(var in ret) && it['path'].contains('${folder}') ){ ret.add(var) }  }  }
+    |       if ( it['path'].contains(envar) && !(var in ret) && it['path'].contains('${folder}') ){ ret.add(var) }  }  }
     |catch (Exception e) { ret.add( e.message) }
     |return ret
     |""".stripMargin()
