@@ -1,5 +1,5 @@
 
-source ~/.passrc
+source /Users/hongqizhang/.passrc
 set -x
 
 myapp=nginx-oc
