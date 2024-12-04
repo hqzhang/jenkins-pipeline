@@ -495,6 +495,7 @@ pipeline {
    post {
         
         always {
+            sh './playoc.sh'
             //archiveArtifacts artifacts: 'file.extension', fingerprint: true
             println "do nothing"
         }
