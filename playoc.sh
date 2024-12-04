@@ -17,7 +17,7 @@ docker login -uzhanghongqi -p${passrc}
 set -x
 docker push ${myimage}
 
-oc login --token=${octoken} --server=${urloc}
+oc login --token=${octoken} --server=${server}
 oc whoami --show-token
 
 echo "clean all models"
