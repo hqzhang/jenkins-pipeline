@@ -34,8 +34,9 @@ echo "verification"
 myroute=$(oc get route --selector app=$myapp |awk 'FNR == 2 {print $2}')
 echo $myroute
  
-res="Welcome to nginx"
-result=$(curl http://$myroute |grep "Welcome to nginx!")
+res="Hongqi, welcome to nginx"
+sleep 10
+result=$(curl http://$myroute |grep "${res}")
 
  if [[ "$result" != "" ]]; then echo "TEST PASS!" 
  else echo "TEST ERROR!" 
