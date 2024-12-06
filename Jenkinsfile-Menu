@@ -419,12 +419,7 @@ pipeline {
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')*/
 
 
-                    println "Play openshift"
-                    openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
                     
-                    sh """
-                        ${env.scmWksp}/playoc.sh
-                    """
 
                     println "init=$env.initMenu"
                     println "get use function"
@@ -458,11 +453,32 @@ pipeline {
 
             }
         }
+        
+        stage('Stage: Build Docker Image'){
+            steps {
+                script {
+                    echo "Stage: Build Image"
+                    println "Play openshift"
+                    //openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
+                    
+                    sh """
+                        ${env.scmWksp}/playoc.sh
+                    """
+                }
+            }
+        }
+         stage('Stage: Deploy Docker Image'){
+            steps {
+                script {
+                    echo "Deploy Docker Image"
+                }
+            }
+        }
         stage('Stage: Verification Test'){
             steps {
                 script {
                     echo "Stage: Verification Test"
-                    openshift.withCluster(url, token){
+                    /*openshift.withCluster(url, token){
                         openshift.withProject(proj){  
                             echo "Get route url.."
                             def route  = openshift.selector('route','mynginx').object().spec.host
@@ -487,7 +503,7 @@ pipeline {
                                 exit 1;
                             }
                         }
-                    }                           
+                    } */                          
                 }
             }
         }
@@ -495,7 +511,7 @@ pipeline {
    post {
         
         always {
-            sh './playoc.sh'
+            
             //archiveArtifacts artifacts: 'file.extension', fingerprint: true
             println "do nothing"
         }
