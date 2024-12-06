@@ -478,7 +478,10 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
-                    /*openshift.withCluster(url, token){
+                    def token="oc whoami --show-token".execute().text
+                    def url='https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
+                    def proj='hqzha-dev'
+                    openshift.withCluster(url, token){
                         openshift.withProject(proj){  
                             echo "Get route url.."
                             def route  = openshift.selector('route','mynginx').object().spec.host
@@ -503,7 +506,7 @@ pipeline {
                                 exit 1;
                             }
                         }
-                    } */                          
+                    }                          
                 }
             }
         }
