@@ -478,7 +478,7 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
-                    def token="oc whoami --show-token".execute().text
+                    def token="/usr/local/bin/oc whoami --show-token".execute().text
                     def url='https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
                     def proj='hqzha-dev'
                     openshift.withCluster(url, token){
