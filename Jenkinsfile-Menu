@@ -479,9 +479,9 @@ pipeline {
                     #wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
                     echo aasdfgh
                     VBoxManage list vms
-                    terraform init
-                    terraform plan  -no-color -json
-                    terraform apply -auto-approve -no-color -json
+                    terraform init  -no-color 
+                    terraform plan  -no-color 
+                    terraform apply -auto-approve -no-color 
                     VBoxManage list vms
                     
                     """
