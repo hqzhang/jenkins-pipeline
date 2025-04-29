@@ -391,10 +391,10 @@ pipeline {
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
 
-                    println "save backup file locally"
+                    println "save backup file locally====="
                     menu.saveBackupFile(env.Components, backupFile)
 
-                    println "clean virtual machine"
+                    println "clean virtual machine======="
                     sh """
                         #VBoxManage controlvm "node-01" poweroff
                         #VBoxManage unregistervm "node-01" --delete
