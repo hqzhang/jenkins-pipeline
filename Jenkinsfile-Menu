@@ -401,7 +401,7 @@ pipeline {
                     """
                     
                     println "create virtual machine"
-                    ssh """
+                    ssh """ set -x
                     terraform init
                     terraform plan
                     terraform apply
