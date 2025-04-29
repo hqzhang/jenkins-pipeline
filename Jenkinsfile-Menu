@@ -400,8 +400,9 @@ pipeline {
                         #VBoxManage unregistervm "node-01" --delete
                     """
                     
-                    println "create virtual machine"
+                    println "create virtual machine==="
                     ssh """ set -x
+                    echo aasdfgh
                     terraform init
                     terraform plan
                     terraform apply
