@@ -472,9 +472,9 @@ pipeline {
                     println "Play terraform"
                    
                     sh """
-                        #VBoxManage controlvm "node-01" poweroff
-                        #VBoxManage unregistervm "node-01" --delete
-                        s -al
+                    #VBoxManage controlvm "node-01" poweroff
+                    #VBoxManage unregistervm "node-01" --delete
+                    ls -al
                     set -x
 
                     echo aasdfgh
