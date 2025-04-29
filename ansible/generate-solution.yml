@@ -8,7 +8,7 @@
         regiester: getsolution
         shell:
           chdir: "../solution}}"
-          cmd: "python solution_update.py {{sourceFile}}  {{destFile}}   {{buckupFile}}   {{sourceFile_full}} "
+          cmd: "python solution_update.py {{sourceFile}}  {{destFile}}   {{backupFile}}   {{sourceFile_full}} "
         delegate_to: localhost
 
       - debug:
