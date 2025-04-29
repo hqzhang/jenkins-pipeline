@@ -480,9 +480,10 @@ pipeline {
                     echo aasdfgh
                     VBoxManage list vms
                     terraform init
-                    terraform plan  
-                    terraform apply -auto-approve
+                    terraform plan  -no-color -json
+                    terraform apply -auto-approve -no-color -json
                     VBoxManage list vms
+                    
                     """
                 }
             }
