@@ -465,6 +465,26 @@ pipeline {
 
             }
         }
+        stage('Stage: Create Infrastructure'){
+            steps {
+                script {
+                    echo "Stage: Create Infrastructure"
+                    println "Play terraform"
+                   
+                    sh """
+                        #VBoxManage controlvm "node-01" poweroff
+                        #VBoxManage unregistervm "node-01" --delete
+                        s -al
+                    set -x
+
+                    echo aasdfgh
+                    terraform init
+                    terraform plan
+                    terraform apply
+                    """
+                }
+            }
+        }
         
         stage('Stage: Build Docker Image'){
             steps {
