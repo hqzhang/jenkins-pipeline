@@ -472,10 +472,11 @@ pipeline {
                     println "Play terraform"
                    
                     sh """
+                    set -x
+                     ls -al
                     VBoxManage controlvm "node-01" poweroff
                     VBoxManage unregistervm "node-01" --delete
-                    ls -al
-                    set -x
+                    
                     #wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
                     echo aasdfgh
                     VBoxManage list vms
