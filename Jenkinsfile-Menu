@@ -470,10 +470,10 @@ pipeline {
                 script {
                     echo "Stage: Create Infrastructure"
                     println "Play terraform"
-                   
                     sh """
                     set -x
-                     ls -al
+                    ls -al
+                    VBoxManage list vms
                     VBoxManage controlvm "node-01" poweroff
                     VBoxManage unregistervm "node-01" --delete
                     
@@ -484,7 +484,6 @@ pipeline {
                     terraform plan  -no-color 
                     terraform apply -auto-approve -no-color 
                     VBoxManage list vms
-                    
                     """
                 }
             }
