@@ -484,7 +484,8 @@ pipeline {
                     terraform plan  -no-color 
                     terraform apply -auto-approve -no-color 
                     VBoxManage list vms
-                    jq -r '.outputs.IPAddr.value' terraform.tfstate
+                    ip=$(jq -r '.outputs.IPAddr.value' terraform.tfstate)
+                    ping $ip
                     """
                 }
             }
