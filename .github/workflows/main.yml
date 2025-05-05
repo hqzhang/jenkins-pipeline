@@ -9,9 +9,6 @@ on:
         options:
         - DEV
         - PROD
-      boolean:
-        type: boolean
-        description: True or False
       choice:
         type: choice
         description: Make a choice
