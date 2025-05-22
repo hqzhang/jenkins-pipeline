@@ -401,14 +401,7 @@ pipeline {
                     """
                     
                     println "create virtual machine==="
-                    ssh """
-                    ls -al
-                    set -x
-                    echo aasdfgh
-                    terraform init
-                    terraform plan
-                    terraform apply
-                    """
+                   
                     /*println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
                    
@@ -488,7 +481,9 @@ pipeline {
                     """
                     println "get IP address"
                     def myip="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
-                    println myip
+                    def ttt="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
+
+                    println ttt
                     println "end IP address"
                 }
             }
