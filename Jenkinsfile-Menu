@@ -486,6 +486,10 @@ pipeline {
                     VBoxManage list vms
                     jq -r '.outputs.IPAddr.value' terraform.tfstate
                     """
+                    println "get IP address"
+                    def myip="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
+                    println myip
+                    println "end IP address"
                 }
             }
         }
