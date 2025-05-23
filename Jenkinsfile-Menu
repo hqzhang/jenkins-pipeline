@@ -533,7 +533,7 @@ pipeline {
                                 writeFile(file: 'release', text: 'sbms-release-v3')
                                 archiveArtifacts artifacts: "release"
                                 //mail bcc: '', body: 'just test', cc: '', from: '', replyTo: '', subject: 'test', to: 'zhanghongqi@hotmail.com'
-                                sh "open https://$route"
+                                //sh "open https://$route"
                      	    }
                      	    else {
                          	echo "TEST ERROR!"
