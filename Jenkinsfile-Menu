@@ -503,10 +503,9 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Build Image"
-                    println "Play openshift"
+                    println "buildDocker Image"
                     //openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
-                    
-                    
+                    playoc.buildPush(String image, String password)
                 }
             }
         }
@@ -514,6 +513,9 @@ pipeline {
             steps {
                 script {
                     echo "Deploy Docker Image"
+                    playoc.cleanDeploy()
+                    sleep(10000)
+    appVerify()
                 }
             }
         }
@@ -521,6 +523,8 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
+                    appVerify()
+                    println "===================end verification======"
                     def token="/usr/local/bin/oc whoami --show-token".execute().text
                     def url='https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
                     def proj='hqzha-dev'
@@ -548,6 +552,7 @@ pipeline {
                                 //mail bcc: '', body: 'just test', cc: '', from: '', replyTo: '', subject: 'test', to: 'zhanghongqi@hotmail.com'
                                 exit 1;
                             }
+                           
                         }
                     }                          
                 }
