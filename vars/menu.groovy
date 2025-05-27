@@ -158,6 +158,16 @@ def getBranch(){
     return scm.branches.toString().substring(3,9)
 }
 
+String getBranchScript(String repo, String dft ){
+   return """def ret=[]
+   |def url='https://github.com/hqzhang/'+\'${repo}\'+'.git'
+   |def out = "git ls-remote --heads \${url}".execute().text
+   |out = out.readLines().collect { it.split()[1].replaceAll('refs/heads/', '') }
+   |out.each{ if( it.contains(\"${dft}\") ){ ret.add(0,it) } else { ret.add(it) } }
+   |return ret
+   | """.stripMargin()
+}
+
 def getURL(){
     println("Enter getURL()")
     def obj=scm.userRemoteConfigs[0]

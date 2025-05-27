@@ -153,12 +153,14 @@ String getBranchList(String refvar){
 }
 String getBranchScript(String repo, String dft ){
    return """def ret=[]
-   |def out = "git ls-remote --heads ${repo}".execute().text
+   |def url='https://github.com/hqzhang/'+\'${repo}\'+'.git'
+   |def out = "git ls-remote --heads \${url}".execute().text
    |out = out.readLines().collect { it.split()[1].replaceAll('refs/heads/', '') }
    |out.each{ if( it.contains(\"${dft}\") ){ ret.add(0,it) } else { ret.add(it) } }
    |return ret
    | """.stripMargin()
 }
+
 String getFileHubList(String repo, String folder,String brch ){
    println "Enter getFileHubList()"
    def ret=[]
@@ -254,6 +256,13 @@ properties([
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: getServerList('Environment') ]]],
+            
+            [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+                name: 'Version', randomName: 'choice-parameter-16677189047461', referencedParameters: 'Environment', 
+                script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
+                script: [classpath: [], oldScript: '', sandbox: true, 
+                script: menu.
+                getBranchScript('solution-repo','default') ]]],
 
             [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                 name: 'Configuration', randomName: 'choice-parameter-16677189047451', referencedParameters: 'Environment', 
