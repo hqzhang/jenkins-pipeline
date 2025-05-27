@@ -506,9 +506,7 @@ pipeline {
                     println "Play openshift"
                     //openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
                     
-                    sh """
-                        ${env.scmWksp}/playoc.sh
-                    """
+                    
                 }
             }
         }

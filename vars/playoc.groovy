@@ -1,0 +1,77 @@
+#!/usr/bin/env groovy
+
+//source /Users/hongqizhang/.passrc
+//set -x
+
+
+@groovy.transform.Field
+def myapp='nginx-oc'
+@groovy.transform.Field
+def myorg='wavecloud'
+@groovy.transform.Field
+def myimage="${myorg}/${myapp}"
+@groovy.transform.Field
+def myport='8081'
+@groovy.transform.Field
+def urloc="https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443"
+@groovy.transform.Field
+def octoken="sha256~i8CtdDBIZWuhaW9YAgQzpzHR3ngvd_1K9OxkX6_tllo"
+@groovy.transform.Field
+def pass='a568Pqt123'
+def commandExecute(String cmd){
+    println cmd
+    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    return out
+}
+
+def buildPush(String image, String password){
+    println("Enter buildPush() ..Clean and Build images")
+    def cmd = "docker rmi ${image}"
+    println commandExecute("docker rmi ${image}")
+
+    cmd = "docker build -f image/Dockerfile -t ${myimage} ."
+    println commandExecute(cmd)
+    cmd = "docker login -uzhanghongqi -p${password}"
+    println commandExecute(cmd)
+    cmd = "docker push ${myimage}"
+    println commandExecute(cmd)
+}
+
+def cleanDeploy(){
+    println("Enter cleanDeploy()  ")
+    println commandExecute("oc login --token=${octoken} --server=${urloc}")
+    println commandExecute("oc whoami --show-token")
+
+    println "clean all models"
+    println commandExecute("oc delete all -l name=dcnginx")
+
+    println "create all models"
+    println commandExecute("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
+    println commandExecute("oc expose svc ${myapp} --port=${myport}")
+}
+
+def appVerify(){
+    println("Enter appVerify()  ")
+    //oc create -f ocmodel/mydatamodel.yaml
+    sleep(10)
+    
+    println "verification"
+    myroute=commandExecute("oc get route --selector app=$myapp --no-headers" ).split()[1]
+    println myroute
+    
+    res="welcome to nginx"
+    def cmd= "curl http://$myroute "
+    println cmd
+    result=commandExecute(cmd)
+    if ( result.contains(res)) {  println( "TEST PASS!" )  }
+    else { println( "TEST ERROR!")  }
+}
+
+def playAll(){
+    buildPush(myimage, pass)
+    cleanDeploy()
+    sleep(10000)
+    appVerify()
+}
+
+playAll()
