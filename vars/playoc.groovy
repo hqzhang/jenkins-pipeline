@@ -24,7 +24,20 @@ def commandExecute(String cmd){
     return out
 }
 
-def buildPush(String image, String password){
+def buildPush(){
+    println("Enter buildPush() ..Clean and Build images")
+    def cmd = "docker rmi ${myimage}"
+    println commandExecute("docker rmi ${myimage}")
+
+    cmd = "docker build -f image/Dockerfile -t ${myimage} ."
+    println commandExecute(cmd)
+    cmd = "docker login -uzhanghongqi -p${pass}"
+    println commandExecute(cmd)
+    cmd = "docker push ${myimage}"
+    println commandExecute(cmd)
+}
+
+def buildPushPara(String image, String password){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${image}"
     println commandExecute("docker rmi ${image}")
@@ -36,6 +49,7 @@ def buildPush(String image, String password){
     cmd = "docker push ${myimage}"
     println commandExecute(cmd)
 }
+
 
 def cleanDeploy(){
     println("Enter cleanDeploy()  ")
