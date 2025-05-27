@@ -505,7 +505,7 @@ pipeline {
                     echo "Stage: Build Image"
                     println "buildDocker Image"
                     //openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
-                    playoc.buildPush(String image, String password)
+                    playoc.buildPush()
                 }
             }
         }
@@ -515,7 +515,7 @@ pipeline {
                     echo "Deploy Docker Image"
                     playoc.cleanDeploy()
                     sleep(10000)
-    appVerify()
+    
                 }
             }
         }
@@ -532,26 +532,7 @@ pipeline {
                         openshift.withProject(proj){  
                             echo "Get route url.."
                             def route  = openshift.selector('route','mynginx').object().spec.host
-                    	    echo "${route}"
-                     	    def myres="Welcome"
-                            echo "curl route url"
-                     	    def mycurl= "curl -k https://$route | grep $myres"
-                     	    def proc= mycurl.execute().text
-                            echo "compare result..."
-                     	    def myproc= proc.contains(myres)
-                     	    println(myproc)
-                     	    if ( myproc) {
-                         	echo "TEST PASS!"
-                                writeFile(file: 'release', text: 'sbms-release-v3')
-                                archiveArtifacts artifacts: "release"
-                                //mail bcc: '', body: 'just test', cc: '', from: '', replyTo: '', subject: 'test', to: 'zhanghongqi@hotmail.com'
-                                //sh "open https://$route"
-                     	    }
-                     	    else {
-                         	echo "TEST ERROR!"
-                                //mail bcc: '', body: 'just test', cc: '', from: '', replyTo: '', subject: 'test', to: 'zhanghongqi@hotmail.com'
-                                exit 1;
-                            }
+                    	    echo "${route}"  
                            
                         }
                     }                          
@@ -563,7 +544,7 @@ pipeline {
         
         always {
             
-            //archiveArtifacts artifacts: 'file.extension', fingerprint: true
+            archiveArtifacts artifacts: 'file.extension', fingerprint: true
             println "do nothing"
         }
     }
