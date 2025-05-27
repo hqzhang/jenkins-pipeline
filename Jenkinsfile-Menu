@@ -396,8 +396,9 @@ pipeline {
 
                     println "clean virtual machine======="
                     sh """
-                        VBoxManage controlvm "node-01" poweroff
-                        VBoxManage unregistervm "node-01" --delete
+                        VBoxManage list vms
+                        #VBoxManage controlvm "node-01" poweroff
+                        #VBoxManage unregistervm "node-01" --delete
                     """
                     
                     println "create virtual machine==="
