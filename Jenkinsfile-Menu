@@ -382,7 +382,7 @@ pipeline {
         repoName='solution-repo'
         repoBranch='getsolution'
         target="tgrpanv@${env.Server}"
-        
+        PATH="/usr/local/bin:$PATH"
         sourceFile='examples'
         destFile='output'
        
@@ -396,6 +396,7 @@ pipeline {
             steps {
                 script {
                     println "STAGE: create List..."
+                    
                     myMethods.greet("Alice")
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
@@ -405,6 +406,7 @@ pipeline {
 
                     println "clean virtual machine======="
                     sh """
+                        printenv
                         VBoxManage list vms
                         #VBoxManage controlvm "node-01" poweroff
                         #VBoxManage unregistervm "node-01" --delete
