@@ -480,7 +480,7 @@ pipeline {
                     ls -al
                     VBoxManage list vms
                     #VBoxManage controlvm "node-01" poweroff
-                    VBoxManage unregistervm "node-01" --delete
+                    #VBoxManage unregistervm "node-01" --delete
                     
                     #wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
                     echo aasdfgh
