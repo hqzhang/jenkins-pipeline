@@ -13,9 +13,11 @@ def myimage="${myorg}/${myapp}"
 @groovy.transform.Field
 def myport='8081'
 @groovy.transform.Field
-def urloc="https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443"
+def urloc="https://api.rm3.7wse.p1.openshiftapps.com:6443"
 @groovy.transform.Field
-def octoken="sha256~i8CtdDBIZWuhaW9YAgQzpzHR3ngvd_1K9OxkX6_tllo"
+def octoken="sha256~VirIUuscOUbZ3IygdWcTnq7iDA1kqnb-Z8MZo56iovE"
+//oc login --token=sha256~VirIUuscOUbZ3IygdWcTnq7iDA1kqnb-Z8MZo56iovE --server=https://api.rm3.7wse.p1.openshiftapps.com:6443
+
 @groovy.transform.Field
 def pass='a568Pqt123'
 def commandExecute(String cmd){
