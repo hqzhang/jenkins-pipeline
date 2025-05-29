@@ -20,48 +20,56 @@ def octoken="sha256~i8CtdDBIZWuhaW9YAgQzpzHR3ngvd_1K9OxkX6_tllo"
 def pass='a568Pqt123'
 def commandExecute(String cmd){
     println cmd
+    def out = sh(script: cmd, returnStdout: true).trim()
+    return out
+}
+def commandInMenu(String cmd){
+    println cmd
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     return out
 }
 
+
+
 def buildPush(){
     println("Enter buildPush() ..Clean and Build images")
-    def cmd = "/usr/local/bin/docker rmi ${myimage}"
+    def cmd = "docker rmi ${myimage}"
     println commandExecute("/usr/local/bin/docker rmi ${myimage}")
 
-    cmd = "/usr/local/bin/docker build -f image/Dockerfile -t ${myimage} ."
+    cmd = "docker build -f image/Dockerfile -t ${myimage} ."
     println commandExecute(cmd)
-    cmd = "/usr/local/bin/docker login -uzhanghongqi -p${pass}"
+    cmd = "docker login -uzhanghongqi -p${pass}"
     println commandExecute(cmd)
-    cmd = "/usr/local/bin/docker push ${myimage}"
+    cmd = "docker push ${myimage}"
     println commandExecute(cmd)
 }
 
 def buildPushPara(String image, String password){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${image}"
-    println commandExecute("/usr/local/bin/docker rmi ${image}")
+    println commandExecute("docker rmi ${image}")
 
-    cmd = "/usr/local/bin/docker build -f image/Dockerfile -t ${myimage} ."
+    cmd = "docker build -f image/Dockerfile -t ${myimage} ."
     println commandExecute(cmd)
     cmd = "/usr/local/bin/docker login -uzhanghongqi -p${password}"
     println commandExecute(cmd)
-    cmd = "/usr/local/bin/docker push ${myimage}"
+    cmd = "docker push ${myimage}"
     println commandExecute(cmd)
 }
 
 
+
 def cleanDeploy(){
     println("Enter cleanDeploy()  ")
-    println commandExecute("/usr/local/bin/oc login --token=${octoken} --server=${urloc}")
-    println commandExecute("/usr/local/bin/oc whoami --show-token")
+    println commandExecute("oc login --token=${octoken} --server=${urloc}")
+    println commandExecute("oc whoami --show-token")
 
     println "clean all models"
-    println commandExecute("/usr/local/bin/oc delete all -l name=dcnginx")
+    println commandExecute("oc delete all -l name=dcnginx")
 
     println "create all models"
-    println commandExecute("/usr/local/bin/oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
-    println commandExecute("/usr/local/bin/oc expose svc ${myapp} --port=${myport}")
+    println commandExecute("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
+    println commandExecute("oc expose svc ${myapp} --port=${myport}")
 }
 
 def appVerify(){
@@ -70,7 +78,7 @@ def appVerify(){
     sleep(10)
     
     println "verification"
-    myroute=commandExecute("/usr/local/bin/oc get route --selector app=$myapp --no-headers" ).split()[1]
+    myroute=commandExecute("oc get route --selector app=$myapp --no-headers" ).split()[1]
     println myroute
     
     res="welcome to nginx"
