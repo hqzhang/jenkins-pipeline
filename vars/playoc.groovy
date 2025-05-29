@@ -33,7 +33,7 @@ def buildPush(){
     println commandExecute(cmd)
     cmd = "/usr/local/bin/docker login -uzhanghongqi -p${pass}"
     println commandExecute(cmd)
-    cmd = "doc/usr/local/bin/docker push ${myimage}"
+    cmd = "/usr/local/bin/docker push ${myimage}"
     println commandExecute(cmd)
 }
 
