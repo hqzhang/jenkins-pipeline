@@ -34,7 +34,7 @@ def commandInMenu(String cmd){
 def buildPush(){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${myimage}"
-    println commandExecute("/usr/local/bin/docker rmi ${myimage}")
+    println commandExecute("docker rmi ${myimage}")
 
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
     println commandExecute(cmd)
@@ -51,7 +51,7 @@ def buildPushPara(String image, String password){
 
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
     println commandExecute(cmd)
-    cmd = "/usr/local/bin/docker login -uzhanghongqi -p${password}"
+    cmd = "docker login -uzhanghongqi -p${password}"
     println commandExecute(cmd)
     cmd = "docker push ${myimage}"
     println commandExecute(cmd)
