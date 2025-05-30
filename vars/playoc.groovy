@@ -75,11 +75,12 @@ def cleanDeploy(){
     println commandExecute("oc login --token=${octoken} --server=${urloc}")
     println commandExecute("oc whoami --show-token")
 
-    println "clean all models"
+    println "delete all models"
     println commandExecute("oc delete all -l name=dcnginx")
 
     println "create all models"
     println commandExecute("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
+    println "expose all models"
     println commandExecute("oc expose svc ${myapp} --port=${myport}")
 }
 
