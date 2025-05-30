@@ -44,7 +44,7 @@ def cmdExeOut(String cmd){
         def rc = "${e}".tokenize().last() //Extract the exit code from the exception
         result=e.getMessage()
     }
-    return ret
+    return result
 
 }
 def commandInMenu(String cmd){
