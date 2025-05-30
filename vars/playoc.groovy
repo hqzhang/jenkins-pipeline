@@ -22,8 +22,17 @@ def octoken="sha256~VirIUuscOUbZ3IygdWcTnq7iDA1kqnb-Z8MZo56iovE"
 def pass='a568Pqt123'
 def commandExecute(String cmd){
     println cmd
-    def out = sh(script: cmd, returnStdout: true).trim()
-    return out
+    ret=0
+    try {
+        result = sh(script: cmd, returnStdout: true)
+        println "STDOUT: ${result}"
+    } catch (e) {
+        println "STDOUT: ${e.getMessage()}"
+        def rc = "${e}".tokenize().last() //Extract the exit code from the exception
+        ret=rc
+    }
+    return ret
+
 }
 def commandInMenu(String cmd){
     println cmd
