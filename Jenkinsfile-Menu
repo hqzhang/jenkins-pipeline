@@ -396,8 +396,8 @@ pipeline {
             steps {
                 script {
                     println "STAGE: create List..."
-                    playoc.appVerify()
-                    sh 'exit 1'
+                    
+                   
                     myMethods.greet("Alice")
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
