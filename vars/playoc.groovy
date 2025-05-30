@@ -90,7 +90,8 @@ def appVerify(){
     sleep(10)
     
     println "verification"
-    myroute=commandInMenu("oc get route --selector app=$myapp --no-headers" ).split()
+    cmd="oc get route --selector app=$myapp --no-headers" )
+    myroute=sh(script: cmd, returnStdout: true).split()[1]
     println "myroute=$myroute"
     
     res="welcome to nginx"
