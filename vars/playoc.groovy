@@ -20,7 +20,7 @@ def octoken="sha256~VirIUuscOUbZ3IygdWcTnq7iDA1kqnb-Z8MZo56iovE"
 
 @groovy.transform.Field
 def pass='a568Pqt123'
-def commandExecute(String cmd){
+def cmdExeCode(String cmd){
     println cmd
     ret=0
     try {
@@ -30,6 +30,20 @@ def commandExecute(String cmd){
         println "STDOUT: ${e.getMessage()}"
         def rc = "${e}".tokenize().last() //Extract the exit code from the exception
         ret=rc
+    }
+    return ret
+
+}
+def cmdExeOut(String cmd){
+    println cmd
+    ret=''
+    try {
+        result = sh(script: cmd, returnStdout: true)
+        println "STDOUT: ${result}"
+    } catch (e) {
+        println "STDOUT: ${e.getMessage()}"
+        def rc = "${e}".tokenize().last() //Extract the exit code from the exception
+        result=e.getMessage()
     }
     return ret
 
@@ -45,43 +59,43 @@ def commandInMenu(String cmd){
 def buildPush(){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${myimage}"
-    println commandExecute("docker rmi ${myimage}")
+    println cmdExeCode("docker rmi ${myimage}")
 
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
-    println commandExecute(cmd)
+    println cmdExeCode(cmd)
     cmd = "docker login -uzhanghongqi -p${pass}"
-    println commandExecute(cmd)
+    println cmdExeCode(cmd)
     cmd = "docker push ${myimage}"
-    println commandExecute(cmd)
+    println cmdExeCode(cmd)
 }
 
 def buildPushPara(String image, String password){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${image}"
-    println commandExecute("docker rmi ${image}")
+    println cmdExeCode("docker rmi ${image}")
 
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
-    println commandExecute(cmd)
+    println cmdExeCode(cmd)
     cmd = "docker login -uzhanghongqi -p${password}"
-    println commandExecute(cmd)
+    println cmdExeCode(cmd)
     cmd = "docker push ${myimage}"
-    println commandExecute(cmd)
+    println cmdExeCode(cmd)
 }
 
 
 
 def cleanDeploy(){
     println("Enter cleanDeploy()  ")
-    println commandExecute("oc login --token=${octoken} --server=${urloc}")
-    println commandExecute("oc whoami --show-token")
+    println cmdExeCode("oc login --token=${octoken} --server=${urloc}")
+    println cmdExeCode("oc whoami --show-token")
 
     println "delete all models"
-    println commandExecute("oc delete all -l name=dcnginx")
+    println cmdExeCode("oc delete all -l name=dcnginx")
 
     println "create all models"
-    println commandExecute("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
+    println cmdExeCode("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
     println "expose all models"
-    println commandExecute("oc expose svc ${myapp} --port=${myport}")
+    println cmdExeCode("oc expose svc ${myapp} --port=${myport}")
 }
 
 def appVerify(){
@@ -97,7 +111,7 @@ def appVerify(){
     res="welcome to nginx"
     def cmd= "curl http://$myroute "
     println cmd
-    result=commandExecute(cmd)
+    result=cmdExeCode(cmd)
     if ( result.contains(res)) {  println( "TEST PASS!" )  }
     else { println( "TEST ERROR!")  }
 }
