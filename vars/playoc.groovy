@@ -54,8 +54,6 @@ def commandInMenu(String cmd){
     return out
 }
 
-
-
 def buildPush(){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${myimage}"
