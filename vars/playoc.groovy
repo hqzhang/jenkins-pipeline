@@ -103,7 +103,7 @@ def appVerify(){
     
     println "verification"
     cmd="oc get route --selector app=$myapp --no-headers" 
-    myroute=cmdExeOut(cmd).split()[1]
+    myroute=cmdExeOut(cmd).split()
     println "myroute=$myroute"
     
     res="welcome to nginx"
