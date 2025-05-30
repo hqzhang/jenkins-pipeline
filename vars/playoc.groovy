@@ -90,7 +90,7 @@ def appVerify(){
     sleep(10)
     
     println "verification"
-    cmd="oc get route --selector app=$myapp --no-headers" )
+    cmd="oc get route --selector app=$myapp --no-headers" 
     myroute=sh(script: cmd, returnStdout: true).split()[1]
     println "myroute=$myroute"
     
