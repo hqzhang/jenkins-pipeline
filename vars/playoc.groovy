@@ -103,13 +103,13 @@ def appVerify(){
     
     println "verification"
     cmd="oc get route --selector app=$myapp --no-headers" 
-    myroute=sh(script: cmd, returnStdout: true).split()[1]
+    myroute=cmdExeOut(cmd).split()[1]
     println "myroute=$myroute"
     
     res="welcome to nginx"
     def cmd= "curl http://$myroute "
     println cmd
-    result=cmdExeCode(cmd)
+    result=cmdExeOut(cmd)
     if ( result.contains(res)) {  println( "TEST PASS!" )  }
     else { println( "TEST ERROR!")  }
 }
