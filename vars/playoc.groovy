@@ -101,11 +101,3 @@ def appVerify(){
     else { println( "TEST ERROR!")  }
 }
 
-def playAll(){
-    buildPush(myimage, pass)
-    cleanDeploy()
-    sleep(10000)
-    appVerify()
-}
-
-playAll()

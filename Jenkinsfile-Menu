@@ -516,8 +516,7 @@ pipeline {
                 script {
                     echo "Deploy Docker Image"
                     playoc.cleanDeploy()
-                    sleep(10000)
-    
+                    sleep(time:30,unit:"SECONDS")
                 }
             }
         }
