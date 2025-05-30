@@ -22,21 +22,20 @@ def octoken="sha256~VirIUuscOUbZ3IygdWcTnq7iDA1kqnb-Z8MZo56iovE"
 def pass='a568Pqt123'
 def cmdExeCode(String cmd){
     println cmd
-    ret=0
+    result=0
     try {
         result = sh(script: cmd, returnStdout: true)
         println "STDOUT: ${result}"
     } catch (e) {
         println "STDOUT: ${e.getMessage()}"
         def rc = "${e}".tokenize().last() //Extract the exit code from the exception
-        ret=rc
+        result=rc
     }
-    return ret
-
+    return result
 }
 def cmdExeOut(String cmd){
     println cmd
-    ret=''
+    result=''
     try {
         result = sh(script: cmd, returnStdout: true)
         println "STDOUT: ${result}"
@@ -103,7 +102,7 @@ def appVerify(){
     
     println "verification"
     cmd="oc get route --selector app=$myapp --no-headers" 
-    myroute=cmdExeOut(cmd).split()
+    myroute=cmdExeOut(cmd).split()[1]
     println "myroute=$myroute"
     
     res="welcome to nginx"
