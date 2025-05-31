@@ -72,5 +72,5 @@ def createVM(){
     cmd="ping $myIP -c 4 "
     println commandExecute( cmd)
     println "end IP address"
-}""
+}
                 
