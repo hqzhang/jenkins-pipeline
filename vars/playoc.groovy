@@ -59,7 +59,7 @@ def buildPush(){
     def cmd = "docker rmi ${myimage}"
     ret=cmdExeCode("docker rmi ${myimage}")
     if (ret==null){
-        error( "ERROR: $cmd")
+        error(cmd)
     }
     
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
