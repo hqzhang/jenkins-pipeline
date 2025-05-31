@@ -46,7 +46,7 @@ def createVM(){
     println commandExecute( cmd)
     cmd="VBoxManage controlvm 'node-01' poweroff"
      println commandExecute( cmd)
-    cmd="VBoxManage unregistervm "node-01" --delete"
+    cmd="VBoxManage unregistervm 'node-01' --delete"
      println commandExecute( cmd)
     
     cmd="wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
