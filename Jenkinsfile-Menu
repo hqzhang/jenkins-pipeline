@@ -476,29 +476,7 @@ pipeline {
                 script {
                     echo "Stage: Create Infrastructure"
                     println "Play terraform"
-                    vbox.createVM()
-                    /*sh """
-                    set -x
-                    ls -al
-                    VBoxManage list vms
-                    #VBoxManage controlvm "node-01" poweroff
-                    #VBoxManage unregistervm "node-01" --delete
-                    
-                    #wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
-                    echo aasdfgh
-                    VBoxManage list vms
-                    terraform init  -no-color 
-                    terraform plan  -no-color 
-                    #terraform apply -auto-approve -no-color 
-                    VBoxManage list vms
-                    jq -r '.outputs.IPAddr.value' terraform.tfstate
-                    """
-                    println "get IP address"
-                    def myip="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
-                    def ttt="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
-
-                    println ttt
-                    println "end IP address"*/
+                    //vbox.createVM()
                 }
             }
         }
