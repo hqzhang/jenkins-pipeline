@@ -531,7 +531,7 @@ def getFileHubFullSW(String ref){
     |import hudson.security.ACL
     |import jenkins.model.Jenkins
     |//envar='${env.Environment}'
-    |def ret=['INIT.yaml']
+    |def ret=[]
     |try {
     |   def credential = CredentialsProvider.lookupCredentials(StandardUsernamePasswordCredentials.class,
     |                    Jenkins.instance,ACL.SYSTEM,[]).find { it.id == '${githubtokenid}' }
