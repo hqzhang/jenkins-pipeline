@@ -476,7 +476,8 @@ pipeline {
                 script {
                     echo "Stage: Create Infrastructure"
                     println "Play terraform"
-                    //vbox.createVM()
+                    vbox.createVM()
+                    error('droy on purpose')
                 }
             }
         }
