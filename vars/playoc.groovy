@@ -57,11 +57,7 @@ def buildPush(){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${myimage}"
     ret=cmdExeCode("docker rmi ${myimage}")
-    if( ret!= ) {
-        println
-        err()
-    }
-
+    
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
     println cmdExeCode(cmd)
     cmd = "docker login -uzhanghongqi -p${pass}"
