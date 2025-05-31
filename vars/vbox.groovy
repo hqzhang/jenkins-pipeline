@@ -66,7 +66,7 @@ def createVM(){
 
     println "get IP address"
     cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
-    myIP=commandExecute( cmd)
+    myIP=commandExecute( cmd).strip()
     println "myIP=$myIP"
 
     cmd="ping $myIP -c 4 "
