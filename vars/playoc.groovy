@@ -22,17 +22,18 @@ def octoken="sha256~VirIUuscOUbZ3IygdWcTnq7iDA1kqnb-Z8MZo56iovE"
 def pass='a568Pqt123'
 def cmdExeCode(String cmd){
     println cmd
-    result=0
+    result=null
     try {
         result = sh(script: cmd, returnStdout: true)
         println "STDOUT: ${result}"
     } catch (e) {
         println "STDOUT: ${e.getMessage()}"
         def rc = "${e}".tokenize().last() //Extract the exit code from the exception
-        result=rc
+        result=null
     }
     return result
 }
+
 def cmdExeOut(String cmd){
     println cmd
     result=''
@@ -45,8 +46,8 @@ def cmdExeOut(String cmd){
         result=e.getMessage()
     }
     return result
-
 }
+
 def commandInMenu(String cmd){
     println cmd
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
@@ -57,6 +58,10 @@ def buildPush(){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${myimage}"
     ret=cmdExeCode("docker rmi ${myimage}")
+    if (ret==null){
+        println "ERROR: $cmd"
+        System.exit()
+    }
     
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
     println cmdExeCode(cmd)
