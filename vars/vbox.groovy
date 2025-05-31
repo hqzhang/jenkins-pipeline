@@ -44,7 +44,7 @@ def createVM(){
     println "enter createVM()"
     cmd="VBoxManage list vms"
     println commandExecute( cmd)
-    cmd="VBoxManage controlvm "node-01" poweroff"
+    cmd="VBoxManage controlvm 'node-01' poweroff"
      println commandExecute( cmd)
     cmd="VBoxManage unregistervm "node-01" --delete"
      println commandExecute( cmd)
