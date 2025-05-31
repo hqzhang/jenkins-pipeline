@@ -51,7 +51,7 @@ def createVM(){
     
     //cmd="wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
     // println commandExecute( cmd)
-    echo aasdfgh
+   
     cmd="VBoxManage list vms"
      println commandExecute( cmd)
     cmd="terraform init  -no-color "
