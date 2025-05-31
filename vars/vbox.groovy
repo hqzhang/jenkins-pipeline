@@ -29,7 +29,7 @@ def commandExecute(String cmd){
     } catch (e) {
         println "STDOUT: ${e.getMessage()}"
         def rc = "${e}".tokenize().last() //Extract the exit code from the exception
-        ret=rc
+        ret=null
     }
     return ret
 
@@ -43,17 +43,27 @@ def commandInMenu(String cmd){
 def createVM(){
     println "enter createVM()"
     cmd="VBoxManage list vms"
+    println commandExecute( cmd)
     cmd="VBoxManage controlvm "node-01" poweroff"
+     println commandExecute( cmd)
     cmd="VBoxManage unregistervm "node-01" --delete"
+     println commandExecute( cmd)
     
     cmd="wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+     println commandExecute( cmd)
     echo aasdfgh
     cmd="VBoxManage list vms"
+     println commandExecute( cmd)
     cmd="terraform init  -no-color "
+     println commandExecute( cmd)
     cmd="terraform plan  -no-color "
+     println commandExecute( cmd)
     cmd="terraform apply -auto-approve -no-color "
+     println commandExecute( cmd)
     cmd="VBoxManage list vms"
+     println commandExecute( cmd)
     cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
+    println commandExecute( cmd)
 
     println "get IP address"
     def myip="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text

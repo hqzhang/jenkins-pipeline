@@ -56,7 +56,11 @@ def commandInMenu(String cmd){
 def buildPush(){
     println("Enter buildPush() ..Clean and Build images")
     def cmd = "docker rmi ${myimage}"
-    println cmdExeCode("docker rmi ${myimage}")
+    ret=cmdExeCode("docker rmi ${myimage}")
+    if( ret!= ) {
+        println
+        err()
+    }
 
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
     println cmdExeCode(cmd)

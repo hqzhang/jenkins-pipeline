@@ -476,7 +476,8 @@ pipeline {
                 script {
                     echo "Stage: Create Infrastructure"
                     println "Play terraform"
-                    sh """
+                    vbox.createVM()
+                    /*sh """
                     set -x
                     ls -al
                     VBoxManage list vms
@@ -497,7 +498,7 @@ pipeline {
                     def ttt="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
 
                     println ttt
-                    println "end IP address"
+                    println "end IP address"*/
                 }
             }
         }
@@ -546,7 +547,7 @@ pipeline {
         
         always {
             
-            archiveArtifacts artifacts: 'file.extension', fingerprint: true
+            //archiveArtifacts artifacts: 'file.extension', fingerprint: true
             println "do nothing"
         }
     }
