@@ -89,9 +89,8 @@ def cleanDeploy(){
     println("Enter cleanDeploy()  ")
     ret= cmdExeCode("oc login --token=${octoken} --server=${urloc}")
     if (ret==null){
-        error( "ERROR: $cmd")
+        error('oc login ...')
     }
-    
     println cmdExeCode("oc whoami --show-token")
 
     println "delete all models"
