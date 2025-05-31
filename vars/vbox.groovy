@@ -62,14 +62,15 @@ def createVM(){
      println commandExecute( cmd)
     cmd="VBoxManage list vms"
      println commandExecute( cmd)
-    cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
-    println commandExecute( cmd)
+   
 
     println "get IP address"
-    def myip="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
-    def ttt="/usr/local/bin/jq -r '.outputs.IPAddr.value' terraform.tfstate".execute().text
+    cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
+    myIP=commandExecute( cmd)
+    println "myIP=$myIP"
 
-    println ttt
+    cmd="ping $myIP -c 4 "
+    println commandExecute( cmd)
     println "end IP address"
-}
+}""
                 
