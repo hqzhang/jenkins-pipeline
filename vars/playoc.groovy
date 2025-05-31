@@ -59,8 +59,7 @@ def buildPush(){
     def cmd = "docker rmi ${myimage}"
     ret=cmdExeCode("docker rmi ${myimage}")
     if (ret==null){
-        println "ERROR: $cmd"
-        System.exit()
+        error( "ERROR: $cmd")
     }
     
     cmd = "docker build -f image/Dockerfile -t ${myimage} ."
@@ -88,7 +87,11 @@ def buildPushPara(String image, String password){
 
 def cleanDeploy(){
     println("Enter cleanDeploy()  ")
-    println cmdExeCode("oc login --token=${octoken} --server=${urloc}")
+    ret= cmdExeCode("oc login --token=${octoken} --server=${urloc}")
+    if (ret==null){
+        error( "ERROR: $cmd")
+    }
+    
     println cmdExeCode("oc whoami --show-token")
 
     println "delete all models"
