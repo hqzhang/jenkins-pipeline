@@ -399,13 +399,9 @@ pipeline {
                     path="image"
                     registryUrl='https://index.docker.io/v1/'
                     registryCredentialsId='dockerloginid'
-                    
-                    docker.withRegistry(registryUrl, registryCredentialsId){
-                        echo 'printenv'
                     def myimg = docker.build(myapp, path)
-                    myimg.push()
-
-                    error('on purpose')
+                    docker.withRegistry('https://index.docker.io/v1/', 'a568Pqt123') {
+                        dockerImage.push()
                     }
                     /*
                     sh """
