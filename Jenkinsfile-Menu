@@ -389,7 +389,7 @@ pipeline {
     }
     stages {
         
-        /* stage('Create List') {
+         stage('Create List') {
             when { expression { return !env.Configuration.contains('INIT') } }
             steps {
                 script {
@@ -399,6 +399,9 @@ pipeline {
                     path="image"
                     def myimg = docker.build(myapp, path)
 
+
+                    error('on purpose')
+                    /*
                     sh """
                     docker -h
                     oc get route --selector app=nginx-oc --no-headers
@@ -461,12 +464,12 @@ pipeline {
                     def build="${env.BUILD_NUMBER}"
                     println build
                     sh "echo ${build} > usefulfile.txt"
-                    archiveArtifacts artifacts: 'usefulfile.txt', fingerprint: true
+                    archiveArtifacts artifacts: 'usefulfile.txt', fingerprint: true*/
     
                 }
 
             }
-        }*/
+        }
         stage('Stage: Create Infrastructure'){
             steps {
                 script {
@@ -489,7 +492,6 @@ pipeline {
                     myapp="wavecloud/nginx-opens"
                     path="image"
                     docker.withRegistry(registryUrl, registryCredentialsId){
-                    
                         def myimage = docker.build(myapp, path)//"docker build -f image/Dockerfile -t ${myimage} ."
                         myimage.push()                         //"docker push $myimage"
                     }
