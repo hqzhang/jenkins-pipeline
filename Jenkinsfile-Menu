@@ -404,16 +404,6 @@ pipeline {
 
                     println "save backup file locally====="
                     menu.saveBackupFile(env.Components, backupFile)
-
-                    println "clean virtual machine======="
-                    sh """
-                        printenv
-                        VBoxManage list vms
-                        #VBoxManage controlvm "node-01" poweroff
-                        #VBoxManage unregistervm "node-01" --delete
-                    """
-                    
-                    println "create virtual machine==="
                    
                     /*println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
@@ -476,8 +466,8 @@ pipeline {
                 script {
                     echo "Stage: Create Infrastructure"
                     println "Play terraform"
-                    vbox.createVM()
-                    error('droy on purpose')
+                    //vbox.createVM()
+                    //error('drop on purpose')
                 }
             }
         }
@@ -488,7 +478,7 @@ pipeline {
                     echo "Stage: Build Image"
                     println "buildDocker Image"
                     //openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
-                    playoc.buildPush()
+                    //playoc.buildPush()
                 }
             }
         }
@@ -496,8 +486,8 @@ pipeline {
             steps {
                 script {
                     echo "Deploy Docker Image"
-                    playoc.cleanDeploy()
-                    sleep(time:30,unit:"SECONDS")
+                   // playoc.cleanDeploy()
+                   // sleep(time:30,unit:"SECONDS")
                 }
             }
         }
