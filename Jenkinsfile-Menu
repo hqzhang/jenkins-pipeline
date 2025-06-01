@@ -389,7 +389,7 @@ pipeline {
     }
     stages {
         
-        stage('Create List') {
+        /* stage('Create List') {
             when { expression { return !env.Configuration.contains('INIT') } }
             steps {
                 script {
@@ -411,7 +411,7 @@ pipeline {
                     println "save backup file locally====="
                     menu.saveBackupFile(env.Components, backupFile)
                    
-                    /*println "save backup file to repo"
+                    println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
                    
                     println "update Solution yml files"
@@ -420,21 +420,21 @@ pipeline {
                         /Users/hongqizhang/anaconda3/bin/activate
                         cd solution;
                         python3 solution_update.py ${sourceFile} ${destFile} ${backupFile} ${inputFull}
-                    """*/
+                    """
 
                     println "save backup file to repo"
                     def binPath=[ ARC: '/app/anvil/repositoy/ARC508p6',
                                     ADS: '/app/anvil/repositoy/ADS123' ]
                     //menu.deployInstallBin(Components, binPath)
                    
-                    /*println "Play ansible"
+                    println "Play ansible"
                     menu.createHosts(String fileName, List target)
                     menu.createValues(String fileName)
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'generate-solution.yml')
 
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')*/
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')
 
                     println "init=$env.initMenu"
                     println "get use function"
@@ -466,7 +466,7 @@ pipeline {
                 }
 
             }
-        }
+        }*/
         stage('Stage: Create Infrastructure'){
             steps {
                 script {
@@ -483,8 +483,17 @@ pipeline {
                 script {
                     echo "Stage: Build Image"
                     println "buildDocker Image"
-                    //openshift.updateDataModel(env.scmWksp+"/ocmodel/mydatamodel.yaml",backupFile)
-                    //playoc.buildPush()
+                    //cmd = "docker login -uzhanghongqi -p${pass}"
+                    registryUrl='https://index.docker.io/v1/'
+                    registryCredentialsId='dockerloginid'
+                    myapp="wavecloud/nginx-opens"
+                    path="image"
+                    docker.withRegistry(registryUrl, registryCredentialsId){
+                    
+                        def myimage = docker.build(myapp, path)//"docker build -f image/Dockerfile -t ${myimage} ."
+                        myimage.push()                         //"docker push $myimage"
+                    
+                    }
                 }
             }
         }
