@@ -385,9 +385,7 @@ pipeline {
         PATH="/usr/local/bin:$PATH"
         sourceFile='examples'
         destFile='output'
-       
         inputFull='examples'
-
     }
     stages {
         
@@ -397,6 +395,7 @@ pipeline {
                 script {
                     println "STAGE: create List..."
                     sh """
+                    docker -h
                     oc get route --selector app=nginx-oc --no-headers
                     """
                    
