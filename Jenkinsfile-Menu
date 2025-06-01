@@ -396,7 +396,8 @@ pipeline {
                     println "STAGE: create List..."
                     echo "Stage: Build Docker Image ============="
                     myapp="wavecloud/nginx-opens"
-                    def myimg = docker.build(myapp)
+                    path="image"
+                    def myimg = docker.build(myapp, path)
 
                     sh """
                     docker -h
