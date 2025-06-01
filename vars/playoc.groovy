@@ -117,6 +117,10 @@ def appVerify(){
     println cmd
     result=cmdExeOut(cmd)
     if ( result.contains(res)) {  println( "TEST PASS!" )  }
-    else { println( "TEST ERROR!")  }
+    else { 
+        println( "TEST ERROR!") 
+        error("Verification failure!!!")
+        
+ }
 }
 

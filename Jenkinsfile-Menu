@@ -496,6 +496,7 @@ pipeline {
                 script {
                     echo "Stage: Verification Test"
                     playoc.appVerify()
+                    
                     println "===================end verification======"
                     def token="/usr/local/bin/oc whoami --show-token".execute().text
                     def url='https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
