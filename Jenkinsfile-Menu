@@ -492,7 +492,6 @@ pipeline {
                     
                         def myimage = docker.build(myapp, path)//"docker build -f image/Dockerfile -t ${myimage} ."
                         myimage.push()                         //"docker push $myimage"
-                    
                     }
                 }
             }
