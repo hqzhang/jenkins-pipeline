@@ -401,6 +401,7 @@ pipeline {
                     registryCredentialsId='dockerloginid'
                     
                     docker.withRegistry(registryUrl, registryCredentialsId){
+                        sh 'printenv'
                     def myimg = docker.build(myapp, path)
                     myimg.push()
 
