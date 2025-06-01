@@ -394,6 +394,10 @@ pipeline {
             steps {
                 script {
                     println "STAGE: create List..."
+                    echo "Stage: Build Docker Image ============="
+                    myapp="wavecloud/nginx-opens"
+                    def myimg = docker.build(myapp)
+
                     sh """
                     docker -h
                     oc get route --selector app=nginx-oc --no-headers
