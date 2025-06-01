@@ -5,9 +5,8 @@ def call(String name = 'human') {
     echo "Hello, ${name}."
 }
 def xxx(String name){
-   sh "pwd"
+
    echo "Just for Testing $name"
-   sh "pwd"
    echo "I am in libary:master"
 }
 return this
