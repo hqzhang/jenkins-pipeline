@@ -398,7 +398,7 @@ pipeline {
                     myapp="wavecloud/nginx-opens"
                     path="image"
                     def myimg = docker.build(myapp, path)
-
+                    myimg.push()
 
                     error('on purpose')
                     /*
