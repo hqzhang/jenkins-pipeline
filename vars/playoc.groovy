@@ -44,6 +44,7 @@ def cmdExeOut(String cmd){
         println "STDOUT: ${e.getMessage()}"
         def rc = "${e}".tokenize().last() //Extract the exit code from the exception
         result=e.getMessage()
+        error(cmd+e.getMessage())
     }
     return result
 }
@@ -105,7 +106,7 @@ def cleanDeploy(){
 def appVerify(){
     println("Enter appVerify()  ")
     //oc create -f ocmodel/mydatamodel.yaml
-    sleep(10)
+    //sleep(10)
     
     println "verification"
     cmd="oc get route --selector app=$myapp --no-headers" 
