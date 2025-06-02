@@ -16,7 +16,8 @@ def myport='8081'
 def urloc="https://api.rm3.7wse.p1.openshiftapps.com:6443"
 @groovy.transform.Field
 def octoken="sha256~3eMDAFKS_L5obYTYBuAETLmJIYPvK5KDlnkeZWLR9z8"
-//oc login --token=sha256~3eMDAFKS_L5obYTYBuAETLmJIYPvK5KDlnkeZWLR9z8 --server=https://api.rm3.7wse.p1.openshiftapps.com:6443
+//oc login --token=sha256~6h3Q44JiT6FgcYErk_rKSNBvSeoqMlawIjzPDuMSVYg --server=https://api.rm3.7wse.p1.openshiftapps.com:6443
+
 
 @groovy.transform.Field
 def pass='a568Pqt123'

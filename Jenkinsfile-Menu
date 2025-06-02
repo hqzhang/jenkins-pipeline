@@ -488,25 +488,36 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Build Image"
-                     echo "Stage: Build Docker Image ============="
+                    echo "Stage: Build Docker Image ============="
                     myapp="wavecloud/nginx-opens"
                     path="image"
                     registryUrl='https://index.docker.io/v1/'
-                    registryCredentialsId='dockerloginid'
+                    registryCredentialsId=''48bc6aae-d8cc-43ce-8eac-6d9bd209a8be''
                     def myimage = docker.build(myapp, path)
-                   withDockerRegistry(credentialsId: '48bc6aae-d8cc-43ce-8eac-6d9bd209a8be', toolName: 'Docker', url: 'https://index.docker.io/v1/') {
 
+                    withDockerRegistry(credentialsId: registryCredentialsId, toolName: 'Docker', url: registryUrl) {
                         myimage.push()
                     }
                 }
             }
         }
-         stage('Stage: Deploy Docker Image'){
+         stage('Stage: Deploy on Openshift'){
             steps {
                 script {
-                    echo "Deploy Docker Image"
-                   // playoc.cleanDeploy()
-                   // sleep(time:30,unit:"SECONDS")
+                    echo "Deploy on Openshift"
+                    url='https://api.rm3.7wse.p1.openshiftapps.com:6443'
+                    token='sha256~6h3Q44JiT6FgcYErk_rKSNBvSeoqMlawIjzPDuMSVYg'
+                    proj='fredzhang987-dev'
+
+                    openshift.withCluster(url, token){
+                        openshift.withProject(proj){  
+                            echo "Get route url.."
+                         
+                            def route  = openshift.selector('route','nginx-oc').object().spec.host
+                    	    echo "${route}"  
+                           
+                        }
+                    }        
                 }
             }
         }
@@ -523,7 +534,7 @@ pipeline {
                     /*openshift.withCluster(url, token){
                         openshift.withProject(proj){  
                             echo "Get route url.."
-                            def route  = openshift.selector('route','mynginx').object().spec.host
+                            def route  = openshift.selector('route','nginx-oc').object().spec.host
                     	    echo "${route}"  
                            
                         }
