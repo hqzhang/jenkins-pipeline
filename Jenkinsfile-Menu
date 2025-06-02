@@ -400,7 +400,8 @@ pipeline {
                     registryUrl='https://index.docker.io/v1/'
                     registryCredentialsId='dockerloginid'
                     def myimg = docker.build(myapp, path)
-                    withDockerRegistry([url: registryUrl, credentialsId: registryCredentialsId]) {
+                   withDockerRegistry(credentialsId: '48bc6aae-d8cc-43ce-8eac-6d9bd209a8be', toolName: 'Docker', url: 'https://index.docker.io/v1/') {
+
                         dockerImage.push()
                     }
                     /*
