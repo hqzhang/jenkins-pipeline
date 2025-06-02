@@ -494,7 +494,8 @@ pipeline {
                     registryCredentialsId='dockerloginid'
                     myapp="wavecloud/nginx-opens"
                     path="image"
-                    docker.withRegistry(registryUrl, registryCredentialsId){
+                    withDockerRegistry(credentialsId: registryCredentialsId, toolName: 'Docker', url: registryUrl) 
+                    
                         def myimage = docker.build(myapp, path)//"docker build -f image/Dockerfile -t ${myimage} ."
                         myimage.push()                         //"docker push $myimage"
                     }
