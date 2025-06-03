@@ -514,11 +514,14 @@ pipeline {
 
                     openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
-                            echo "Get route url.."
-                         
-                            def route  = openshift.selector('route','nginx-oc').object().spec.host
-                    	    echo "${route}"  
-                           
+                            println "delete all models"
+                            println cmdExeCode("oc delete all -l name=dcnginx")
+
+                            println "create all models"
+                            println cmdExeCode("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
+                            println "expose all models"
+                            println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
+                                                
                         }
                     }        
                 }
@@ -536,7 +539,7 @@ pipeline {
                             def route  = openshift.selector('route','nginx-oc').object().spec.host
                     	    echo "${route}"  //nginx-oc-fredzhang987-dev.apps.rm3.7wse.p1.openshiftapps.com
                             res="welcome to nginx"
-                            def result= "curl http://$myroute ".execute().text
+                            def result= "curl http://${route} ".execute().text
                             
                             if ( result.contains(res)) {  println( "TEST PASS!" )  }
                             else { 
