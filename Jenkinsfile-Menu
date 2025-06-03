@@ -514,13 +514,16 @@ pipeline {
 
                     openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
-                            println "delete all models"
-                            println cmdExeCode("oc delete all -l name=dcnginx")
+                            //println "delete all models"
+                            //println cmdExeCode("oc delete all -l name=dcnginx")
 
                             println "create all models"
-                            println cmdExeCode("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
+                            //println cmdExeCode("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
+                            //openshift.newApp("wavecloud/${myapp}:latest", "--name=${myapp}", "-l", "name=dcnginx")
+
                             println "expose all models"
-                            println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
+                            //println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
+                            playoc.cleanDeploy()
                                                 
                         }
                     }        

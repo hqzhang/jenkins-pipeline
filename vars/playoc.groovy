@@ -89,10 +89,10 @@ def buildPushPara(String image, String password){
 
 def cleanDeploy(){
     println("Enter cleanDeploy()  ")
-    ret= cmdExeCode("oc login --token=${octoken} --server=${urloc}")
+    /*ret= cmdExeCode("oc login --token=${octoken} --server=${urloc}")
     if (ret==null){
         error('oc login ...')
-    }
+    }*/
     println cmdExeCode("oc whoami --show-token")
 
     println "delete all models"
