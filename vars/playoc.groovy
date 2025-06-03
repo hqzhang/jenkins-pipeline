@@ -15,7 +15,7 @@ def myport='8081'
 @groovy.transform.Field
 def urloc="https://api.rm3.7wse.p1.openshiftapps.com:6443"
 @groovy.transform.Field
-def octoken="sha256~3eMDAFKS_L5obYTYBuAETLmJIYPvK5KDlnkeZWLR9z8"
+def octoken="sha256~h-G6Ac8T6BDVGjNBCM24uFOq9flliwyjSSjit-E8giU"
 //oc login --token=sha256~6h3Q44JiT6FgcYErk_rKSNBvSeoqMlawIjzPDuMSVYg --server=https://api.rm3.7wse.p1.openshiftapps.com:6443
 
 
@@ -89,10 +89,10 @@ def buildPushPara(String image, String password){
 
 def cleanDeploy(){
     println("Enter cleanDeploy()  ")
-    /*ret= cmdExeCode("oc login --token=${octoken} --server=${urloc}")
+    ret= cmdExeCode("oc login --token=${octoken} --server=${urloc}")
     if (ret==null){
         error('oc login ...')
-    }*/
+    }
     println cmdExeCode("oc whoami --show-token")
 
     println "delete all models"
