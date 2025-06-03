@@ -508,9 +508,9 @@ pipeline {
             steps {
                 script {
                     echo "Deploy on Openshift"
-                    url='https://api.rm3.7wse.p1.openshiftapps.com:6443'
+                    /*url='https://api.rm3.7wse.p1.openshiftapps.com:6443'
                     token='sha256~6h3Q44JiT6FgcYErk_rKSNBvSeoqMlawIjzPDuMSVYg'
-                    proj='fredzhang987-dev'
+                    proj='fredzhang987-dev'*/
 
                     openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
@@ -528,20 +528,23 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
-                    playoc.appVerify()
+                    //playoc.appVerify()
 
-                    println "===================end verification======"
-                    def token="/usr/local/bin/oc whoami --show-token".execute().text
-                    def url='https://api.sandbox-m4.g2pi.p1.openshiftapps.com:6443'
-                    def proj='hqzha-dev'
-                    /*openshift.withCluster(url, token){
+                    openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
                             echo "Get route url.."
                             def route  = openshift.selector('route','nginx-oc').object().spec.host
-                    	    echo "${route}"  
-                           
+                    	    echo "${route}"  //nginx-oc-fredzhang987-dev.apps.rm3.7wse.p1.openshiftapps.com
+                            res="welcome to nginx"
+                            def result= "curl http://$myroute ".execute().text
+                            
+                            if ( result.contains(res)) {  println( "TEST PASS!" )  }
+                            else { 
+                                println( "TEST ERROR!") 
+                                error("Verification failure!!!") 
+                            }  
                         }
-                    }*/                          
+                    }                   
                 }
             }
         }
