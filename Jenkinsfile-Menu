@@ -530,6 +530,28 @@ pipeline {
                 }
             }
         }
+        stage('Stage: Export Template File'){
+            steps {
+                script { 
+                    echo "Stage: Export Template File..."
+                     openshift.withCluster('redhatconsole'){
+                        openshift.withProject(proj){  
+                            echo "export Template"
+    			            // Model the source objects using the 'exportable' flag to strip cluster
+    			            // specific information from the objects (i.e. like 'oc export').
+                            echo "Get resources and make object exportable.."
+    			            def maps = openshift.selector( 'dc,is,svc,route' ).objects( exportable:true )
+                            sh "rm -rf template.yaml"
+                            echo "Write object into Yaml file"
+                            writeYaml(file: 'template.yaml', data: maps)
+                            echo "output yaml file"
+                            sh "cat template.yaml"
+                            //sh "oc export dc,is,svc,route --as-template=mytemplate"
+                        }
+                    }
+                }
+            }
+        }
         stage('Stage: Verification Test'){
             steps {
                 script {
