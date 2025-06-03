@@ -536,8 +536,9 @@ pipeline {
                     echo "Stage: Export Template File..."
                      openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
-                            def maps = openshift.selector( 'deployment', 'nginx-oc' ).objects( exportable:true )
-                            println maps
+                            def maps = openshift.selector( 'deployment', 'nginx-oc' )
+                            def objs = maps.objects( exportable:true )
+                            println objs
                             //println cmdExeCode("oc delete all -l name=dcnginx")
 
                             println "create all models"
