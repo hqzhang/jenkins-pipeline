@@ -523,7 +523,9 @@ pipeline {
 
                             println "expose all models"
                             //println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
-                            playoc.cleanDeploy()
+                            withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'MYTOKEN')]) {
+                                playoc.cleanDeploy()
+                            }
                                                 
                         }
                     }        
