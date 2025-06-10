@@ -485,8 +485,8 @@ pipeline {
                     println "Play terraform"
                     withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
                         //sh 'oc login --token=$OS_TOKEN --server=https://your-openshift-api'
-
-                    echo "${OS_TOKEN}"
+                        playoc.cleanDeploy()
+                   
                 }
                     //vbox.createVM()
                     //error('drop on purpose')
