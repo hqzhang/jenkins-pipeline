@@ -389,6 +389,10 @@ pipeline {
         url='https://api.rm3.7wse.p1.openshiftapps.com:6443'
         token='sha256~6h3Q44JiT6FgcYErk_rKSNBvSeoqMlawIjzPDuMSVYg'
         proj='fredzhang987-dev'
+        environment {
+        MY_SECRET = credentials('openshiftclustertokenid') // Credential ID
+    }
+
     }
     stages {
         
@@ -481,6 +485,7 @@ pipeline {
                 script {
                     echo "Stage: Create Infrastructure"
                     println "Play terraform"
+                    echo "${env.MY_SECRET}"
                     //vbox.createVM()
                     //error('drop on purpose')
                 }
