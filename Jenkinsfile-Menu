@@ -485,7 +485,7 @@ pipeline {
                     println "Play terraform"
                     withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
                         //sh 'oc login --token=$OS_TOKEN --server=https://your-openshift-api'
-                        playoc.cleanDeploy()
+                        //playoc.cleanDeploy()
                    
                 }
                     //vbox.createVM()
@@ -530,8 +530,7 @@ pipeline {
 
                             println "expose all models"
                             //println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
-                            
-                                playoc.cleanDeploy()
+                            withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) { playoc.cleanDeploy()}
                             
                                                 
                         }
