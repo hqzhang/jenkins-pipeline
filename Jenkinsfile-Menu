@@ -545,7 +545,7 @@ pipeline {
                      openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
                             def maps = openshift.selector( 'deployment', 'nginx-oc' )
-                            def objs = maps.objects( exportable:true )
+                            //def objs = maps.objects( exportable:true )
                             println objs
                             //println cmdExeCode("oc delete all -l name=dcnginx")
 
