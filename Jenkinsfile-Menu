@@ -483,7 +483,7 @@ pipeline {
                 script {
                     echo "Stage: Create Infrastructure"
                     println "Play terraform"
-                    withCredentials([string(credentialsId: 'openshift-token', variable: 'OS_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
                         //sh 'oc login --token=$OS_TOKEN --server=https://your-openshift-api'
 
                     echo "${OS_TOKEN}"
