@@ -89,7 +89,7 @@ def buildPushPara(String image, String password){
 
 def cleanDeploy(){
     println("Enter cleanDeploy()  ")
-    ret= cmdExeCode("oc login --token=${MYOS_TOKEN} --server=${urloc}")
+    ret= cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
     if (ret==null){
         error('oc login ...')
     }
