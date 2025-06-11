@@ -546,7 +546,7 @@ pipeline {
                         openshift.withProject(proj){  
                             def maps = openshift.selector( 'deployment', 'nginx-oc' )
                             //def objs = maps.objects( exportable:true )
-                            println objs
+                            println maps
                             //println cmdExeCode("oc delete all -l name=dcnginx")
 
                             println "create all models"
