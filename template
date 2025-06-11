@@ -1,0 +1,142 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"nginx-oc:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"nginx-oc\")].image"}]'
+      openshift.io/generated-by: OpenShiftNewApp
+    labels:
+      app: nginx-oc
+      app.kubernetes.io/component: nginx-oc
+      app.kubernetes.io/instance: nginx-oc
+      name: dcnginx
+    name: nginx-oc
+    namespace: fredzhang987-dev
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        deployment: nginx-oc
+        name: dcnginx
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deployment: nginx-oc
+          name: dcnginx
+      spec:
+        containers:
+        - image: wavecloud/nginx-oc@sha256:e61f194b973f2260d5a4c62765c001b6db64a6b09642ea15259306926e8a1fa3
+          imagePullPolicy: IfNotPresent
+          name: nginx-oc
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          - containerPort: 8081
+            protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        terminationGracePeriodSeconds: 30
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: model-serving-proxy-tls
+      service.alpha.openshift.io/serving-cert-signed-by: openshift-service-serving-signer@1733253833
+      service.beta.openshift.io/serving-cert-signed-by: openshift-service-serving-signer@1733253833
+    labels:
+      app.kubernetes.io/instance: modelmesh-controller
+      app.kubernetes.io/managed-by: modelmesh-controller
+      app.kubernetes.io/name: modelmesh-controller
+      modelmesh-service: modelmesh-serving
+    name: modelmesh-serving
+    namespace: fredzhang987-dev
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 8033
+      targetPort: grpc
+    - name: http
+      port: 8008
+      targetPort: http
+    - name: https
+      port: 8443
+      targetPort: https
+    - name: prometheus
+      port: 2112
+      targetPort: prometheus
+    selector:
+      modelmesh-service: modelmesh-serving
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    labels:
+      app: nginx-oc
+      app.kubernetes.io/component: nginx-oc
+      app.kubernetes.io/instance: nginx-oc
+      name: dcnginx
+    name: nginx-oc
+    namespace: fredzhang987-dev
+  spec:
+    clusterIP: 172.30.24.75
+    clusterIPs:
+    - 172.30.24.75
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: 80-tcp
+      port: 80
+    - name: 8081-tcp
+      port: 8081
+    selector:
+      deployment: nginx-oc
+      name: dcnginx
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    labels:
+      app: nginx-oc
+      app.kubernetes.io/component: nginx-oc
+      app.kubernetes.io/instance: nginx-oc
+      name: dcnginx
+    name: nginx-oc
+    namespace: fredzhang987-dev
+  spec:
+    host: nginx-oc-fredzhang987-dev.apps.rm3.7wse.p1.openshiftapps.com
+    port:
+      targetPort: 8081
+    to:
+      kind: Service
+      name: nginx-oc
+      weight: 100
+    wildcardPolicy: None
+kind: List
+metadata:
+  resourceVersion: ""
