@@ -55,43 +55,6 @@ items:
   kind: Service
   metadata:
     annotations:
-      service.alpha.openshift.io/serving-cert-secret-name: model-serving-proxy-tls
-      service.alpha.openshift.io/serving-cert-signed-by: openshift-service-serving-signer@1733253833
-      service.beta.openshift.io/serving-cert-signed-by: openshift-service-serving-signer@1733253833
-    labels:
-      app.kubernetes.io/instance: modelmesh-controller
-      app.kubernetes.io/managed-by: modelmesh-controller
-      app.kubernetes.io/name: modelmesh-controller
-      modelmesh-service: modelmesh-serving
-    name: modelmesh-serving
-    namespace: fredzhang987-dev
-  spec:
-    clusterIP: None
-    clusterIPs:
-    - None
-    internalTrafficPolicy: Cluster
-    ipFamilies:
-    - IPv4
-    ipFamilyPolicy: SingleStack
-    ports:
-    - name: grpc
-      port: 8033
-      targetPort: grpc
-    - name: http
-      port: 8008
-      targetPort: http
-    - name: https
-      port: 8443
-      targetPort: https
-    - name: prometheus
-      port: 2112
-      targetPort: prometheus
-    selector:
-      modelmesh-service: modelmesh-serving
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
       openshift.io/generated-by: OpenShiftNewApp
     labels:
       app: nginx-oc
