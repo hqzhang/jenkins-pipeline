@@ -544,11 +544,13 @@ pipeline {
                     echo "Stage: Export Template File..."
                      openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){
-                            playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
-                            def res=playoc.cmdExeCode("oc get deployments,svc,route -l name=dcnginx -o yaml |oc neat")
-                            
-                            writeFile( file: 'template.yaml', text: res, encoding: "UTF-8")
-                            println res               
+                            withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
+                                playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
+                                def res=playoc.cmdExeCode("oc get deployments,svc,route -l name=dcnginx -o yaml |oc neat")
+                                
+                                writeFile( file: 'template.yaml', text: res, encoding: "UTF-8")
+                                println res   
+                            }            
                         }
                     }        
                 }
