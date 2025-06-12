@@ -543,20 +543,11 @@ pipeline {
                 script { 
                     echo "Stage: Export Template File..."
                      openshift.withCluster('redhatconsole'){
-                        openshift.withProject(proj){  
-                            def maps = openshift.selector( 'deployment', 'nginx-oc' )
-                            //def objs = maps.objects( exportable:true )
-                            println maps
-                            //println cmdExeCode("oc delete all -l name=dcnginx")
-
-                            println "create all models"
-                            //println cmdExeCode("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
-                            //openshift.newApp("wavecloud/${myapp}:latest", "--name=${myapp}", "-l", "name=dcnginx")
-
-                            println "expose all models"
-                            //println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
-                            //playoc.cleanDeploy()
-                                                
+                        openshift.withProject(proj){
+                            def cmd='oc get deployments,svc,route -l name=dcnginx -o yaml |oc neat'
+                            def res=result = sh(script: cmd, returnStdout: true)
+                            writeFile( file: 'template.yaml', text: res, encoding: "UTF-8")
+                            println res               
                         }
                     }        
                 }
