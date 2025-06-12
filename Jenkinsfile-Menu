@@ -386,10 +386,8 @@ pipeline {
         sourceFile='examples'
         destFile='output'
         inputFull='examples'
-        url='https://api.rm3.7wse.p1.openshiftapps.com:6443'
-        token='sha256~6h3Q44JiT6FgcYErk_rKSNBvSeoqMlawIjzPDuMSVYg'
+        urloc='https://api.rm3.7wse.p1.openshiftapps.com:6443'
         proj='fredzhang987-dev'
-       
     }
 
     stages {
