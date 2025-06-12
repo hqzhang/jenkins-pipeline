@@ -528,7 +528,7 @@ pipeline {
 
                             println "expose all models"
                             //println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
-                            withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) { playoc.cleanDeploy()}
+                            withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'OS_TOKEN')]) { playoc.cleanDeploy()}
                             
                                                 
                         }
@@ -542,7 +542,7 @@ pipeline {
                     echo "Stage: Export Template File..."
                      openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){
-                            withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
+                            withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'OS_TOKEN')]) {
                                 playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
                                 def res=playoc.cmdExeCode("oc get deployments,svc,route -l name=dcnginx -o yaml ")
                                 
