@@ -422,12 +422,11 @@ pipeline {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
                     withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
-                        //sh 'oc login --token=$OS_TOKEN --server=https://your-openshift-api'
-                        //playoc.cleanDeploy()
+                    vbox.createVM()
+                    error('drop on purpose')
                    
                 }
-                    //vbox.createVM()
-                    //error('drop on purpose')
+                    
                 }
             }
         }
@@ -438,16 +437,22 @@ pipeline {
                     echo "Stage: Config by Ansible"
                     println "Play Ansible"
                     withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
-                        //sh 'oc login --token=$OS_TOKEN --server=https://your-openshift-api'
-                        //playoc.cleanDeploy()
+                       println "Play ansible"
+                    menu.createHosts(fileName, target)
+                    menu.createValues(fileName)
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'generate-solution.yml')
+
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')
                    
                 }
-                    //vbox.createVM()
-                    //error('drop on purpose')
+                    
                 }
             }
         }
         stage('Stage: Build Docker Image'){
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Build Image"
@@ -465,6 +470,7 @@ pipeline {
             }
         }
         stage('Stage: Deploy on Openshift'){
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     echo "Deploy on Openshift"
@@ -492,6 +498,7 @@ pipeline {
             }
         }
         stage('Stage: Export Template File'){
+            when { expression { return !params.InfraStructure } }
             steps {
                 script { 
                     echo "Stage: Export Template File..."
@@ -510,6 +517,7 @@ pipeline {
             }
         }
         stage('Stage: Verification Test'){
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Verification Test"
