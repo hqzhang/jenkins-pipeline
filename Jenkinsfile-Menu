@@ -245,6 +245,8 @@ properties([
         disableConcurrentBuilds(),
         //pipelineTriggers([bitbucketPush()]),
         parameters([
+            booleanParam( name: 'InfraStructure',  defaultValue: true),
+
             [$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                 name: 'Environment', randomName: 'choice-parameter-974670813475178',
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
