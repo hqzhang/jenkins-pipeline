@@ -331,7 +331,7 @@ pipeline {
 
     stages {
         
-        stage('Create List') {
+        /*stage('Create List') {
             when { expression { return params.InfraStructure } }
             steps {
                 script {
@@ -414,12 +414,12 @@ pipeline {
                 }
 
             }
-        }
-        stage('Stage: Create Infrastructure'){
+        }*/
+        stage('Stage: VM Terraform'){
             when { expression { return params.InfraStructure } }
             steps {
                 script {
-                    echo "Stage: Create Infrastructure"
+                    echo "Stage: Create VM by Terraform"
                     println "Play terraform"
                     withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
                         //sh 'oc login --token=$OS_TOKEN --server=https://your-openshift-api'
@@ -431,7 +431,22 @@ pipeline {
                 }
             }
         }
-        
+        stage('Stage: Configure Ansible'){
+            when { expression { return params.InfraStructure } }
+            steps {
+                script {
+                    echo "Stage: Config by Ansible"
+                    println "Play Ansible"
+                    withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
+                        //sh 'oc login --token=$OS_TOKEN --server=https://your-openshift-api'
+                        //playoc.cleanDeploy()
+                   
+                }
+                    //vbox.createVM()
+                    //error('drop on purpose')
+                }
+            }
+        }
         /*stage('Stage: Build Docker Image'){
             steps {
                 script {
