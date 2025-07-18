@@ -332,7 +332,7 @@ pipeline {
     stages {
         
         stage('Create List') {
-            when { InfraStructure true }
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
                     println "STAGE: create List..."
@@ -416,7 +416,7 @@ pipeline {
             }
         }
         stage('Stage: Create Infrastructure'){
-            when { InfraStructure true }
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Create Infrastructure"
