@@ -447,7 +447,7 @@ pipeline {
                 }
             }
         }
-        /*stage('Stage: Build Docker Image'){
+        stage('Stage: Build Docker Image'){
             steps {
                 script {
                     echo "Stage: Build Image"
@@ -463,8 +463,8 @@ pipeline {
                     }
                 }
             }
-        }*/
-         stage('Stage: Deploy on Openshift'){
+        }
+        stage('Stage: Deploy on Openshift'){
             steps {
                 script {
                     echo "Deploy on Openshift"
