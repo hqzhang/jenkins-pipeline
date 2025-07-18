@@ -331,8 +331,8 @@ pipeline {
 
     stages {
         
-        /* stage('Create List') {
-            when { expression { return !env.Configuration.contains('INIT') } }
+        stage('Create List') {
+            when { InfraStructure true }
             steps {
                 script {
                     println "STAGE: create List..."
@@ -414,8 +414,9 @@ pipeline {
                 }
 
             }
-        }*/
+        }
         stage('Stage: Create Infrastructure'){
+            when { InfraStructure true }
             steps {
                 script {
                     echo "Stage: Create Infrastructure"
