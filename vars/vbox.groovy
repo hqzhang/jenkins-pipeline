@@ -39,7 +39,7 @@ def commandInMenu(String cmd){
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     return out
 }
-
+@NonCPS
 def createVM(){
     println "enter createVM()"
     cmd="VBoxManage list vms"
@@ -68,7 +68,7 @@ def createVM(){
 
     println "get IP address"
     cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
-    myIP=commandExecute( cmd).strip()
+    myIP=commandExecute(cmd).strip()
     println "myIP=$myIP"
 
     cmd="ping $myIP -c 4 "
