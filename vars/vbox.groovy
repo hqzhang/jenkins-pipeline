@@ -41,30 +41,31 @@ def commandInMenu(String cmd){
 }
 @NonCPS
 def createVM(){
-    println "enter createVM()"
+    println "enter createVM()1111"
     cmd="VBoxManage list vms"
     println commandExecute( cmd)
     cmd="ping 192.168.2.68 -c 4"
     println commandExecute( cmd)
     cmd="VBoxManage controlvm 'node-01' poweroff"
-     println commandExecute( cmd)
+    println commandExecute( cmd)
     cmd="VBoxManage unregistervm 'node-01' --delete"
-     println commandExecute( cmd)
-    
+    println commandExecute( cmd)
+
+    println "enter createVM()2222"
     //cmd="wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
     // println commandExecute( cmd)
    
     cmd="VBoxManage list vms"
-     println commandExecute( cmd)
+    println commandExecute( cmd)
     cmd="terraform init  -no-color "
-     println commandExecute( cmd)
+    println commandExecute( cmd)
     cmd="terraform plan  -no-color "
-     println commandExecute( cmd)
+    println commandExecute( cmd)
     cmd="terraform apply -auto-approve -no-color "
-     println commandExecute( cmd)
+    println commandExecute( cmd)
     cmd="VBoxManage list vms"
-     println commandExecute( cmd)
-   
+    println commandExecute( cmd)
+    println "enter createVM()3333"
 
     println "get IP address"
     cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"

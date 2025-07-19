@@ -423,7 +423,7 @@ pipeline {
                     println "Play terraform"
                     withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
                     vbox.createVM()
-                    error('drop on purpose')
+                    //error('drop on purpose')
                    
                 }
                     
