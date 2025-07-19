@@ -39,13 +39,13 @@ def commandInMenu(String cmd){
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     return out
 }
-@NonCPS
+
 def createVM(){
     println "enter createVM()1111"
     cmd="VBoxManage list vms"
-    println commandExecute( cmd)
-    cmd="ping 192.168.2.68 -c 4"
-    println commandExecute( cmd)
+    得分 commandExecute( cmd)
+    //cmd="ping 192.168.2.68 -c 4"
+    //println commandExecute( cmd)
     cmd="VBoxManage controlvm 'node-01' poweroff"
     println commandExecute( cmd)
     cmd="VBoxManage unregistervm 'node-01' --delete"
