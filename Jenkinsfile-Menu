@@ -421,11 +421,11 @@ pipeline {
                 script {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
-                    withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
+                    
                     vbox.createVM()
                     //error('drop on purpose')
                    
-                }
+                
                     
                 }
             }
@@ -436,8 +436,7 @@ pipeline {
                 script {
                     echo "Stage: Config by Ansible"
                     println "Play Ansible"
-                    withCredentials([string(credentialsId: 'myocid', variable: 'OS_TOKEN')]) {
-                       println "Play ansible"
+                    
                     menu.createHosts(fileName, target)
                     menu.createValues(fileName)
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
@@ -445,8 +444,6 @@ pipeline {
 
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')
-                   
-                }
                     
                 }
             }
