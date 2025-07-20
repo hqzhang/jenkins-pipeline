@@ -42,10 +42,9 @@ def commandInMenu(String cmd){
 
 def createVM(){
     println "enter createVM()1111"
-    cmd="VBoxManage list vms"
-    得分 commandExecute( cmd)
-    //cmd="ping 192.168.2.68 -c 4"
-    //println commandExecute( cmd)
+    cmd = "VBoxManage list vms"
+    def res= commandExecute( cmd)
+    println res
     cmd="VBoxManage controlvm 'node-01' poweroff"
     println commandExecute( cmd)
     cmd="VBoxManage unregistervm 'node-01' --delete"
