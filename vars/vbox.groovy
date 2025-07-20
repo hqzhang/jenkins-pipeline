@@ -44,18 +44,17 @@ def createVM(){
     println "enter createVM()1111"
     cmd = "VBoxManage list vms"
     def res= commandExecute( cmd)
-    println res
-    cmd="VBoxManage controlvm 'node-01' poweroff"
-    println commandExecute( cmd)
-    cmd="VBoxManage unregistervm 'node-01' --delete"
-    println commandExecute( cmd)
-
-    println "enter createVM()2222"
+    if (res.contains('node-01')){
+        cmd="VBoxManage controlvm 'node-01' poweroff"
+        println commandExecute( cmd)
+        cmd="VBoxManage unregistervm 'node-01' --delete"
+        println commandExecute( cmd)
+    }
+    
+    println "enter createVM() by Terraform 2222"
     //cmd="wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
     // println commandExecute( cmd)
-   
-    cmd="VBoxManage list vms"
-    println commandExecute( cmd)
+    
     cmd="terraform init  -no-color "
     println commandExecute( cmd)
     cmd="terraform plan  -no-color "
@@ -71,8 +70,5 @@ def createVM(){
     myIP=commandExecute(cmd).strip()
     println "myIP=$myIP"
 
-    cmd="ping $myIP -c 4 "
-    println commandExecute( cmd)
-    println "end IP address"
 }
                 
