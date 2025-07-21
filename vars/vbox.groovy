@@ -64,12 +64,12 @@ def createVM(){
     cmd="VBoxManage list vms"
     println commandExecute( cmd)
     println "enter createVM()3333"
-
+    sleep(5000)
     println "get IP address"
     cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
-    myIP=commandExecute(cmd).trim()
+    def myIP=commandExecute(cmd).trim()
     println "myIP=$myIP"
-
+    return myIP
 }
 
 def createConfig(String fileName){

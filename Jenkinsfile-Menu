@@ -423,11 +423,11 @@ pipeline {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
                     ipaddr=vbox.createVM()
-                    sh """
+                    /*sh """
                         ssh-copy-id -i ~/.ssh/id_rsa.pub vagrant@${ipaddr}
                     """
                     vbox.createConfig("ansible.cfg")
-                    vbox.createHosts("hosts", "vagrant", ipaddr)
+                    vbox.createHosts("hosts", "vagrant", ipaddr)*/
 
                 }
             }
