@@ -436,13 +436,12 @@ pipeline {
                 script {
                     echo "Stage: Config by Ansible"
                     println "Play Ansible"
-                    
-                    menu.createHosts(fileName, target)
-                    menu.createValues(fileName)
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'generate-solution.yml')
+                    //menu.createHosts(fileName, target)
+                    //menu.createValues(fileName)
+                    //ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
+                    //ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'generate-solution.yml')
 
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
+                    //ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
                     ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')
                     
                 }

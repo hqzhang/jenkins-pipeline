@@ -761,6 +761,9 @@ def createHosts(String fileName, List target){
 
     def repeatArtifact ="""
     [all:vars] \n  \
+    [master]
+192.168.1.10 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
     ansible_user: tgrpanvl\n\
     \n\
     [remoteserver]

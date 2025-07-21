@@ -26,7 +26,10 @@ resource "virtualbox_vm" "node" {
     type           = "bridged"        # First adapter: Bridged networking
     host_interface = "en0: Wi-Fi (AirPort)" # Specify the host adapter
   }
-
+  admin_ssh_key {
+    username   = "azureuser"
+    public_key = file("~/.ssh/id_rsa.pub")
+  }
   #network_adapter {
   #  type           = "nat"  #nat, bridged, hostonly, internal, generic
     #host_interface = "en0" #'en0', 'eth1', 'wlan', etc

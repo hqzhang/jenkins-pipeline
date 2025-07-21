@@ -1,5 +1,2 @@
-[all:vars]
-ansible_user=tgrpanvl
-
-[remoteserver]
-bagrpapv06
+[all]
+server1 ansible_host=192.168.2.83 ansible_user=vagrant ansible_password=vagrant
