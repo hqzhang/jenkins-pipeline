@@ -1,3 +1,0 @@
-[webservers]
-192.168.2.84 ansible_user=vagrant
-
