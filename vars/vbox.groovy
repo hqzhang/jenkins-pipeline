@@ -78,7 +78,8 @@ def createConfig(String fileName){
     [defaults] \n
     inventory = ./hosts \n
     """
-    writeFile: fileName, text: data
+    writeFile file: fileName, text: data
+    writeFile file: "test.txt", text: fileContents, encoding: "UTF-8"
 }
 def createHosts(String fileName, String user, String ipaddr){
 
@@ -86,8 +87,8 @@ def createHosts(String fileName, String user, String ipaddr){
     [webservers] \n
     ${ipaddr} ansible_user=${user} \n
     """
-    writeFile: fileName, text: data
-
+    writeFile file: fileName, text: data
+    writeFile file: "test.txt", text: fileContents, encoding: "UTF-8"
 }
 
 
