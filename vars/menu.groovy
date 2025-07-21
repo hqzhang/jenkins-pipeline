@@ -754,27 +754,21 @@ def setInstallPath(components){
         }
     }
 }
+def createConfig(String fileName, List target){
 
-
-
-def createHosts(String fileName, List target){
-
-    def repeatArtifact ="""
-    [all:vars] \n  \
-    [master]
-192.168.1.10 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
-
-    ansible_user: tgrpanvl\n\
-    \n\
-    [remoteserver]
+    def data =""" 
+    [defaults]\n
+    inventory = ./hosts \n
     """
-    target.each { artifactName ->
-        tmp=artifactName.split('@')[1]
-        echo "tmp=$tmp"
-        repeatArtifact+="""$tmp\n\
+    writeFe file: fileName, text: data
+}
+def createHosts(String fileName, String user, String ipaddr){
+
+    def data ="""
+    [webservers] \n
+    ${ipaddr} ansible_user=${user} \n
     """
-    }
-     writeFe file: fileName, text: data
+    writeFe file: fileName, text: data
 }
 
 def createValues(String fileName){

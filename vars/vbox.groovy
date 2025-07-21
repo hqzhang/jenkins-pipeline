@@ -71,4 +71,24 @@ def createVM(){
     println "myIP=$myIP"
 
 }
+
+def createConfig(String fileName){
+
+    def data =""" 
+    [defaults] \n
+    inventory = ./hosts \n
+    """
+    writeFile: fileName, text: data
+}
+def createHosts(String fileName, String user, String ipaddr){
+
+    def data ="""
+    [webservers] \n
+    ${ipaddr} ansible_user=${user} \n
+    """
+    writeFile: fileName, text: data
+
+}
+
+
                 

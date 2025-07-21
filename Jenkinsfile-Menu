@@ -327,6 +327,7 @@ pipeline {
         inputFull='examples'
         urloc='https://api.rm3.7wse.p1.openshiftapps.com:6443'
         proj='fredzhang987-dev'
+        ipaddr=''
     }
 
     stages {
@@ -421,12 +422,13 @@ pipeline {
                 script {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
-                    
-                    vbox.createVM()
-                    //error('drop on purpose')
-                   
-                
-                    
+                    ipaddr=vbox.createVM()
+                    sh """
+                        ssh-copy-id -i ~/.ssh/id_rsa.pub vagrant@${ipaddr}
+                    """
+                    vbox.createConfig("ansible.cfg")
+                    vbox.createHosts("hosts", "vagrant", ipaddr)
+
                 }
             }
         }
@@ -436,13 +438,10 @@ pipeline {
                 script {
                     echo "Stage: Config by Ansible"
                     println "Play Ansible"
-                    //menu.createHosts(fileName, target)
+                   
                     //menu.createValues(fileName)
-                    //ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'snapshot-downoad.yml')
-                    //ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'generate-solution.yml')
-
-                    //ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'deploy-config.yml')
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'host', playbook: 'verify-component.yml')
+                   
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'hosts', playbook: 'verify-component.yml')
                     
                 }
             }
