@@ -59,7 +59,7 @@ def createVM(){
     println commandExecute( cmd)
     cmd="terraform plan  -no-color "
     println commandExecute( cmd)
-    cmd="terraform apply -auto-approve -no-color "
+    cmd="TF_LOG=DEBUG terraform apply -auto-approve -no-color "
     println commandExecute( cmd)
     sleep(10)
 
