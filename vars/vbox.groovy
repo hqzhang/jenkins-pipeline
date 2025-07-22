@@ -61,10 +61,13 @@ def createVM(){
     println commandExecute( cmd)
     cmd="terraform apply -auto-approve -no-color "
     println commandExecute( cmd)
+    sleep(10)
+
     cmd="VBoxManage list vms"
     println commandExecute( cmd)
     println "enter createVM()3333"
-    sleep(5000)
+    sleep(10)
+
     println "get IP address"
     cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
     def myIP=commandExecute(cmd).trim()
@@ -73,7 +76,7 @@ def createVM(){
 }
 
 def createConfig(String fileName){
-
+    println "enter createConfig()1111"
     def data =""" 
     [defaults] \n
     inventory = ./hosts \n
@@ -82,7 +85,7 @@ def createConfig(String fileName){
     writeFile file: "test.txt", text: fileContents, encoding: "UTF-8"
 }
 def createHosts(String fileName, String user, String ipaddr){
-
+    println "enter createHosts()1111"
     def data ="""
     [webservers] \n
     ${ipaddr} ansible_user=${user} \n

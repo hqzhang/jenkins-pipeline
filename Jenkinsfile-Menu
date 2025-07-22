@@ -423,11 +423,11 @@ pipeline {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
                     ipaddr=vbox.createVM()
-                    /*sh """
+                    sh """
                         ssh-copy-id -i ~/.ssh/id_rsa.pub vagrant@${ipaddr}
                     """
-                    vbox.createConfig("ansible.cfg")
-                    vbox.createHosts("hosts", "vagrant", ipaddr)*/
+                    vbox.createConfig("ansible/ansible.cfg")
+                    vbox.createHosts("ansible/hosts", "vagrant", ipaddr)
 
                 }
             }
@@ -438,10 +438,8 @@ pipeline {
                 script {
                     echo "Stage: Config by Ansible"
                     println "Play Ansible"
-                   
-                    //menu.createValues(fileName)
-                   
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'hosts', playbook: 'verify-component.yml')
+                    //menu.createValues(fileName
+                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'hosts', playbook: 'ansible/test.yml')
                     
                 }
             }
