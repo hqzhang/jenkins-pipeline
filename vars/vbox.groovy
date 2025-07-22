@@ -82,7 +82,6 @@ def createConfig(String fileName){
     inventory = ./hosts \n
     """
     writeFile file: fileName, text: data
-    writeFile file: "test.txt", text: fileContents, encoding: "UTF-8"
 }
 def createHosts(String fileName, String user, String ipaddr){
     println "enter createHosts()1111"
