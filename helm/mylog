@@ -1,0 +1,9 @@
+NAME: mytst
+LAST DEPLOYED: Mon Sep  1 11:54:18 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the application URL by running these commands:
+  http://hello-world.local/

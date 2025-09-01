@@ -1,0 +1,56 @@
+2025-07-20 21:39:14,264 p=10547 u=hongqizhang n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: ping
+
+2025-07-20 21:39:14,264 p=10547 u=hongqizhang n=ansible | [WARNING]: No hosts matched, nothing to do
+
+2025-07-20 21:39:14,268 p=10547 u=hongqizhang n=ansible | ERROR! No argument passed to command module
+2025-07-20 23:01:26,835 p=28152 u=hongqizhang n=ansible | 192.168.2.38 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.2.38 port 22: Operation timed out",
+    "unreachable": true
+}
+2025-07-20 23:04:34,572 p=28877 u=hongqizhang n=ansible | 192.168.2.38 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.2.38 port 22: Operation timed out",
+    "unreachable": true
+}
+2025-07-20 23:08:39,002 p=29821 u=hongqizhang n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: remoteserver
+
+2025-07-20 23:08:39,003 p=29821 u=hongqizhang n=ansible | [WARNING]: No hosts matched, nothing to do
+
+2025-07-20 23:11:42,243 p=30520 u=hongqizhang n=ansible | 192.168.2.83 | FAILED! => {
+    "msg": "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host."
+}
+2025-07-20 23:14:03,178 p=31067 u=hongqizhang n=ansible | 192.168.2.83 | FAILED! => {
+    "msg": "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host."
+}
+2025-07-20 23:18:15,879 p=32050 u=hongqizhang n=ansible | 192.168.2.83 | FAILED! => {
+    "msg": "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host."
+}
+2025-07-20 23:20:15,834 p=32526 u=hongqizhang n=ansible | server1 | FAILED! => {
+    "msg": "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host."
+}
+2025-07-21 15:02:14,908 p=11349 u=hongqizhang n=ansible | 192.168.2.38 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.2.38 port 22: Operation timed out",
+    "unreachable": true
+}
+2025-07-21 15:04:50,257 p=14145 u=hongqizhang n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: list
+
+2025-07-21 15:04:50,257 p=14145 u=hongqizhang n=ansible | [WARNING]: No hosts matched, nothing to do
+
+2025-07-21 15:04:50,261 p=14145 u=hongqizhang n=ansible | ERROR! No argument passed to command module
+2025-07-21 15:09:15,819 p=18577 u=hongqizhang n=ansible | [WARNING]: Unable to parse /Users/hongqizhang/workspace/jenkins-pipeline/ansible/my/ansible/inventory.yml as an inventory
+source
+
+2025-07-21 15:09:15,820 p=18577 u=hongqizhang n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2025-07-21 15:09:15,827 p=18577 u=hongqizhang n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2025-07-21 15:09:15,828 p=18577 u=hongqizhang n=ansible |   hosts (0):
+2025-07-21 15:09:32,707 p=18836 u=hongqizhang n=ansible |   hosts (1):
+2025-07-21 15:09:32,707 p=18836 u=hongqizhang n=ansible |     192.168.2.84
+2025-07-21 15:11:35,622 p=20724 u=hongqizhang n=ansible | 192.168.2.38 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.2.38 port 22: Operation timed out",
+    "unreachable": true
+}

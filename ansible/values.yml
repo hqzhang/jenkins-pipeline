@@ -1,0 +1,4 @@
+sourceFile: 'mysourceFile'
+destFile: 'myDestFile'
+backupFile: 'mybackupFile'
+sourceFile_full: 'mysourceFileFull'

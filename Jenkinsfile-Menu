@@ -293,9 +293,7 @@ properties([
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: menu.getRollBackScript('Components','Environment','Configuration')]] ], 
 
-            separator(name: "end"), 
-              
-            
+            separator(name: "end"),        
 ])
 ])////
 //mypipeline( params )
