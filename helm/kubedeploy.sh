@@ -25,7 +25,7 @@ echo "helm uninstall application"
 helm uninstall mytest
 
 echo "helm install release appchart" 
-url=`helm install mytest myapp | grep http | xargs`
+url=`helm install mytest myapp --set image.repository=wavecloud/nginx-oc | grep http | xargs`
 echo $url
 
 echo "verify application"
