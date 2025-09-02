@@ -414,6 +414,20 @@ pipeline {
 
             }
         }*/
+        stage('Stage: Helm Deployment'){
+            when { expression { return params.InfraStructure } }
+            steps {
+                script {
+                    echo "Stage: Helm Deployment"
+                    println "Play helm"
+                   
+                    sh """
+                        helm/kubedeploy.sh
+                    """
+                   
+                }
+            }
+        }
         stage('Stage: VM Terraform'){
             when { expression { return params.InfraStructure } }
             steps {

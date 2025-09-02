@@ -18,7 +18,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: hello-world.local
+    - host: www.wavecloud.com
       paths:
         - path: /
           pathType: Prefix
