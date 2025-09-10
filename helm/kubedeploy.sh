@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "set KUBECONFIG ..."
 export KUBECONFG=/Users/hongqizhang/.kube/config
-
+echo "KUBECONFG=${KUBECONFG}"
 echo "check kubectl get node and helm list"
 kubectl get nodes
 
