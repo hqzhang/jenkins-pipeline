@@ -1,5 +1,11 @@
 #!/bin/bash
 
+kubectl config use-context kind-ingress-demo
+
+echo "install kind binary
+"
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.30.0/kind-linux-amd64
+
 if false ; then
 cat > ingress-config.yaml <<EOF
 kind: Cluster
