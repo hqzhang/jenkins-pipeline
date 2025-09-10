@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "set KUBE_CONFIG ..."
-export KUBE_CONFG=/Users/hongqizhang/.kube/config
+export KUBECONFG=/Users/hongqizhang/.kube/config
 
 echo "install kind binary
 "
