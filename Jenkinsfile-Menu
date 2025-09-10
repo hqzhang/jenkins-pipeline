@@ -422,7 +422,9 @@ pipeline {
                     println "Play helm"
                    
                     sh """
-                        cd helm && ./kubedeploy.sh
+                        cd helm; 
+                        pwd;ls
+                        ./kubedeploy.sh
                     """
                    
                 }
