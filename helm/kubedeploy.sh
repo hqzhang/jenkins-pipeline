@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kubectl config use-context kind-ingress-demo
+export KUBE_CONFG=/Users/hongqizhang/.kube/config
 
 echo "install kind binary
 "
