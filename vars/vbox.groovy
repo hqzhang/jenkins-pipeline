@@ -63,7 +63,7 @@ def createVM(){
     println commandExecute( cmd)
     sleep(10)
 
-    cmd="VBoxManage list vms"
+    cmd="VBoxManage list vms | awk -F\" '{print $2}'"
     println commandExecute( cmd)
     println "enter createVM()3333"
     sleep(10)
@@ -90,7 +90,6 @@ def createHosts(String fileName, String user, String ipaddr){
     ${ipaddr} ansible_user=${user} \n
     """
     writeFile file: fileName, text: data
-    writeFile file: "test.txt", text: fileContents, encoding: "UTF-8"
 }
 
 
