@@ -72,7 +72,15 @@ def createVM(){
     cmd="jq -r '.outputs.IPAddr.value' terraform.tfstate"
     def myIP=commandExecute(cmd).trim()
     println "myIP=$myIP"
+    
+    println "start vm mynode01"
+    startVM("mynode01")
     return myIP
+}
+def startVM(String vmName){
+    println "enter startVM()1111"
+    cmd="VBoxManage startvm "${vmName}" --type headless "
+    println commandExecute( cmd)
 }
 
 def createConfig(String fileName){
