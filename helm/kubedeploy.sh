@@ -2,7 +2,7 @@
 set -e
 set -x
 echo "set KUBECONFIG ..."
-export KUBECONFIG=/var/root/.kube/config
+export KUBECONFIG=/Users/hongqizhang/.kube/config
 echo "KUBECONFIG=${KUBECONFIG}"
 whoami
 cat ${KUBECONFIG}
