@@ -2,9 +2,10 @@
 set -e
 set -x
 echo "set KUBECONFIG ..."
-export KUBECONFG=/var/root/.kube/config
-echo "KUBECONFG=${KUBECONFG}"
+export KUBECONFIG=/var/root/.kube/config
+echo "KUBECONFIG=${KUBECONFIG}"
 whoami
+cat ${KUBECONFIG}
 echo "check kubectl get node and helm list"
 kubectl get nodes -v9
 
