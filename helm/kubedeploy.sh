@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 echo "set KUBECONFIG ..."
 export KUBECONFG=/var/root/.kube/config
 echo "KUBECONFG=${KUBECONFG}"
