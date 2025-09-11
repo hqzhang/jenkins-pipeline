@@ -47,8 +47,8 @@ url=`helm install mytest myapp --set image.repository=wavecloud/nginx-oc | grep 
 echo $url
 
 echo "verify application"
-echo "sleep 10 sec"
-sleep 10
+echo "sleep 20 sec"
+sleep 20
 result="Hongqi, welcome to nginx!"
 echo $result
 echo "curl application"
