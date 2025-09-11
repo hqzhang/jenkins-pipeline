@@ -48,7 +48,7 @@ echo $url
 
 echo "verify application"
 echo "sleep 10 sec"
-sleep 20
+sleep 10
 result="Hongqi, welcome to nginx!"
 echo $result
 echo "curl application"

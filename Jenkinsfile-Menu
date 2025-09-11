@@ -420,13 +420,10 @@ pipeline {
                 script {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
-                   
                     sh """
-                        
                         pwd;ls
                         ./helm/kubedeploy.sh
                     """
-                   
                 }
             }
         }
