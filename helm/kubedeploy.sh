@@ -6,7 +6,7 @@ export KUBECONFG=/var/root/.kube/config
 echo "KUBECONFG=${KUBECONFG}"
 whoami
 echo "check kubectl get node and helm list"
-kubectl get nodes
+kubectl get nodes -v9
 
 helm list 
 
