@@ -37,7 +37,9 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 fi
 
 echo "helm uninstall application"
-if [ -n "$str" ]; then
+if [ -z "$str" ]; then
+  echo "helm is empty!"
+else
   helm uninstall mytest
 fi
 
@@ -47,7 +49,7 @@ echo $url
 
 echo "verify application"
 echo "sleep 10 sec"
-sleep 10
+sleep 20
 result="Hongqi, welcome to nginx!"
 echo $result
 echo "curl application"
