@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo "set KUBECONFIG ..."
 export KUBECONFG=/var/root/.kube/config
 echo "KUBECONFG=${KUBECONFG}"
@@ -6,7 +7,7 @@ whoami
 echo "check kubectl get node and helm list"
 kubectl get nodes
 
-helm list
+helm list 
 
 echo "install kind binary
 "
