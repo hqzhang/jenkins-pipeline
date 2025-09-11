@@ -37,9 +37,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 fi
 
 echo "helm uninstall application"
-if [ -z "$str" ]; then
-  echo "helm is empty!"
-else
+if [[ -n "$check" ]]; then
+ 
   helm uninstall mytest
 fi
 
