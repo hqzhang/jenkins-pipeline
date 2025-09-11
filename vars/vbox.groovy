@@ -63,7 +63,7 @@ def createVM(){
     println commandExecute( cmd)
     sleep(10)
 
-    cmd="VBoxManage list vms | awk -F\" '{print $2}'"
+    cmd="VBoxManage list vms |awk '{print $1}'"
     println commandExecute( cmd)
     println "enter createVM()3333"
     sleep(10)
