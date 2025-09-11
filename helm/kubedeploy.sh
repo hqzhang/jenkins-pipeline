@@ -9,7 +9,7 @@ cat ${KUBECONFIG}
 echo "check kubectl get node and helm list"
 kubectl get nodes -v9
 
-helm list 
+check=`helm  list --short`
 
 echo "install kind binary
 "
@@ -37,7 +37,9 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 fi
 
 echo "helm uninstall application"
-helm uninstall mytest
+if [ -n "$str" ]; then
+  helm uninstall mytest
+fi
 
 echo "helm install release appchart" 
 url=`helm install mytest myapp --set image.repository=wavecloud/nginx-oc | grep http | xargs`
