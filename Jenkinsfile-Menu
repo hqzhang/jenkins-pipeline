@@ -414,7 +414,7 @@ pipeline {
 
             }
         }*/
-        stage('Stage: Helm Deployment'){
+       /* stage('Stage: Helm Deployment'){
             when { expression { return params.InfraStructure } }
             steps {
                 script {
@@ -426,7 +426,7 @@ pipeline {
                     """
                 }
             }
-        }
+        }*/
         stage('Stage: VM Terraform'){
             when { expression { return params.InfraStructure } }
             steps {
