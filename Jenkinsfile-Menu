@@ -434,12 +434,12 @@ pipeline {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
                     user='vagrant'
-                    ipaddr=vbox.createVM()
+                   
                     sh """
-                        sshpass -p ${user} ssh-copy-id -o StrictHostKeyChecking=no vagrant@${ipaddr}
+                        ./createvm.sh
                     """
                     vbox.createConfig("ansible/ansible.cfg")
-                    vbox.createHosts("ansible/hosts", "vagrant", ipaddr)
+                    vbox.createHosts("ansible/hosts", "vagrant")
 
                 }
             }

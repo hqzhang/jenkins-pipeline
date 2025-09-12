@@ -12,14 +12,13 @@ terraform {
 
 resource "virtualbox_vm" "node" {
   count     = 1
-  name      = format("mynode%02d", count.index + 1)
+  name      = format("node-%02d", count.index + 1)
   image     = "./trusty-server-cloudimg-amd64-vagrant-disk1.box"
   cpus      = 2
   memory    = "512 mib"
-  #user_data = file("${path.module}/user_data")
   user_data = <<-EOT
     #!/bin/bash
-    echo "Hello, World" > hello.txt
+    echo "Hello, World" > /var/tmp/hello.txt
     yum update -y
   EOT
 
@@ -28,7 +27,10 @@ resource "virtualbox_vm" "node" {
     host_interface = "en0: Wi-Fi (AirPort)" # Specify the host adapter
   }
 
-
+  #network_adapter {
+  #  type           = "nat"  #nat, bridged, hostonly, internal, generic
+    #host_interface = "en0" #'en0', 'eth1', 'wlan', etc
+  #}
   
 }
 

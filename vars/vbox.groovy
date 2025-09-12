@@ -79,10 +79,21 @@ def createVM(){
 }
 def startVM(String vmName){
     println "enter startVM()1111"
-    cmd="VBoxManage startvm "${vmName}" --type headless "
+    cmd="VBoxManage startvm " + vmName + " --type headless "
+    println commandExecute( cmd)
+}
+def getState(String vmName){
+    println "enter getState()1111"
+    cmd="VBoxManage showvminfo "mynode1" | grep State "
+    println commandExecute( cmd)
+}
+def getIPAddr(String vmName){
+    println "enter getIPAddr()1111"
+    cmd="VBoxManage guestproperty get " +vmName +" /VirtualBox/GuestInfo/Net/0/V4/IP"
     println commandExecute( cmd)
 }
 
+VBoxManage guestproperty get "VM_NAME" "/VirtualBox/GuestInfo/Net/0/V4/IP"
 def createConfig(String fileName){
     println "enter createConfig()1111"
     def data =""" 
@@ -91,8 +102,12 @@ def createConfig(String fileName){
     """
     writeFile file: fileName, text: data
 }
-def createHosts(String fileName, String user, String ipaddr){
+def createHosts(String fileName, String user){
     println "enter createHosts()1111"
+    ipaddr=''
+    cmd="VBoxManage guestproperty get node-01 /VirtualBox/GuestInfo/Net/0/V4/IP|cut -d' ' -f2"
+    ipaddr=commandExecute( cmd)
+    println "ipaddr=$ipaddr"
     def data ="""
     [webservers] \n
     ${ipaddr} ansible_user=${user} \n
