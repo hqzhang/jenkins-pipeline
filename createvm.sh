@@ -3,6 +3,9 @@ set -e
 set -x
 echo "enter createvm()"
 echo "destroy vm"
+echo "check user"
+whoami
+pwd
 terraform destroy -auto-approve -no-color 
 
 echo "create vm"
