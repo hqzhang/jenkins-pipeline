@@ -8,10 +8,10 @@ whoami
 pwd
 #terraform destroy -auto-approve -no-color
 echo "get vm status"
-state=`VBoxManage list node-01 | grep State| cut -d':' -f2`
-if 
+state=`VBoxManage showvminfo node-01 | grep State| cut -d':' -f2`
+if [[ $state == *running* ]]; then
 VBoxManage controlvm "node-01" poweroff && VBoxManage unregistervm "node-01" --delete 
-
+fi
 echo "create vm"
 terraform init  -no-color 
 terraform plan  -no-color 
@@ -21,7 +21,7 @@ echo "get vm status"
 state=`VBoxManage showvminfo node-01 | grep State| cut -d':' -f2`
 
 echo "get ip address"
-ipaddr=`VBoxManage guestproperty get node-01 /VirtualBox/GuestInfo/Net/0/V4/IP|cut -d'\ ' -f2`
+ipaddr=`VBoxManage guestproperty get node-01 /VirtualBox/GuestInfo/Net/0/V4/IP|cut -d' ' -f2`
 
 echo "start vm if power off"
 if [[ $state == *running* ]]; then
