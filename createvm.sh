@@ -21,7 +21,7 @@ echo "get vm status"
 state=`VBoxManage showvminfo node-01 | grep State| cut -d':' -f2`
 
 echo "get ip address"
-ipaddr=`VBoxManage guestproperty get node-01 /VirtualBox/GuestInfo/Net/0/V4/IP|cut -d' ' -f2`
+ipaddr=`VBoxManage guestproperty get node-01 /VirtualBox/GuestInfo/Net/0/V4/IP|cut -d'\ ' -f2`
 
 echo "start vm if power off"
 if [[ $state == *running* ]]; then
