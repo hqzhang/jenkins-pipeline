@@ -6,7 +6,11 @@ echo "destroy vm"
 echo "check user"
 whoami
 pwd
-terraform destroy -auto-approve -no-color 
+#terraform destroy -auto-approve -no-color
+echo "get vm status"
+state=`VBoxManage list node-01 | grep State| cut -d':' -f2`
+if 
+VBoxManage controlvm "node-01" poweroff && VBoxManage unregistervm "node-01" --delete 
 
 echo "create vm"
 terraform init  -no-color 
