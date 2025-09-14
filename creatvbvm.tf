@@ -13,7 +13,7 @@ terraform {
 resource "virtualbox_vm" "node" {
   count     = 1
   name      = format("node-%02d", count.index + 1)
-  image     = "./trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  image     = "/Users/hongqizhang/workspace/jenkins-pipeline/trusty-server-cloudimg-amd64-vagrant-disk1.box"
   cpus      = 2
   memory    = "512 mib"
   user_data = <<-EOT
