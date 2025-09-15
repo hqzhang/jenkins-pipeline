@@ -20,7 +20,7 @@ fi
 echo "sleep 10 seconds"
 sleep 10
 echo "create vm"
-wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
+#wget https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box
 terraform init  -no-color 
 terraform plan  -no-color 
 terraform apply -auto-approve -no-color 
