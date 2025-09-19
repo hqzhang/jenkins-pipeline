@@ -414,6 +414,17 @@ pipeline {
 
             }
         }*/
+        stage('Stage: Init Repo'){
+            when { expression { return params.InfraStructure } }
+            steps {
+                script {
+                    echo "Stage:  Init Repo"
+                   
+                    println "download solution repo"
+                    Utils.gitCloneGithub(repoName,repoBranch)
+                }
+            }
+        }
         stage('Stage: Helm Deployment'){
             when { expression { return params.InfraStructure } }
             steps {
