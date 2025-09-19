@@ -422,6 +422,11 @@ pipeline {
                    
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
+                    println "save backup file locally====="
+                    menu.saveBackupFile(env.Components, backupFile)
+                   
+                    println "save backup file to repo"
+                    menu.saveSolutionBackup(backupFile)
                 }
             }
         }
