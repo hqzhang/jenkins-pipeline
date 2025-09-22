@@ -438,7 +438,7 @@ pipeline {
                     println "Play helm"
                     sh """
                         pwd;ls
-                        cd helm && ./kubedeploy.sh
+                        cd helm && ./kubedeploy.sh ${backupFile}
                     """
                 }
             }

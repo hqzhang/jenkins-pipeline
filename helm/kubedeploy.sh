@@ -1,6 +1,7 @@
-:#!/bin/bash
+#!/bin/bash
 set -e
 set -x
+backupFile=$1
 echo "set KUBECONFIG ..."
 export KUBECONFIG=/Users/hongqizhang/.kube/config
 echo "KUBECONFIG=${KUBECONFIG}"
@@ -43,7 +44,7 @@ if [[ -n "$check" ]]; then
 fi
 
 echo "helm install release appchart" 
-url=`helm install mytest myapp --set image.repository=wavecloud/nginx-oc | grep http | xargs`
+url=`helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc | grep http | xargs`
 echo $url
 
 echo "verify application"
