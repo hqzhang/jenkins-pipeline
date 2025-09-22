@@ -29,7 +29,7 @@ import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredenti
 def getToken(String id){
   def credential = CredentialsProvider.lookupCredentials(
       StandardUsernamePasswordCredentials.class,
-      Jenkins.instance,null,null).find { it.id == 'githubidtoken' }
+      Jenkins.instance,null,null).find { it.id == 'githubapiidtoken' }
   return  credential.password
 }
 
