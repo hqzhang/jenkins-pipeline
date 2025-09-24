@@ -527,7 +527,7 @@ pipeline {
                         openshift.withProject(proj){
                             withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'OS_TOKEN')]) {
                                 playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
-                                def res=playoc.cmdExeCode("oc get deployments,svc,route -l name=dcnginx -o yaml ")
+                                def res=playoc.cmdExeCode("kubectl get deplo,svc,ing -l name=dcnginx -o yaml ")
                                 
                                 writeFile( file: 'template.yaml', text: res, encoding: "UTF-8")
                                 println res   
@@ -542,12 +542,11 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
-                    //playoc.appVerify()
 
                     openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
                             echo "Get route url.."
-                            def route  = openshift.selector('route','nginx-oc').object().spec.host
+                            def route  = “https://www.wavecloud.com”
                     	    echo "${route}"  //nginx-oc-fredzhang987-dev.apps.rm3.7wse.p1.openshiftapps.com
                             res="welcome to nginx"
                             def result= "curl http://${route} ".execute().text
