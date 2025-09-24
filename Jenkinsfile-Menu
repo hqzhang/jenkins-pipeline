@@ -508,15 +508,15 @@ pipeline {
             }
         }
         stage('Stage: Export Template File'){
-            when { expression { return !params.InfraStructure } }
+            when { expression { return params.InfraStructure } }
             steps {
                 script { 
                     echo "Stage: Export Template File..."
                      openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){
                             withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'OS_TOKEN')]) {
-                                playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
-                                def res=playoc.cmdExeCode("kubectl get deplo,svc,ing -l name=dcnginx -o yaml ")
+                                //playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
+                                def res=playoc.cmdExeCode("kubectl get deploy,svc,ing -l app=myapp -o yaml ")
                                 
                                 writeFile( file: 'template.yaml', text: res, encoding: "UTF-8")
                                 println res   
