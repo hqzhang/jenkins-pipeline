@@ -326,6 +326,7 @@ pipeline {
         urloc='https://api.rm3.7wse.p1.openshiftapps.com:6443'
         proj='fredzhang987-dev'
         ipaddr=''
+        config="/Users/hongqizhang/.kube/config" 
     }
 
     stages {
@@ -433,15 +434,16 @@ pipeline {
             }
         }
         stage('Stage: VM Terraform'){
-            when { expression { return false } }
+            when { expression { return params.InfraStructure} }
             steps {
                 script {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
                     user='vagrant'
                    
-                    sh """
-                        ./createvm.sh
+                    sh """params.InfraStructure
+                       VBoxManage list vms |cut -d' ' -f1
+                       # ./createvm.sh
                     """
                     vbox.createConfig("ansible/ansible.cfg")
                     vbox.createHosts("ansible/hosts", "vagrant")
@@ -484,20 +486,23 @@ pipeline {
             steps {
                 script {
                     echo "Deploy on Openshift"
-                    /*url='https://api.rm3.7wse.p1.openshiftapps.com:6443'
-                    token='sha256~6h3Q44JiT6FgcYErk_rKSNBvSeoqMlawIjzPDuMSVYg'
-                    proj='fredzhang987-dev'*/
-
                     openshift.withCluster('redhatconsole'){
-                        openshift.withProject(proj){  
-                            //println "delete all models"
-                            //println cmdExeCode("oc delete all -l name=dcnginx")
+                        openshift.withProject(proj){ 
+                            def config="/Users/hongqizhang/.kube/config" 
+                             println "delete all models"
+                            def cmd="KUBECONFIG=${config} kubectl delete deploy web"
+                            println cmdExeCode(cmd)
+
                             println "create all models"
-                            //println cmdExeCode("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
-                            //openshift.newApp("wavecloud/${myapp}:latest", "--name=${myapp}", "-l", "name=dcnginx")
+                            cmd ="KUBECONFIG=${config} kubectl run web --image=$APP --port=$port"
+                            println cmdExeCode(cmd)
+                            cmd="KUBECONFIG=${config} kubectl delete svc web"
+                            println cmdExeCode(cmd)
+
                             println "expose all models"
-                            //println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
-                            withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'OS_TOKEN')]) { playoc.cleanDeploy()}                     
+                            cmd="KUBECONFIG=${config} kubectl expose deployment web --target-port=$port --type=NodePort"
+                            println cmdExeCode(cmd)
+                                           
                         }
                     }        
                 }
