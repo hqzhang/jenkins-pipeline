@@ -462,7 +462,7 @@ pipeline {
             }
         }
         stage('Stage: Build Docker Image'){
-            when { expression { return !params.InfraStructure } }
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Build Image"
