@@ -537,8 +537,8 @@ pipeline {
                             echo "Get route url.."
                             def route  = "https://www.wavecloud.com"
                     	    echo "${route}"  //nginx-oc-fredzhang987-dev.apps.rm3.7wse.p1.openshiftapps.com
-                            res="welcome to nginx"
-                            def result= "curl http://${route} ".execute().text
+                            res="Hongqi, welcome to nginx!"
+                            def result= "curl ${route} ".execute().text
                             
                             if ( result.contains(res)) {  println( "TEST PASS!" )  }
                             else { 
