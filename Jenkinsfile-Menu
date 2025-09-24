@@ -434,7 +434,7 @@ pipeline {
             }
         }
         stage('Stage: VM Terraform'){
-            when { expression { return params.InfraStructure} }
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Create VM by Terraform"
