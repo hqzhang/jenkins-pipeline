@@ -492,16 +492,12 @@ pipeline {
                         openshift.withProject(proj){  
                             //println "delete all models"
                             //println cmdExeCode("oc delete all -l name=dcnginx")
-
                             println "create all models"
                             //println cmdExeCode("oc new-app wavecloud/${myapp}:latest --name ${myapp} -l name=dcnginx")
                             //openshift.newApp("wavecloud/${myapp}:latest", "--name=${myapp}", "-l", "name=dcnginx")
-
                             println "expose all models"
                             //println cmdExeCode("oc expose svc ${myapp} --port=${myport}") 
-                            withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'OS_TOKEN')]) { playoc.cleanDeploy()}
-                            
-                                                
+                            withCredentials([string(credentialsId: 'openshiftclustertokenid', variable: 'OS_TOKEN')]) { playoc.cleanDeploy()}                     
                         }
                     }        
                 }
@@ -514,9 +510,9 @@ pipeline {
                     echo "Stage: Export Template File..."
                      openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){
-                          
+                            def config="/Users/hongqizhang/.kube/config"
                             //playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
-                            def res=playoc.cmdExeCode("kubectl get deploy,svc,ing -l app=myapp -o yaml ")
+                            def res=playoc.cmdExeCode("KUBECONFIG=${config} kubectl get deploy,svc,ing -l app=myapp -o yaml ")
                             
                             writeFile( file: 'template.yaml', text: res, encoding: "UTF-8")
                             println res   
