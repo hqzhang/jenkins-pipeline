@@ -527,7 +527,7 @@ pipeline {
             }
         }
         stage('Stage: Verification Test'){
-            when { expression { return !params.InfraStructure } }
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Verification Test"
