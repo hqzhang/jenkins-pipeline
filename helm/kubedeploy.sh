@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 set -x
-backupFile=$1
+backupFile=${1:-"myapp/values.yaml"}
 echo "set KUBECONFIG ..."
 export KUBECONFIG=/var/root/.kube/config
 echo "KUBECONFIG=${KUBECONFIG}"
