@@ -2,9 +2,9 @@
 set -e
 set -x
 backupFile=${1:-"myapp/values.yaml"}
-echo "set KUBECONFIG ..."
-export KUBECONFIG=/var/root/.kube/config
-echo "KUBECONFIG=${KUBECONFIG}"
+#echo "set KUBECONFIG ..."
+#export KUBECONFIG=/var/root/.kube/config
+#echo "KUBECONFIG=${KUBECONFIG}"
 whoami
 cat ${KUBECONFIG}
 echo "check kubectl get node and helm list"
