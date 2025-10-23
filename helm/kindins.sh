@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 set -x
-
+cd ~
+pwd
 kind='command -v kind'
 if [[ $kind != "" ]] ; then
 
