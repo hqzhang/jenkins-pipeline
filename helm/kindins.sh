@@ -34,5 +34,7 @@ EOF
     echo "install ingress"
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
-
+sleep 8
+export KUBECONFIG=/var/root/.kube/config
+kubectl get nodes
 
