@@ -42,8 +42,10 @@ if [[ -n "$check" ]]; then
 fi
 
 echo "helm install release appchart" 
-url=`helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc | grep http | xargs`
+#url=`helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc | grep http | xargs`
+url=`helm install mytest myapp `
 echo $url
+
 
 echo "verify application"
 echo "sleep 20 sec"
