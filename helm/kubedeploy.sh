@@ -3,7 +3,7 @@ set -e
 set -x
 backupFile=$1
 echo "set KUBECONFIG ..."
-export KUBECONFIG=/Users/hongqizhang/.kube/config
+export KUBECONFIG=/var/root/.kube/config
 echo "KUBECONFIG=${KUBECONFIG}"
 whoami
 cat ${KUBECONFIG}
@@ -12,13 +12,9 @@ kubectl get nodes -v9
 
 check=`helm  list --short`
 
-echo "install kind binary
-"
-[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.30.0/kind-linux-amd64
-
 if false ; then
-
-docker rm -f ingress-demo-control-plane
+echo "install kind binary"
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.30.0/kind-linux-amd64
 
 cat > ingress-config.yaml <<EOF
 kind: Cluster
@@ -42,7 +38,6 @@ fi
 
 echo "helm uninstall application"
 if [[ -n "$check" ]]; then
- 
   helm uninstall mytest
 fi
 
