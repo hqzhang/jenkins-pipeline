@@ -35,5 +35,22 @@ EOF
 
 sleep 8
 #export KUBECONFIG=/var/root/.kube/config
-kubectl get nodes
+NAMESPACE="ingress-nginx"
+LABEL="app.kubernetes.io/component=controller"
+echo "⏳ Waiting for Ingress NGINX controller container to be Ready..."
+SECONDS=0
 
+while true; do
+  READY=$(kubectl get pods -n $NAMESPACE -l $LABEL -o jsonpath='{.items[0].status.containerStatuses[0].ready}' 2>/dev/null)
+
+  if [[ "$READY" == "true" ]]; then
+    echo "✅ Ingress NGINX controller container is Ready after ${SECONDS}s."
+    break
+  elif [[ -z "$READY" ]]; then
+    echo "⚠️  Pod not created yet... (${SECONDS}s elapsed)"
+  else
+    echo "🚧 Container not ready yet... (${SECONDS}s elapsed)"
+  fi
+
+  sleep 5
+done
