@@ -6,7 +6,7 @@ whoami
 
 echo "check kubectl get node and helm list"
 kubectl get nodes
-sleep 20
+sleep 30
 kubectl get pods -n ingress-nginx
 
 check=`helm  list --short`
