@@ -21,8 +21,20 @@ url=`helm install mytest myapp -f $backupFile --set image.repository=wavecloud/n
 echo $url
 
 echo "verify application"
-echo "sleep 10 sec"
-sleep 10
+URL="http://www.wavecloud.com/"
+INTERVAL=5  # seconds between checks
+SECONDS=0
+echo "⏳ Waiting for $URL to become reachable..."
+while true; do
+  if curl -s --head --fail "$URL" >/dev/null 2>&1; then
+    echo "✅ $URL is reachable after ${SECONDS}s."
+    break
+  else
+    echo "🚧 Still waiting... (${SECONDS}s elapsed)"
+  fi
+  sleep $INTERVAL
+done
+
 result="Hongqi, welcome to nginx!"
 echo $result
 echo "curl application $url"
