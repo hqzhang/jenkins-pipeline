@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 set -x
 echo "Enter kindins.sh"

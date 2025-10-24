@@ -5,7 +5,9 @@ backupFile=${1:-"myapp/values.yaml"}
 whoami
 
 echo "check kubectl get node and helm list"
-kubectl get nodes -v9
+kubectl get nodes
+kubectl get pods -n ingress-nginx
+
 check=`helm  list --short`
 
 echo "helm uninstall application"
