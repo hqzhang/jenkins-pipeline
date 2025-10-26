@@ -47,3 +47,9 @@ if [[ "$res" != "" ]];
 else echo "TEST ERROR!"
 fi
 
+echo "Export Template"
+kubectl get deploy,svc,ing -l app=myapp -o yaml > template.yaml
+
+echo "Verfify Test"
+./verifyTest.sh
+./exportTmpe.sh
