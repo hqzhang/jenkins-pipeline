@@ -21,12 +21,12 @@ url=`helm install mytest myapp -f $backupFile --set image.repository=wavecloud/n
 echo $url
 
 echo "verify application"
-URL="http://www.wavecloud.com/"
 INTERVAL=5  # seconds between checks
 SECONDS=0
-echo "⏳ Waiting for $URL to become reachable..."
+result="Hongqi, welcome to nginx!"
+echo "⏳ Waiting for $url to become reachable..."
 while true; do
-  if curl -s --head --fail "$URL" >/dev/null 2>&1; then
+  if curl -s --head --fail "$url" >/dev/null 2>&1; then
     echo "✅ $URL is reachable after ${SECONDS}s."
     break
   else
@@ -35,8 +35,6 @@ while true; do
   sleep $INTERVAL
 done
 
-result="Hongqi, welcome to nginx!"
-echo $result
 echo "curl application $url"
 echo "GET URL $url"
 res=`curl "$url"  ` 
@@ -52,5 +50,5 @@ echo "Export Template"
 kubectl get deploy,svc,ing -l app=myapp -o yaml > template.yaml
 
 echo "Verfify Test"
-./verifyTest.sh
+./verifyTest.sh $url
 ./exportTmpe.sh

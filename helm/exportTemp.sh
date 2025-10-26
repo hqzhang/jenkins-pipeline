@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 set -x
-echo "Enter kindins.sh"
+echo "Enter exportTemp.sh"
 pwd
 config="/Users/hongqizhang/.kube/config"
 
-KUBECONFIG=${config} kubectl get deploy,svc,ing -l app=myapp -o yaml > template.yaml
+kubectl get deploy,svc,ing -l app=myapp -o yaml > template.yaml

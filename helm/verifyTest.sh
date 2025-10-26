@@ -1,16 +1,17 @@
 #!/bin/bash
 set -e
 set -x
-echo "Enter kindins.sh"
+echo "Enter verifyTest.sh"
+url=${1:-"http://wwww.wavecloud.com"}
 pwd
 echo "verify application"
-URL="http://www.wavecloud.com/"
+
 INTERVAL=5  # seconds between checks
 SECONDS=0
-echo "⏳ Waiting for $URL to become reachable..."
+echo "⏳ Waiting for $url to become reachable..."
 while true; do
-  if curl -s --head --fail "$URL" >/dev/null 2>&1; then
-    echo "✅ $URL is reachable after ${SECONDS}s."
+  if curl -s --head --fail "$url" >/dev/null 2>&1; then
+    echo "✅ $url is reachable after ${SECONDS}s."
     break
   else
     echo "🚧 Still waiting... (${SECONDS}s elapsed)"
@@ -20,8 +21,8 @@ done
 
 result="Hongqi, welcome to nginx!"
 echo $result
-echo "curl application $URL"
-res=`curl "$URL"  ` 
+echo "curl application $url"
+res=`curl "$url"  ` 
 res=`echo "$res" | grep "$result" `
 echo res1=$res
 
