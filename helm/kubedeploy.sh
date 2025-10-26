@@ -38,6 +38,7 @@ done
 result="Hongqi, welcome to nginx!"
 echo $result
 echo "curl application $url"
+echo "GET URL $url"
 res=`curl "$url"  ` 
 res=`echo "$res" | grep "$result" `
 echo res1=$res
