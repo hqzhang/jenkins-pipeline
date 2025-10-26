@@ -513,7 +513,7 @@ pipeline {
             }
         }
         stage('Stage: Export Template File'){
-            when { expression { return !params.InfraStructure } }
+            when { expression { return params.InfraStructure } }
             steps {
                 script { 
                     echo "Stage: Export Template File..."
