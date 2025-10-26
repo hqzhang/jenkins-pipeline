@@ -5,24 +5,24 @@ echo "Enter verifyTest.sh"
 url=${1:-"http://wwww.wavecloud.com"}
 pwd
 echo "verify application"
+#!/bin/bash
 
-INTERVAL=5  # seconds between checks
-SECONDS=0
-echo "⏳ Waiting for $url to become reachable..."
-while true; do
-  if curl -s --head --fail "$url" >/dev/null 2>&1; then
-    echo "✅ $url is reachable after ${SECONDS}s."
-    break
-  else
-    echo "🚧 Still waiting... (${SECONDS}s elapsed)"
-  fi
+URL="http://www.wavecloud.com"
+INTERVAL=5   # seconds between checks
+SECONDS=0    # built-in bash timer
+result="Hongqi, welcome to nginx!"
+
+echo "Waiting for $URL to become reachable..."
+
+while ! curl -s --head --fail "$URL" >/dev/null 2>&1; do
+  echo "Still not reachable after $SECONDS seconds..."
   sleep $INTERVAL
 done
+echo "✅ $URL is reachable after $SECONDS seconds!"
 
-result="Hongqi, welcome to nginx!"
-echo $result
-echo "curl application $url"
-res=`curl "$url"  ` 
+
+echo "curl -s $url"
+res=`curl -s http://www.wavecloud.com `
 res=`echo "$res" | grep "$result" `
 echo res1=$res
 
