@@ -513,11 +513,15 @@ pipeline {
             }
         }
         stage('Stage: Export Template File'){
-            when { expression { return params.InfraStructure } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script { 
                     echo "Stage: Export Template File..."
-                     openshift.withCluster('redhatconsole'){
+                    sh """
+                        pwd;ls
+                        cd helm && ./exportTemp.sh
+                    """
+                     /*openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){
                             def config="/Users/hongqizhang/.kube/config"
                             //playoc.cmdExeCode("oc login --token=${OS_TOKEN} --server=${urloc}")
@@ -527,7 +531,7 @@ pipeline {
                             println res   
                                      
                         }
-                    }        
+                    } */       
                 }
             }
         }
@@ -536,8 +540,11 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
-
-                    openshift.withCluster('redhatconsole'){
+                    sh """
+                        pwd;ls
+                        cd helm && ./verifyTest.sh
+                    """
+                    /*openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
                             echo "Get route url.."
                             def cmd  = "curl http://www.wavecloud.com/"
@@ -551,7 +558,7 @@ pipeline {
                                 error("Verification failure!!!") 
                             }  
                         }
-                    }                   
+                    } */                  
                 }
             }
         }
