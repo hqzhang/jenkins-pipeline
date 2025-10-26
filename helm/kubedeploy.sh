@@ -51,4 +51,4 @@ kubectl get deploy,svc,ing -l app=myapp -o yaml > template.yaml
 
 echo "Verfify Test"
 ./verifyTest.sh $url
-./exportTmpe.sh
+./exportTemp.sh
