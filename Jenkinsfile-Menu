@@ -486,29 +486,29 @@ pipeline {
             }
         }
         stage('Stage: Deploy on Openshift'){
-            when { expression { return !params.InfraStructure } }
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
                     echo "Deploy on Openshift"
-                    openshift.withCluster('redhatconsole'){
-                        openshift.withProject(proj){ 
+                    //openshift.withCluster('redhatconsole'){
+                    // openshift.withProject(proj){ 
+                            def port="8888"
                             def config="/Users/hongqizhang/.kube/config" 
-                             println "delete all models"
-                            def cmd="KUBECONFIG=${config} kubectl delete deploy web"
+                            println "delete all models"
+                            def cmd=" kubectl delete deploy web"
                             println cmdExeCode(cmd)
 
                             println "create all models"
-                            cmd ="KUBECONFIG=${config} kubectl run web --image=$APP --port=$port"
+                            cmd =" kubectl run web --image=$APP --port=$port"
                             println cmdExeCode(cmd)
-                            cmd="KUBECONFIG=${config} kubectl delete svc web"
+                            cmd=" kubectl delete svc web"
                             println cmdExeCode(cmd)
 
                             println "expose all models"
-                            cmd="KUBECONFIG=${config} kubectl expose deployment web --target-port=$port --type=NodePort"
+                            cmd=" kubectl expose deployment web --target-port=$port --type=NodePort"
                             println cmdExeCode(cmd)
                                            
-                        }
-                    }        
+                    //    }}        
                 }
             }
         }
