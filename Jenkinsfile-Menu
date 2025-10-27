@@ -489,8 +489,12 @@ pipeline {
             when { expression { return params.InfraStructure } }
             steps {
                 script {
-                    echo "Deploy on Openshift"
-                    //openshift.withCluster('redhatconsole'){
+                    sh """
+                        pwd;ls
+                        cd helm && ./creatappcli.sh
+                    """
+                    /*echo "Deploy on Openshift"
+                    /*openshift.withCluster('redhatconsole'){
                     // openshift.withProject(proj){ 
                             def port="8888"
                             def config="/Users/hongqizhang/.kube/config" 
@@ -508,7 +512,7 @@ pipeline {
                             cmd=" kubectl expose deployment web --target-port=$port --type=NodePort"
                             println cmdExeCode(cmd)
                                            
-                    //    }}        
+                       }}*/       
                 }
             }
         }
