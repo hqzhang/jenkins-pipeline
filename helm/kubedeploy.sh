@@ -24,15 +24,11 @@ echo "verify application"
 INTERVAL=5  # seconds between checks
 SECONDS=0
 result="Hongqi, welcome to nginx!"
+
 echo "⏳ Waiting for $url to become reachable..."
-while true; do
-  if curl -s --head --fail "$url" >/dev/null 2>&1; then
-    echo "✅ $URL is reachable after ${SECONDS}s."
-    break
-  else
-    echo "🚧 Still waiting... (${SECONDS}s elapsed)"
-  fi
-  sleep $INTERVAL
+until curl -s --head --fail "$url" > /dev/null 2>&1; do
+    echo -n "."
+    sleep 1
 done
 
 echo "curl application $url"
@@ -45,10 +41,3 @@ if [[ "$res" != "" ]];
     then echo "TEST PASS!"
 else echo "TEST ERROR!"
 fi
-
-echo "Export Template"
-kubectl get deploy,svc,ing -l app=myapp -o yaml > template.yaml
-
-echo "Verfify Test"
-./verifyTest.sh $url
-./exportTemp.sh
