@@ -1,6 +1,5 @@
 #!/bin/bash
  set -x
- #export KUBECONFIG=${HOME}/.kube/admin.conf 
 
  app=myhello-app
  image=wavecloud/$app
@@ -37,6 +36,10 @@ if curl -s "$url" | grep -q "$res" ;
    then echo "TEST PASS!"
  else echo "TEST ERROR!"
  fi
+
+ kubectl delete ing nginx-ingress
+ kubectl delete svc $app
+ kubectl delete deploy $app
 
 
  
