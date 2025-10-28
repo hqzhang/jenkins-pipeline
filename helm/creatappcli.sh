@@ -5,7 +5,7 @@
  image=wavecloud/$app
  port=8081
  url=www.wavecloud.com
-
+ export KUBECONFIG=/Users/hongqizhang/.kube/config
  docker build -f ../image/Dockerfile -t $image  .
  echo "push and remove docker images"
  docker login -uzhanghongqi -pa568Pqt123
