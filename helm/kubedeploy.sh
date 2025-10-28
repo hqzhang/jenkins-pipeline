@@ -5,9 +5,9 @@ backupFile=${1:-"myapp/values.yaml"}
 whoami
 
 echo "check kubectl get node and helm list"
-docker exec kind-control-plane cat /etc/kubernetes/admin.conf > kubeconfig.yaml
+#docker exec kind-control-plane cat /etc/kubernetes/admin.conf > kubeconfig.yaml
 
-export KUBECONFIG=$(pwd)/kubeconfig.yaml
+#export KUBECONFIG=$(pwd)/kubeconfig.yaml
 
 kubectl get nodes
 kubectl get pods -n ingress-nginx
