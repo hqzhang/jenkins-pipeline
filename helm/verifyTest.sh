@@ -3,7 +3,7 @@ set -e
 set -x
 echo "Enter verifyTest.sh"
 url=${1:-"http://wwww.wavecloud.com"}
-pwd
+
 echo "verify application"
 #!/bin/bash
 
