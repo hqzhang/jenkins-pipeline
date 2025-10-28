@@ -544,10 +544,8 @@ pipeline {
             steps {
                 script {
                     echo "Stage: Verification Test"
-                    sh """
-                        pwd;ls
-                        cd helm && ./verifyTest.sh
-                    """
+                    verify()
+                    
                     /*openshift.withCluster('redhatconsole'){
                         openshift.withProject(proj){  
                             echo "Get route url.."
