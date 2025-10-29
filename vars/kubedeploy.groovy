@@ -20,7 +20,7 @@ def KUBECFG="/Users/hongqizhang/.kube/config"
 
     println("Finally create ingress")
     "kubectl delete ing nginx-ingress".execute()
-    "kubectl create ingress nginx-ingress --rule="$url/=$app:$port"".execute()
+    "kubectl create ingress nginx-ingress --rule='$url/=$app:$port'".execute()
 
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."
