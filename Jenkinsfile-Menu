@@ -326,7 +326,6 @@ pipeline {
         proj='fredzhang987-dev'
         ipaddr=''
         config="/Users/hongqizhang/.kube/config"
-        PATH = "/usr/local/bin:${PATH}"
     }
 
     stages {
