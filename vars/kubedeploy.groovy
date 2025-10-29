@@ -10,14 +10,15 @@ def url=www.wavecloud.com
 @groovy.transform.Field
 def KUBECFG="/Users/hongqizhang/.kube/config"
 
-    # First create your service
+    println("First create your deploy")
     "kubectl delete deploy $app".execute()
     "kubectl create deployment $app --image=$image".execute()
 
+    println("Then create your service")
     "kubectl delete svc $app".execute()
     "kubectl expose deployment $app --port=$port".execute()
 
-    # Then create ingress
+    println("Finally create ingress")
     "kubectl delete ing nginx-ingress".execute()
     "kubectl create ingress nginx-ingress --rule="$url/=$app:$port".execute()
 
