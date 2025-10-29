@@ -31,7 +31,7 @@ def check =  "helm list --short || true".execute()
         proc.waitFor()
         if (proc.exitValue() == 0) break
         print "."
-        sleep(interval * 1000)
+        sleep(interval)
     }
 
     println "\nChecking response from ${url}..."
