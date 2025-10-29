@@ -312,10 +312,6 @@ def stringConvert(String data){
 
 pipeline {
     agent any
-    tools {
-        customTool 'kubectl'
-        customTool 'helm'
-    }
     
     environment {
         SolutionBackup="${env.SolutionBackup}".replaceAll(',','')
