@@ -325,7 +325,8 @@ pipeline {
         urloc='https://api.rm3.7wse.p1.openshiftapps.com:6443'
         proj='fredzhang987-dev'
         ipaddr=''
-        config="/Users/hongqizhang/.kube/config" 
+        config="/Users/hongqizhang/.kube/config"
+        PATH = "/usr/local/bin:${PATH}"
     }
 
     stages {
@@ -408,7 +409,9 @@ pipeline {
             steps {
                 script {
                     echo "Stage:  Init Repo"
-                   
+                    sh """
+                    printenv
+                    """
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
                     println "save backup file locally====="
