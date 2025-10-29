@@ -9,8 +9,9 @@ def port='8081'
 def url='www.wavecloud.com'
 @groovy.transform.Field
 def KUBECFG='/Users/hongqizhang/.kube/config'
-
-def call(){
+@groovy.transform.Field
+def interval= 5
+//def call(){
     println("First create your deploy")
     "kubectl delete deploy $app".execute()
     "kubectl create deployment $app --image=$image".execute()
@@ -44,5 +45,5 @@ def call(){
     } else {
         println "TEST ERROR!"
     }
-}
+//}
  

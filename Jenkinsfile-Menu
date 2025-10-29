@@ -413,9 +413,7 @@ pipeline {
             steps {
                 script {
                     echo "Stage:  Init Repo"
-                    sh """
-                    printenv
-                    """
+                    test()
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
                     println "save backup file locally====="
