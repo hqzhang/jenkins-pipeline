@@ -430,7 +430,7 @@ pipeline {
                 script {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
-                    helmdeploy()
+                    kubedeploy()
                 }
             }
         }
