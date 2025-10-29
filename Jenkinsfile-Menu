@@ -330,7 +330,7 @@ pipeline {
         urloc='https://api.rm3.7wse.p1.openshiftapps.com:6443'
         proj='fredzhang987-dev'
         ipaddr=''
-        #KUBECONFIG = credentials('kubeconfig-id')
+        //KUBECONFIG = credentials('kubeconfig-id')
     }
 
     stages {
