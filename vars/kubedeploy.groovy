@@ -31,7 +31,7 @@ def call(){
         proc.waitFor()
         if (proc.exitValue() == 0) break
         print "."
-        sleep(5.seconds)
+        sleep(5000)
     }
 
     println "\nChecking response from ${url}..."
