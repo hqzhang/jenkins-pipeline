@@ -430,10 +430,7 @@ pipeline {
                 script {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
-                    sh """
-                        pwd;ls
-                        cd helm && ./kubedeploy.sh ${backupFile}
-                    """
+                    helmdeploy()
                 }
             }
         }
