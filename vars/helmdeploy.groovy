@@ -36,7 +36,7 @@ def cmd =  "helm list --short || true"
     cmd="helm install mytest $chart -f $backupFile --set image.repository=wavecloud/nginx-oc "
     println cmd
     println commandExecute(cmd)
-
+     println "helm install7777" 
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."
     while (true) {
@@ -46,16 +46,17 @@ def cmd =  "helm list --short || true"
         print "."
         sleep(INTERVAL)
     }
-
+    println "helm install88888" 
     println "\nChecking response from ${url}..."
     def response = ["curl", "-s", url].execute().text
     def matched = response.contains(result)
 
     println "res1=" + (matched ? result : "")
-
+    println "helm install99999" 
     if (matched) {
         println "TEST PASS!"
     } else {
         println "TEST ERROR!"
     }
+    println "helm install0000000" 
 }
