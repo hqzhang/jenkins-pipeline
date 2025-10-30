@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 @groovy.transform.Field
-def app='myhello-app'
+def app='nginx-opens'
 @groovy.transform.Field
 def image='wavecloud/$app'
 @groovy.transform.Field
@@ -21,21 +21,24 @@ def call(){
     def cmd="kubectl get nodes"
     println commandExecute(cmd)
 
-    println("First create your deploy")
+    
     cmd = "kubectl delete deploy $app"
     println commandExecute(cmd)
+    println("First create your deploy")
     cmd = "kubectl create deployment $app --image=$image"
     println commandExecute(cmd)
 
-    println("Then create your service")
+   
     cmd = "kubectl delete svc $app"
     println commandExecute(cmd)
+     println("Then create your service")
     cmd = "kubectl expose deployment $app --port=$port"
     println commandExecute(cmd)
 
-    println("Finally create ingress")
+    
     cmd="kubectl delete ing nginx-ingress"
     println commandExecute(cmd)
+    println("Finally create ingress")
     cmd="kubectl create ingress nginx-ingress --rule='$url/=$app:$port'"
     println commandExecute(cmd)
 }
