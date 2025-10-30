@@ -14,11 +14,6 @@ def interval= 5
 @groovy.transform.Field
 def result="Hongqi, welcome to nginx!"
 
-def commandExecute(String cmd){
-    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    return out
-}
-
 def call(){
     println "Enter kubedeploy file.."
 
