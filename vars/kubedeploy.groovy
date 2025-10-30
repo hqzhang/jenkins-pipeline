@@ -1,8 +1,8 @@
 #!/usr/bin/env groovy
 @groovy.transform.Field
-def app='myhello-app'
+def app='nginx-oc'
 @groovy.transform.Field
-def image='wavecloud/$app'
+def image='wavecloud/nginx-oc '
 @groovy.transform.Field
 def port='8081'
 @groovy.transform.Field
