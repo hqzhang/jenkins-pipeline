@@ -17,6 +17,8 @@ def commandExecute(String cmd){
 }
 
 def call(){
+    println "Enter kubedeploy file.."
+    
     println("First create your deploy")
     def cmd = "kubectl delete deploy $app"
     println commandExecute(cmd)

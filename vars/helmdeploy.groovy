@@ -18,9 +18,10 @@ def commandExecute(String cmd){
 }
 
 def call(){
-println "check kubectl get node and helm list"
+    println "Enter helmdeploy file.."
+    println "check kubectl get node and helm list"
 
-def cmd =  "helm list --short || true"
+    def cmd =  "helm list --short || true"
     def check = commandExecute(cmd)
     println "helm uninstall application"
     if (check) {

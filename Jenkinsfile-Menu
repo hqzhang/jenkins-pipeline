@@ -431,9 +431,7 @@ pipeline {
                 script {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
-                    //test()
-                    kubedeploy()
-                    //helmdeploy()
+                    helmdeploy()
                 }
             }
         }
@@ -489,10 +487,7 @@ pipeline {
             when { expression { return params.InfraStructure } }
             steps {
                 script {
-                    sh """
-                        pwd;ls
-                        cd helm && ./creatappcli.sh
-                    """
+                    kubedeploy()
                     /*echo "Deploy on Openshift"
                     /*openshift.withCluster('redhatconsole'){
                     // openshift.withProject(proj){ 
