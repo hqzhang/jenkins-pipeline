@@ -33,6 +33,7 @@ def call(){
     cmd="kubectl delete ing nginx-ingress"
     println commandExecute(cmd)
     cmd="kubectl create ingress nginx-ingress --rule='$url/=$app:$port'"
+    println cmd
     println commandExecute(cmd)
 
     println "verify application"
