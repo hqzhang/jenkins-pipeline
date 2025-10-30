@@ -9,20 +9,27 @@ def SECONDS=0    // built-in bash timer
 def result="Hongqi, welcome to nginx!"
 @groovy.transform.Field
 backupFile="../helm/myapp/values.yaml"
+def commandExecute(String cmd){
+    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    return out
+}
 
 def call(){
 println "check kubectl get node and helm list"
 
-def check =  "helm list --short || true".execute()
+def cmd =  "helm list --short || true"
+    println commandExecute(cmd)
     println "helm uninstall application"
     if (check) {
-        "helm uninstall mytest".execute()
+        cmd="helm uninstall mytest"
+        println commandExecute(cmd)
     } else {
         println "No Helm releases found."
     }
 
     println "helm install release appchart" 
-    "helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc ".execute()
+    cmd="helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc "
+    println commandExecute(cmd)
 
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."

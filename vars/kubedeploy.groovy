@@ -11,18 +11,29 @@ def url='www.wavecloud.com'
 def KUBECFG='/Users/hongqizhang/.kube/config'
 @groovy.transform.Field
 def interval= 5
+def commandExecute(String cmd){
+    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
+    return out
+}
+
 def call(){
     println("First create your deploy")
-    "kubectl delete deploy $app".execute()
-    "kubectl create deployment $app --image=$image".execute()
+    def cmd = "kubectl delete deploy $app"
+    println commandExecute(cmd)
+    cmd = "kubectl create deployment $app --image=$image"
+    println commandExecute(cmd)
 
     println("Then create your service")
-    "kubectl delete svc $app".execute()
-    "kubectl expose deployment $app --port=$port".execute()
+    cmd = "kubectl delete svc $app"
+    println commandExecute(cmd)
+    cmd = "kubectl expose deployment $app --port=$port"
+    println commandExecute(cmd)
 
     println("Finally create ingress")
-    "kubectl delete ing nginx-ingress".execute()
-    "kubectl create ingress nginx-ingress --rule='$url/=$app:$port'".execute()
+    cmd="kubectl delete ing nginx-ingress"
+    println commandExecute(cmd)
+    cmd="kubectl create ingress nginx-ingress --rule='$url/=$app:$port'"
+    println commandExecute(cmd)
 
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."

@@ -432,6 +432,7 @@ pipeline {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
                     kubedeploy()
+                   //helmdeploy()
                 }
             }
         }
