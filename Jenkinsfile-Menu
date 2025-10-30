@@ -433,7 +433,7 @@ pipeline {
                     println "Play helm"
                     test()
                    // kubedeploy()
-                   //helmdeploy()
+                    helmdeploy()
                 }
             }
         }
