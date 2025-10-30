@@ -27,12 +27,12 @@ def cmd =  "helm list --short || true"
         println "No Helm releases found."
     }
 
-    /*
+    
     println "helm install release appchart" 
     cmd="helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc "
-    println commandExecute(cmd)*/
+    println commandExecute(cmd)
 
-   /* println "verify application"
+    println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."
     while (true) {
         def proc = ["curl", "-s", "--head", "--fail", url].execute()
@@ -52,5 +52,5 @@ def cmd =  "helm list --short || true"
         println "TEST PASS!"
     } else {
         println "TEST ERROR!"
-    }*/
+    }
 }
