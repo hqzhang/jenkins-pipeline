@@ -410,8 +410,8 @@ pipeline {
                 script {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
-                    test()
-                    //helmdeploy()
+                    //test()
+                    helmdeploy()
                 }
             }
         }
