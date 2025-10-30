@@ -58,8 +58,7 @@ def cmd =  "helm list --short || true"
     if (matched) {
         println "TEST PASS!"
     } else {
-        println "TEST ERROR!"
-        break
+        error( "TEST ERROR!")
     }
     println "helm install0000000" 
 }
