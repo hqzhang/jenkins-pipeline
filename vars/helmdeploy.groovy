@@ -40,7 +40,7 @@ def cmd =  "helm list --short || true"
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."
     while (true) {
-        def cmd='curl -s --head --fail '+ url
+        cmd='curl -s --head --fail '+ url
         def proc = commandExecute(cmd)
         //if (proc.exitValue() == 0) break
         print proc
