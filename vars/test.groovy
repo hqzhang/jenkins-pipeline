@@ -1,4 +1,18 @@
 #!/usr/bin/env groovy
+@groovy.transform.Field
+def app='myhello-app'
+@groovy.transform.Field
+def image='wavecloud/$app'
+@groovy.transform.Field
+def port='8081'
+@groovy.transform.Field
+def url='www.wavecloud.com'
+@groovy.transform.Field
+def KUBECFG='/Users/hongqizhang/.kube/config'
+@groovy.transform.Field
+def interval= 5
+
+
 def commandExecute(String cmd){
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     return out
