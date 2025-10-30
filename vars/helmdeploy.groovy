@@ -40,15 +40,15 @@ def cmd =  "helm list --short || true"
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."
     while (true) {
-        def proc = ["curl", "-s", "--head", "--fail", url].execute()
-        proc.waitFor()
-        if (proc.exitValue() == 0) break
-        print "."
+        def cmd='curl -s --head --fail '+ url
+        def proc = commandExecute(cmd)
+        //if (proc.exitValue() == 0) break
+        print proc
         sleep(INTERVAL)
     }
     println "helm install88888" 
     println "\nChecking response from ${url}..."
-    def response = ["curl", "-s", url].execute().text
+    def response =  commandExecute("curl -s"+ url )
     def matched = response.contains(result)
 
     println "res1=" + (matched ? result : "")
