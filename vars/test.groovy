@@ -14,8 +14,8 @@ def interval= 5
 
 
 def commandExecute(String cmd){
-    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    return out
+   
+    return cmdExe(cmd)
 }
 def call(){
     def cmd="kubectl get nodes"

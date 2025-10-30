@@ -336,22 +336,6 @@ pipeline {
                 script {
                     println "STAGE: create List..."
                     echo "Stage: Build Docker Image ============="
-                    myapp="wavecloud/nginx-opens"
-                    path="image"
-                    registryUrl='https://index.docker.io/v1/'
-                    registryCredentialsId='dockerloginid'
-                    def myimage = docker.build(myapp, path)
-                   withDockerRegistry(credentialsId: '48bc6aae-d8cc-43ce-8eac-6d9bd209a8be', toolName: 'Docker', url: 'https://index.docker.io/v1/') {
-
-                        myimage.push()
-                    }
-                    
-                    sh """
-                    docker -h
-                    oc get route --selector app=nginx-oc --no-headers
-                    """
-                   
-                    myMethods.greet("Alice")
                    
                     println "update Solution yml files"
                     sh """
@@ -360,11 +344,6 @@ pipeline {
                         cd solution;
                         python3 solution_update.py ${sourceFile} ${destFile} ${backupFile} ${inputFull}
                     """
-
-                    println "save backup file to repo"
-                    def binPath=[ ARC: '/app/anvil/repositoy/ARC508p6',
-                                    ADS: '/app/anvil/repositoy/ADS123' ]
-                    //menu.deployInstallBin(Components, binPath)
                    
                     println "Play ansible"
                     menu.createHosts(fileName, target)
@@ -431,7 +410,8 @@ pipeline {
                 script {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
-                    helmdeploy()
+                    test()
+                    //helmdeploy()
                 }
             }
         }
