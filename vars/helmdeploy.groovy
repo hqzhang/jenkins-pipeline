@@ -50,8 +50,9 @@ def cmd =  "helm list --short || true"
     println "helm install88888" 
     println "\nChecking response from ${url}..."
     def response =  commandExecute("curl -s"+ url )
+    println "response=$response"
     def matched = response.contains(result)
-
+    println matched
     println "res1=" + (matched ? result : "")
     println "helm install99999" 
     if (matched) {
