@@ -42,7 +42,7 @@ def cmd =  "helm list --short || true"
     while (true) {
         cmd="curl -s -w '%{http_code}' --head --fail "+ url
         def code = commandExecute(cmd)
-        print code
+        print "code=$code"
         if (code == '200') break
         
         sleep(INTERVAL)
