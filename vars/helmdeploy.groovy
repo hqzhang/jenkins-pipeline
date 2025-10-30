@@ -8,7 +8,10 @@ def SECONDS=0    // built-in bash timer
 @groovy.transform.Field
 def result="Hongqi, welcome to nginx!"
 @groovy.transform.Field
-backupFile="../helm/myapp/values.yaml"
+def backupFile=env.scmWksp+"/helm/myapp/values.yaml"
+@groovy.transform.Field
+def chart=env.scmWksp+'/helm/myapp'
+
 def commandExecute(String cmd){
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     return out
@@ -28,8 +31,10 @@ def cmd =  "helm list --short || true"
     }
 
     
-    println "helm install release appchart" 
-    cmd="helm install mytest helm/myapp -f $backupFile --set image.repository=wavecloud/nginx-oc "
+    println "helm install release appchart"
+    def app=
+    def val=
+    cmd="helm install mytest $chart -f $backupFile --set image.repository=wavecloud/nginx-oc "
     println cmd
     println commandExecute(cmd)
 
