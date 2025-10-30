@@ -12,11 +12,6 @@ def backupFile=env.scmWksp+"/helm/myapp/values.yaml"
 @groovy.transform.Field
 def chart=env.scmWksp+'/helm/myapp'
 
-def commandExecute(String cmd){
-    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    return out
-}
-
 def call(){
     println "Enter helmdeploy file.."
     println "check kubectl get node and helm list"
