@@ -29,7 +29,8 @@ def cmd =  "helm list --short || true"
 
     
     println "helm install release appchart" 
-    cmd="helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc "
+    cmd="helm install mytest helm/myapp -f $backupFile --set image.repository=wavecloud/nginx-oc "
+    println cmd
     println commandExecute(cmd)
 
     println "verify application"
@@ -39,7 +40,7 @@ def cmd =  "helm list --short || true"
         proc.waitFor()
         if (proc.exitValue() == 0) break
         print "."
-        sleep(interval)
+        sleep(INTERVAL)
     }
 
     println "\nChecking response from ${url}..."
