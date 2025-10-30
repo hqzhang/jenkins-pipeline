@@ -2,17 +2,13 @@
 @groovy.transform.Field
 def url="http://www.wavecloud.com"
 @groovy.transform.Field
-def INTERVAL=5   // seconds between checks
+def interval=5   // seconds between checks
 @groovy.transform.Field
 def SECONDS=0    // built-in bash timer
 @groovy.transform.Field
 def result="Hongqi, welcome to nginx!"
-def commandExecute(String cmd){
-    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    return out
-}
-//def call(){
 
+def call(){
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."
     while (true) {
@@ -24,7 +20,6 @@ def commandExecute(String cmd){
         sleep(interval)
     }
 
-    
     println "\nChecking response from ${url}..."
     def response =  commandExecute("curl -s "+ url )
     println "response=$response"
@@ -38,4 +33,4 @@ def commandExecute(String cmd){
         error( "TEST ERROR!")
     }
 
-//}
+}
