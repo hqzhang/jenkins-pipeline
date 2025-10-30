@@ -43,7 +43,7 @@ def cmd =  "helm list --short || true"
         cmd="curl -s -w '%{http_code}' --head --fail "+ url
         def code = commandExecute(cmd)
         if (code == '200') break
-        print proc
+        
         sleep(INTERVAL)
     }
     println "helm install88888" 
