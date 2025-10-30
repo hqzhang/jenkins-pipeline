@@ -419,9 +419,9 @@ pipeline {
                     menu.saveSolutionBackup(backupFile)
 
                     println "Install kind and kind cluster"
-                    //sh """
-                    //   cd helm && ./kindins.sh
-                    //"""
+                    sh """
+                       #cd helm && ./kindins.sh
+                    """
                 }
             }
         }

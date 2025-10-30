@@ -32,8 +32,7 @@ def cmd =  "helm list --short || true"
 
     
     println "helm install release appchart"
-    def app=
-    def val=
+    
     cmd="helm install mytest $chart -f $backupFile --set image.repository=wavecloud/nginx-oc "
     println cmd
     println commandExecute(cmd)
