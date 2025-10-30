@@ -11,6 +11,9 @@ def url='www.wavecloud.com'
 def KUBECFG='/Users/hongqizhang/.kube/config'
 @groovy.transform.Field
 def interval= 5
+@groovy.transform.Field
+def result="Hongqi, welcome to nginx!"
+
 def commandExecute(String cmd){
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     return out
@@ -18,7 +21,7 @@ def commandExecute(String cmd){
 
 def call(){
     println "Enter kubedeploy file.."
-    
+
     println("First create your deploy")
     def cmd = "kubectl delete deploy $app"
     println commandExecute(cmd)
