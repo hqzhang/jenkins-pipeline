@@ -409,7 +409,7 @@ pipeline {
             steps {
                 script {
                     echo "Stage:  Init Repo"
-                    test()
+                   
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
                     println "save backup file locally====="
@@ -431,7 +431,8 @@ pipeline {
                 script {
                     echo "Stage: Helm Deployment"
                     println "Play helm"
-                    kubedeploy()
+                    test()
+                   // kubedeploy()
                    //helmdeploy()
                 }
             }
