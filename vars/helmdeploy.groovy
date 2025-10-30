@@ -32,29 +32,9 @@ def call(){
     cmd="helm install mytest $chart -f $backupFile --set image.repository=wavecloud/nginx-oc "
     println cmd
     println commandExecute(cmd)
-     println "helm install7777" 
+    
+
     println "verify application"
-    println "⏳ Waiting for ${url} to become reachable..."
-    while (true) {
-        cmd="curl -s -w '%{http_code}' -o /dev/null --head --fail "+ url
-        def code = commandExecute(cmd)
-        print "code=$code"
-        if (code == '200') break
-        
-        sleep(INTERVAL)
-    }
-    println "helm install88888" 
-    println "\nChecking response from ${url}..."
-    def response =  commandExecute("curl -s "+ url )
-    println "response=$response"
-    def matched = response.contains(result)
-    println matched
-    println "res1=" + (matched ? result : "")
-    println "helm install99999" 
-    if (matched) {
-        println "TEST PASS!"
-    } else {
-        error( "TEST ERROR!")
-    }
+    verify()
     println "helm install0000000" 
 }

@@ -37,30 +37,7 @@ def call(){
     println commandExecute(cmd)
 
     println "verify application"
-    println "⏳ Waiting for ${url} to become reachable..."
-    while (true) {
-        cmd="curl -s -w '%{http_code}' -o /dev/null --head --fail "+ url
-        def code = commandExecute(cmd)
-        print "code=$code"
-        if (code == '200') break
-        
-        sleep(interval)
-    }
-
-    println "helm install88888" 
-    println "\nChecking response from ${url}..."
-    def response =  commandExecute("curl -s "+ url )
-    println "response=$response"
-    def matched = response.contains(result)
-    println matched
-    println "res1=" + (matched ? result : "")
-    println "helm install99999" 
-    if (matched) {
-        println "TEST PASS!"
-    } else {
-        error( "TEST ERROR!")
-    }
-    println "helm install0000000" 
+    verify()
 }
  
 
