@@ -41,8 +41,8 @@ def cmd =  "helm list --short || true"
     println "⏳ Waiting for ${url} to become reachable..."
     while (true) {
         cmd='curl -s -w '%{http_code}' --head --fail '+ url
-        def proc = commandExecute(cmd)
-        //if (proc.exitValue() == 0) break
+        def code = commandExecute(cmd)
+        if (code == '200') break
         print proc
         sleep(INTERVAL)
     }
