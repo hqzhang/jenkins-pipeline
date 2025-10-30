@@ -18,7 +18,7 @@ def call(){
 println "check kubectl get node and helm list"
 
 def cmd =  "helm list --short || true"
-    println commandExecute(cmd)
+    def check = commandExecute(cmd)
     println "helm uninstall application"
     if (check) {
         cmd="helm uninstall mytest"
@@ -26,7 +26,7 @@ def cmd =  "helm list --short || true"
     } else {
         println "No Helm releases found."
     }
-    
+
     /*
     println "helm install release appchart" 
     cmd="helm install mytest myapp -f $backupFile --set image.repository=wavecloud/nginx-oc "
