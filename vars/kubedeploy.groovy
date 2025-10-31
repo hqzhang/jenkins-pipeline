@@ -16,28 +16,30 @@ def result="Hongqi, welcome to nginx!"
 
 def call(){
     println "Enter kubedeploy file.."
+    try {
+        println("First create your deploy")
+        def cmd = "kubectl delete deploy $app"
+        println commandExecute(cmd)
+        cmd = "kubectl create deployment $app --image=$image"
+        println commandExecute(cmd)
 
-    println("First create your deploy")
-    def cmd = "kubectl delete deploy $app"
-    println commandExecute(cmd)
-    cmd = "kubectl create deployment $app --image=$image"
-    println commandExecute(cmd)
+        println("Then create your service")
+        cmd = "kubectl delete svc $app"
+        println commandExecute(cmd)
+        cmd = "kubectl expose deployment $app --port=$port"
+        println commandExecute(cmd)
 
-    println("Then create your service")
-    cmd = "kubectl delete svc $app"
-    println commandExecute(cmd)
-    cmd = "kubectl expose deployment $app --port=$port"
-    println commandExecute(cmd)
+        println("Finally create ingress")
+        cmd="kubectl delete ing nginx-ingress"
+        println commandExecute(cmd)
+        cmd="kubectl create ingress nginx-ingress --rule='$url/=$app:$port'"
+        println cmd
+        println commandExecute(cmd)
 
-    println("Finally create ingress")
-    cmd="kubectl delete ing nginx-ingress"
-    println commandExecute(cmd)
-    cmd="kubectl create ingress nginx-ingress --rule='$url/=$app:$port'"
-    println cmd
-    println commandExecute(cmd)
-
-    println "verify application"
-    verify()
+        println "verify application"
+        verify()
+    }
+    catch (Exception e) { ret.add( e.message) }
 }
  
 
