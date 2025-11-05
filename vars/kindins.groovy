@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 println "Enter kindins file"
+def call() {
 def cmd=''
 def commandExecute(String cmd){
     def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
@@ -65,3 +66,5 @@ EOF
       seconds += 5
       sleep(5)
   }
+
+}
