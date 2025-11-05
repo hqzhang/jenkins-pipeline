@@ -13,7 +13,7 @@ def backupFile=env.scmWksp+"/helm/myapp/values.yaml"
 def chart=env.scmWksp+'/helm/myapp'
 
 def call(){
-    println "Enter helmdeploy file.."
+    println "Enter helmdeploy file.. with try"
     try {
         println "check kubectl get node and helm list"
 
