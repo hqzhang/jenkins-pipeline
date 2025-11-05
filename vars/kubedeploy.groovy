@@ -39,7 +39,7 @@ def call(){
         println "verify application"
         verify()
     }
-    catch (Exception e) { ret.add( e.message) }
+    catch (Exception e) { error( e.message) }
 }
  
 

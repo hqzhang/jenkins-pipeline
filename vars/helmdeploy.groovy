@@ -37,6 +37,6 @@ def call(){
         verify()
     }
     catch (Exception e) 
-    { ret.add( e.message) }
-    println "helm install0000000" 
+    { error( e.message) }
+   
 }
