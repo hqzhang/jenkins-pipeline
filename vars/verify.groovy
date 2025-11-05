@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 @groovy.transform.Field
-def url="http://www.wavecloud1.com"
+def url="http://www.wavecloud.com"
 @groovy.transform.Field
 def interval=5   // seconds between checks
 @groovy.transform.Field
@@ -19,7 +19,7 @@ def call(){
         if (count>60) { error("verify url timeout") }
         cmd="curl -s -w '%{http_code}' -o /dev/null --head --fail "+ url
         def code = commandExecute(cmd)
-        print "code=$code"
+        print "code=$code":
         if (code == '200') break
         
         count+=interval
