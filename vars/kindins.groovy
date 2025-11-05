@@ -2,11 +2,7 @@
 
 println "Enter kindins file"
 def call() {
-def cmd=''
-def commandExecute(String cmd){
-    def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    return out
-}
+
 def kind=commandExecute('command -v kind')
 if ( kind != "" ) {
    println "install kind binary"
