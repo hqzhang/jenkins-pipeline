@@ -19,7 +19,7 @@ def call(){
         if (count>60) { error("verify url timeout") }
         cmd="curl -s -w '%{http_code}' -o /dev/null --head --fail "+ url
         def code = commandExecute(cmd)
-        print "code=$code":
+        print "code=$code"
         if (code == '200') break
         
         count+=interval
