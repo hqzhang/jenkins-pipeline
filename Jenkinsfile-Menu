@@ -399,7 +399,7 @@ pipeline {
 
                     println "Install kind and kind cluster"
                     sh """
-                       cd helm && ./kindins.sh
+                       #cd helm && ./kindins.sh
                     """
                 }
             }
