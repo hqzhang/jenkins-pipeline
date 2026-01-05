@@ -258,7 +258,7 @@ properties([
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: getServerList('Environment') ]]],
             
-            [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
+            /*[$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false,
                 name: 'Version', randomName: 'choice-parameter-16677189047461', referencedParameters: 'Environment', 
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: true, script: ''], 
                 script: [classpath: [], oldScript: '', sandbox: true, 
@@ -291,7 +291,7 @@ properties([
                 script: [$class: 'GroovyScript', fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''],
                 script: [classpath: [], oldScript: '', sandbox: true, 
                 script: menu.getRollBackScript('Components','Environment','Configuration')]] ], 
-
+             */
             separator(name: "end"),        
 ])
 ])////
