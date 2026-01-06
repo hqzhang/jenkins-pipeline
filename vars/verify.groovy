@@ -15,6 +15,7 @@ def call(){
     println "verify application"
     println "⏳ Waiting for ${url} to become reachable..."
     def count = 0
+    def cmd = ''
     while (true) {
         if (count>60) { error("verify url timeout") }
         cmd="curl -s -w '%{http_code}' -o /dev/null --head --fail "+ url
