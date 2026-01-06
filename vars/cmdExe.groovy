@@ -1,6 +1,7 @@
 def call(){
+    println "Enter cmdExe"
     //def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
-    ProcessBuilder pb = new ProcessBuilder('sh','-c',"helm");
+    ProcessBuilder pb = new ProcessBuilder('sh','-c',"helm version");
     Map<String, String> env = pb.environment();
     String currentPath = env.get("PATH");
     println "PATH=$PATH"
