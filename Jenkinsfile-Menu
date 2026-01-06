@@ -323,7 +323,7 @@ pipeline {
         repoName='solution-repo'
         repoBranch='getsolution'
         target="tgrpanv@${env.Server}"
-        //PATH = "/usr/local/bin:${env.PATH}"
+        PATH = "/usr/local/bin:${env.PATH}"
         sourceFile='examples'
         destFile='output'
         inputFull='examples'
