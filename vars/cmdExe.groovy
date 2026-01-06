@@ -8,5 +8,5 @@ def call(){
      // Set a completely new PATH
     env.put("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin");
     Process process = pb.start();
-    return process
+    return process.text
 }
