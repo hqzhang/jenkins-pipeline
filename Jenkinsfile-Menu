@@ -393,7 +393,7 @@ pipeline {
                 script {
                     echo "Stage:  Init Repo"
                     println "run helm version==========="
-                    println cmdExe()
+                    println cmdExe("helm version")
                     sh "exit 1"
                     println "print PATH"
                     //sh "/usr/local/bin/helm"
