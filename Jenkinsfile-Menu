@@ -36,6 +36,10 @@ def repo = scm.getUserRemoteConfigs()[0].toString().replace(' (null)','').replac
 println "repo=$repo"
 def mybr=menu.getURL()*/
 menu.initEnvars()
+import jenkins.*
+
+// Set PATH for all builds
+System.setProperty("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")
 println "printenv".execute().text
 
 println "---------list all envar------------"
