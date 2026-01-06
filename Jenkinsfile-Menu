@@ -450,9 +450,9 @@ pipeline {
                 script {
                     echo "Stage: Build Image"
                     echo "Stage: Build Docker Image ============="
-                    myapp="wavecloud/nginx-opens"
-                    path="image"
-                    registryUrl='https://index.docker.io/v1/'
+                    def myapp="wavecloud/nginx-opens"
+                    def path="image"
+                    def registryUrl='https://index.docker.io/v1/'
                     registryCredentialsId='48bc6aae-d8cc-43ce-8eac-6d9bd209a8be'
 
                     withDockerRegistry(credentialsId: registryCredentialsId, toolName: 'Docker', url: registryUrl) {
