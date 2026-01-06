@@ -1,4 +1,4 @@
-def call(){
+def call(String cmd){
     println "Enter cmdExe()"
     ProcessBuilder pb = new ProcessBuilder('sh','-c',cmd);
     println "PATH=$PATH"
