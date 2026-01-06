@@ -18,7 +18,7 @@ if (cluster != "" ){
 }
 
 println "kind install cluster"
-cmd="""cat > ingress-config.yaml <<EOF
+/*cmd="""cat > ingress-config.yaml <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
@@ -32,9 +32,9 @@ nodes:
         protocol: TCP
 EOF
 """
-  commandExecute(cmd)
+  commandExecute(cmd)*/
   println "kind create cluster"
-  cmd="kind create cluster --config ingress-config.yaml"
+  cmd="kind create cluster --config ${env.wksp}/helm/ingress-config.yaml"
   println commandExecute(cmd)
 
   println "install ingress"
