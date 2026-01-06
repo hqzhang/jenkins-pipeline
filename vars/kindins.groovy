@@ -11,7 +11,7 @@ if ( kind != "" ) {
    commandExecute(cmd)
 }
 
-def cluster = commandExecute("printenv; kind get clusters")
+def cluster = commandExecute("kind get clusters")
 if (cluster != "" ){
    cmd="kind delete cluster --name $cluster"
    commandExecute(cmd)
