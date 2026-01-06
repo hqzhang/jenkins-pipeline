@@ -40,8 +40,8 @@ import jenkins.*
 
 // Set PATH for all builds
 System.setProperty("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")
-println "printenv".execute().text
-
+//println "printenv".execute().text
+println "PATH=${env.PATH}"
 println "---------list all envar------------"
 println "build=${env.BUILD_URL}"
 //env.getEnvironment().each { name, value -> println "env.${name}=${value}" }
