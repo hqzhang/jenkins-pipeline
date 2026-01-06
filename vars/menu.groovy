@@ -694,7 +694,7 @@ def saveBackupFile(String components,String backupFile){
     println("Enter saveBackupFile: $components")
     println("And  BackupFile: $backupFile")
     def config = [:]
-    configContent=stringConvert(components)
+    def configContent=stringConvert(components)
     println "content=$configContent"
     writeFile file: backupFile, text: 'components:\n'+configContent
     
