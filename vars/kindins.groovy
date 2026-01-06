@@ -34,7 +34,7 @@ EOF
 """
   commandExecute(cmd)*/
   println "kind create cluster"
-  cmd="kind create cluster --config ${env.wksp}/helm/ingress-config.yaml"
+  cmd="kind create cluster --config ${env.scmWksp}/helm/ingress-config.yaml"
   println commandExecute(cmd)
 
   println "install ingress"
