@@ -4,13 +4,14 @@ println "Enter kindins file"
 def call() {
 def cmd=''
 def kind=commandExecute('command -v kind')
+println "kind=$kind"
 if ( kind != "" ) {
    println "install kind binary"
    cmd=" curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.30.0/kind-linux-amd64"
    commandExecute(cmd)
 }
 
-cluster = commandExecute("kind get clusters")
+cluster = commandExecute("printenv; kind get clusters")
 if (cluster != "" ){
    cmd="kind delete cluster --name $cluster"
    commandExecute(cmd)
