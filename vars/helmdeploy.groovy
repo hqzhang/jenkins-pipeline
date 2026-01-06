@@ -11,13 +11,15 @@ def result="Hongqi, welcome to nginx!"
 def backupFile=env.scmWksp+"/helm/myapp/values.yaml"
 @groovy.transform.Field
 def chart=env.scmWksp+'/helm/myapp'
+@groovy.transform.Field
+def KUBECFG='/Users/hongqizhang/.kube/config'
 
 def call(){
     println "Enter helmdeploy file.. with try"
     try {
         println "check kubectl get node and helm list"
 
-        def cmd =  "helm list --short || true"
+        def cmd = "helm list --short || true"
         def check = commandExecute(cmd)
         println "helm uninstall application"
         if (check) {
