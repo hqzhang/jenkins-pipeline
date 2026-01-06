@@ -39,9 +39,6 @@ menu.initEnvars()
 import jenkins.*
 
 // Set PATH for all builds
-System.setProperty("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")
-//println "printenv".execute().text
-println "PATH=${env.PATH}"
 println "---------list all envar------------"
 println "build=${env.BUILD_URL}"
 //env.getEnvironment().each { name, value -> println "env.${name}=${value}" }
@@ -393,11 +390,7 @@ pipeline {
                 script {
                     echo "Stage:  Init Repo"
                     println "run helm version==========="
-                    println cmdExe("helm version")
-                    sh "exit 1"
-                    println "print PATH"
-                    //sh "/usr/local/bin/helm"
-                    sh "helm"
+
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
                     println "save backup file locally====="
