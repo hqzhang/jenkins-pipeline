@@ -14,7 +14,7 @@ import jenkins.model.*
 //// Remove everything which is currently queued/
 
 @groovy.transform.Field
-def githubtokenid='githubtoken'
+def githubtokenid='myjenkinspipelinekey'
 
 @groovy.transform.Field
 def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
