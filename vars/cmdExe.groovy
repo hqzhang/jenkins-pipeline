@@ -1,4 +1,4 @@
-def call(){
+def call(String cmd){
     println "Enter cmdExe()"
     //def out = new ProcessBuilder('sh','-c',cmd).redirectErrorStream(true).start().text
     ProcessBuilder pb = new ProcessBuilder('sh','-c',cmd);
