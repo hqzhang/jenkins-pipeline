@@ -319,7 +319,7 @@ pipeline {
         repoName='solution-repo'
         repoBranch='getsolution'
         target="tgrpanv@${env.Server}"
-        PATH="/usr/local/bin:$PATH"
+        PATH = "/usr/local/bin:${env.PATH}"
         sourceFile='examples'
         destFile='output'
         inputFull='examples'
@@ -390,6 +390,8 @@ pipeline {
                     echo "Stage:  Init Repo"
                     println "printenv"
                     sh "printenv"
+                    println "print PATH"
+                    println PATH
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
                     println "save backup file locally====="
