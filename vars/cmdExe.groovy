@@ -8,6 +8,6 @@ def call(String cmd){
      // Set a completely new PATH
     env.put("PATH", PATH);
     println "PATH=$PATH"
-    Process process = pb.redirectErrorStream(true).start().text;
-    return process
+    Process process = pb.redirectErrorStream(true).start();
+    return process.text
 }
