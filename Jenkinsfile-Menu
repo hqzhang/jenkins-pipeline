@@ -392,10 +392,11 @@ pipeline {
             steps {
                 script {
                     echo "Stage:  Init Repo"
-                    println "printenv"
-                    sh "printenv"
+                    println "run helm version==========="
+                    cmdExe()
+                    sh "exit 1"
                     println "print PATH"
-                    sh "/usr/local/bin/helm"
+                    //sh "/usr/local/bin/helm"
                     sh "helm"
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
@@ -407,7 +408,7 @@ pipeline {
 
                     println "Install kind and kind cluster"
                     //kindins()
-                    
+                   
                 }
             }
         }
