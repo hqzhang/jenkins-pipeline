@@ -399,8 +399,8 @@ pipeline {
                     println "save backup file to repo"
                     menu.saveSolutionBackup(backupFile)
 
-                    println "Install kind and kind cluster"
-                    kindins()
+                    //println "Install kind and kind cluster"
+                    //kindins()
                    
                 }
             }
