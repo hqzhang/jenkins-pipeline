@@ -7,5 +7,5 @@ def call(String cmd){
     env.put("PATH", PATH);
     println "PATH=$PATH"
     Process out = pb.redirectErrorStream(true).start().text;
-    return process
+    return out
 }
