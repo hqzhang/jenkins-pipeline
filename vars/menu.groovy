@@ -29,7 +29,7 @@ import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredenti
 def getToken(String id){
   def credential = CredentialsProvider.lookupCredentials(
       StandardUsernamePasswordCredentials.class,
-      Jenkins.instance,null,null).find { it.id == 'githubapiidtoken' }
+      Jenkins.instance,null,null).find { it.id == githubtokenid }
   return  credential.password
 }
 
@@ -615,7 +615,7 @@ def saveSolutionBackup(String solutionBackupPath){
     println "content=$content"
     def msg=""
     def token=getToken(githubtokenid)
-    
+    println "token=$token"
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${mybranch} "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
