@@ -104,9 +104,9 @@ def createConfig(String fileName){
 }
 def createHosts(String fileName, String user){
     println "enter createHosts()1111"
-    ipaddr=''
-    cmd="VBoxManage guestproperty get node-01 /VirtualBox/GuestInfo/Net/0/V4/IP|cut -d' ' -f2"
-    ipaddr=commandExecute( cmd)
+    def ipaddr=''
+    def cmd="VBoxManage guestproperty get node-01 /VirtualBox/GuestInfo/Net/0/V4/IP|cut -d' ' -f2"
+    def ipaddr=commandExecute( cmd)
     println "ipaddr=$ipaddr"
     def data ="""
     [webservers] \n

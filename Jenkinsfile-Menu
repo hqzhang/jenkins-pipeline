@@ -420,7 +420,7 @@ pipeline {
                 script {
                     echo "Stage: Create VM by Terraform"
                     println "Play terraform"
-                    user='vagrant'
+                    def user='vagrant'
                    
                     sh """
                        VBoxManage list vms |cut -d' ' -f1
