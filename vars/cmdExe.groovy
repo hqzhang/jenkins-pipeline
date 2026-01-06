@@ -6,7 +6,7 @@ def call(){
     String currentPath = env.get("PATH");
     println "PATH=$PATH"
      // Set a completely new PATH
-    env.put("PATH", PATH);
+    //env.put("PATH", PATH);
     println "PATH=$PATH"
     Process process = pb.start();
     return process.text
