@@ -395,7 +395,7 @@ pipeline {
                     println "printenv"
                     sh "printenv"
                     println "print PATH"
-                    println PATH
+                    sh "/usr/local/bin/helm"
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
                     println "save backup file locally====="
