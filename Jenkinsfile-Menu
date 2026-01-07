@@ -441,7 +441,7 @@ pipeline {
                     echo "Stage: Config by Ansible"
                     println "Play Ansible"
                     //menu.createValues(fileName
-                    ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'hosts', playbook: 'ansible/test.yml')
+                    //ansiblePlaybook(credentailsId: 'targetcredid', inventory: 'hosts', playbook: 'ansible/test.yml')
                     
                 }
             }
