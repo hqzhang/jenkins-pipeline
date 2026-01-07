@@ -455,7 +455,7 @@ pipeline {
                     def myapp="wavecloud/nginx-opens"
                     def path="image"
                     def registryUrl='https://index.docker.io/v1/'
-                    registryCredentialsId='48bc6aae-d8cc-43ce-8eac-6d9bd209a8be'
+                    def registryCredentialsId='48bc6aae-d8cc-43ce-8eac-6d9bd209a8be'
 
                     withDockerRegistry(credentialsId: registryCredentialsId, toolName: 'Docker', url: registryUrl) {
                         def myimage = docker.build(myapp, path)
