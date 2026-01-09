@@ -437,7 +437,7 @@ pipeline {
             }
         }
         stage('Stage: Configure Ansible'){
-            when { expression { return false } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Config by Ansible"
@@ -449,7 +449,7 @@ pipeline {
             }
         }
         stage('Stage: Build Docker Image'){
-            when { expression { return params.InfraStructure } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Build Image 1"
@@ -469,7 +469,7 @@ pipeline {
             }
         }
         stage('Stage: Deploy on Openshift'){
-            when { expression { return params.InfraStructure } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     kubedeploy()
@@ -497,7 +497,7 @@ pipeline {
             }
         }
         stage('Stage: Export Template File'){
-            when { expression { return params.InfraStructure } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script { 
                     echo "Stage: Export Template File..."
