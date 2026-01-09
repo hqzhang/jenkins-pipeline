@@ -392,7 +392,7 @@ pipeline {
                     println "run docker version==========="
                     sh "docker ps"
                     println commandExecute("docker ps")
-                    sh "exit 1"
+                    
                     println "download solution repo"
                     Utils.gitCloneGithub(repoName,repoBranch)
                     println "save backup file locally====="
