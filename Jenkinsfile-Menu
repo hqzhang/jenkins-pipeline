@@ -408,7 +408,7 @@ pipeline {
             }
         }
         stage('Stage: Helm Deployment'){
-            when { expression { return params.InfraStructure } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Helm Deployment"
@@ -468,11 +468,15 @@ pipeline {
                 }
             }
         }
-        stage('Stage: Deploy on Openshift'){
-            when { expression { return !params.InfraStructure } }
+        stage('Stage: Deploy By argocd'){
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
-                    kubedeploy()
+                    #kubedeploy()
+                    sh """
+                        pwd
+                        #./createapp.sh
+                        """
                     /*echo "Deploy on Openshift"
                     /*openshift.withCluster('redhatconsole'){
                     // openshift.withProject(proj){ 
