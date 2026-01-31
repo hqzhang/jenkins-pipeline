@@ -472,7 +472,7 @@ pipeline {
             when { expression { return params.InfraStructure } }
             steps {
                 script {
-                    #kubedeploy()
+                    //kubedeploy()
                     sh """
                         pwd
                         #./createapp.sh
