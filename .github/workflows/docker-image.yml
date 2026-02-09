@@ -2,6 +2,19 @@ name: Docker Image CI1
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: 'Which environment to run this on'
+        required: true
+        default: 'development'
+        options:
+          - development
+          - production
+      tag:
+        type: string
+        description: 'Which tag to utilize'
+        required: true
   push:
     branches: [ "main" ]
   pull_request:
