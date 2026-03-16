@@ -7,7 +7,7 @@ kind='command -v kind'
 if [[ $kind != "" ]] ; then
 
    echo "install kind binary"
-   [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.30.0/kind-linux-amd64
+   [ $(uname -m) = x86_64 ] && brew install kind
 fi
 
 cluster=`kind get clusters`
