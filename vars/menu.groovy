@@ -611,11 +611,13 @@ def saveSolutionBackup(String solutionBackupPath){
     def solutionBackup=solutionBackupPath.split('/')[-1]
     def baseUrl="${restAPIHub}/contents/${folder}"
     def sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin").trim()
-    def content = commandExecute("base64 ${solutionBackupPath}")
+    
+    println solutionBackupPath
+    def content = commandExecute("base64 -i ${solutionBackupPath}")
     println "content=$content"
     def msg=""
     def token=getToken(githubtokenid)
-    println "token=$token"
+    
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${mybranch} "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
