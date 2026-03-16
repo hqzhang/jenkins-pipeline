@@ -622,7 +622,7 @@ def saveSolutionBackup(String solutionBackupPath){
     def obj=new JsonSlurper().parseText(out)
     println "obj.sha=${obj.sha}"
     
-    if (obj.sha != local_sha ) {
+    if (obj.sha == local_sha ) {
         println "No need update file successfully"
         return '200'
     }
