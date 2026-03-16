@@ -612,6 +612,8 @@ def saveSolutionBackup(String solutionBackupPath){
     def baseUrl="${restAPIHub}/contents/${folder}"
     def local_sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin").trim()
     def msg='create new file'
+    def token=getToken(githubtokenid)
+
     println "local_sha=${local_sha}"
 
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${mybranch} "
@@ -626,12 +628,9 @@ def saveSolutionBackup(String solutionBackupPath){
     }
     if (obj.sha != null  ) { msg='Update file message'}
 
-
     println "Content changed. Updating..."
-
     def content = commandExecute("base64 -i ${solutionBackupPath}")
-    def token=getToken(githubtokenid)
-
+    
     body=[  branch: "${mybranch}",
             message: "${msg}",
             committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
