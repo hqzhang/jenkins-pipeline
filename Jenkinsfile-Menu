@@ -407,7 +407,7 @@ pipeline {
             }
         }
         stage('Stage: Helm Deployment'){
-            when { expression { return !params.InfraStructure } }
+            when { expression { return params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Helm Deployment"
@@ -418,7 +418,7 @@ pipeline {
             }
         }
         stage('Stage: VM Terraform'){
-            when { expression { return params.InfraStructure } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     echo "Stage: Create VM by Terraform"
@@ -468,7 +468,7 @@ pipeline {
             }
         }
         stage('Stage: Deploy By argocd'){
-            when { expression { return params.InfraStructure } }
+            when { expression { return !params.InfraStructure } }
             steps {
                 script {
                     //kubedeploy()
