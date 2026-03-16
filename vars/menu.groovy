@@ -610,44 +610,52 @@ def saveSolutionBackup(String solutionBackupPath){
     println( "Enter saveSolutionBackup:${solutionBackup}")
     def solutionBackup=solutionBackupPath.split('/')[-1]
     def baseUrl="${restAPIHub}/contents/${folder}"
-    def local_sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin").trim()
-    def msg='create new file'
+    def sha = commandExecute("cat ${solutionBackupPath}| git hash-object --stdin").trim()
+    
+    println solutionBackupPath
+    def content = commandExecute("base64 -i ${solutionBackupPath}")
+    println "content=$content"
+    def msg=""
     def token=getToken(githubtokenid)
-
-    println "local_sha=${local_sha}"
-
+    println "token=$token"
     def cmd="curl -kls -w '%{http_code}' -H 'Authorization: Bearer ${token}' ${baseUrl}/${solutionBackup}?ref=${mybranch} "
     println "cmd=$cmd"
     def out=commandExecute(cmd)
     def obj=new JsonSlurper().parseText(out)
-    println "obj.sha=${obj.sha}"
-    
-    if (obj.sha == local_sha ) {
-        println "No need update file successfully"
-        return '200'
-    }
-    if (obj.sha != null  ) { msg='Update file message'}
 
-    println "Content changed. Updating..."
-    def content = commandExecute("base64 -i ${solutionBackupPath}")
-    
-    body=[  branch: "${mybranch}",
-            message: "${msg}",
-            committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
-            content: "${content}",
-            sha: "${local_sha}"]
-    
-    body=JsonOutput.toJson(JsonOutput.toJson(body))
-    println "create body=$body"
-    cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
-        ${baseUrl}/${solutionBackup} --data ${body}"
-    println "create cmd=$cmd"
-    out=commandExecute(cmd).trim()
-    println "result=$out"
-    if (out!='200' && out!='201') { error("Create file Failure!!") }
-    else { println "${msg} successfull"}
-    
-    return out
+    println "obj.sha=${obj.sha}"
+    println "obj=$obj"
+    if (obj.sha != null  ) { msg='Update file message'}
+    else { msg='Create file message' }
+
+    println "sha=$sha"
+    println "obj.sha=${obj.sha}"
+    if (obj.sha != sha ) {
+        println "create or update file !!!! ${obj.sha}"
+        sha=obj.sha
+        body=[  branch: "${mybranch}",
+                message: "${msg}",
+                committer: [ name: 'hongqi',email: 'hq@hotmail.com'],
+                content: "${content}",
+                sha: "${sha}"]
+        if (obj.sha == null)  { 
+            body.remove('sha')
+            println "new body=$body"
+        }
+        
+        body=JsonOutput.toJson(JsonOutput.toJson(body))
+        println "create body=$body"
+        cmd="curl -kLs -X PUT -o /dev/null -w '%{http_code}' -H 'Authorization: Bearer ${token}' \
+            ${baseUrl}/${solutionBackup} --data ${body}"
+        println "create cmd=$cmd"
+        out=commandExecute(cmd).trim()
+        println "result=$out"
+        if (out!='200' && out!='201') { error("Create file Failure!!") }
+        else { println "${msg} successfull"}
+        return out
+    } else { println "No need update file successfully"}
+
+    return '200'
 }
 
 def commandExecute(String cmd){
