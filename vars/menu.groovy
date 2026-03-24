@@ -14,7 +14,7 @@ import jenkins.model.*
 //// Remove everything which is currently queued/
 
 @groovy.transform.Field
-def githubtokenid='sonomatoken'
+def githubtokenid='githubtokenid'
 
 @groovy.transform.Field
 def restAPIHub='https://api.github.com/repos/hqzhang/solution-repo'
