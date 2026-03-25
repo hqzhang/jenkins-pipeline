@@ -1,7 +1,7 @@
 @groovy.transform.Field
 def urlBaseGithub='https://github.com/hqzhang/'
 @groovy.transform.Field
-def githubtokenid='myjenkinspipelinekey'
+def githubtokenid='githubtokenid'
 
 def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
 
