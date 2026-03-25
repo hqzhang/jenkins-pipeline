@@ -1,4 +1,4 @@
-//////////////use shared library same with Jenkinsfile///////////
+///use shared library same with Jenkinsfile///////////
 def brch= scm.branches[0].toString().replace('*/','')
 def libver="bitbucket-groovytest-lib@Menu-demo-good"
 //1) library identifier: "bitbucket-groovytest-lib@${brch}", retriever: modernSCM(
