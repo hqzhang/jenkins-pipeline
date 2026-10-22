@@ -160,7 +160,7 @@ def getBranch(){
 
 String getBranchScript(String repo, String dft ){
    return """def ret=[]
-   |def url='https://github.com/hqzhang/'+\'${repo}\'+'.git'
+   |def url='git@github.com:hqzhang/'+\'${repo}\'+'.git'
    |def out = "git ls-remote --heads \${url}".execute().text
    |out = out.readLines().collect { it.split()[1].replaceAll('refs/heads/', '') }
    |out.each{ if( it.contains(\"${dft}\") ){ ret.add(0,it) } else { ret.add(it) } }

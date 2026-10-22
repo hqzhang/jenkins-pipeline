@@ -4,10 +4,15 @@ set -x
 echo "Enter kindins.sh"
 pwd
 kind='command -v kind'
-if [[ $kind != "" ]] ; then
+if [[ $kind == "" ]] ; then
 
    echo "install kind binary"
-   [ $(uname -m) = x86_64 ] && brew install kind
+   # For Intel Macs
+  [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-darwin-amd64
+  # For M1 / ARM Macs
+  [ $(uname -m) = arm64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-darwin-arm64
+  chmod +x ./kind
+
 fi
 
 cluster=`kind get clusters`
