@@ -15,11 +15,13 @@ def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
     passwordVariable: 'GITHUB_TOKEN'
 )]) {
     echo "GitHub username: ${GITHUB_USER}"
-
+    sh "git clone -b ${repoBranch} \
+       https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/hqzhang/solution-repo.git"
     // Use GITHUB_TOKEN here without printing it
-    git url: 'https://GITHUB_USER:GITHUB_TOKEN@github.com/hqzhang/solution-repo.git',
-    branch: repoBranch
+    //git url: 'https://GITHUB_USER:GITHUB_TOKEN@github.com/hqzhang/solution-repo.git',
+    //branch: repoBranch
 }
+ }
     //checkout([
     //    $class: 'GitSCM',
     //    branches: [[name: '*/' + repoBranch]],
@@ -28,7 +30,7 @@ def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
             url: 'https://github.com/hqzhang/solution-repo.git'
         ]]
     ])*/
-  }
+  //}
 }
 
 def hello(){
