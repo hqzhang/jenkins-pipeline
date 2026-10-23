@@ -9,14 +9,26 @@ def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
   if (!myDir?.trim()) { tmp = repoName}
   
   dir(tmp) {
-    checkout([
-        $class: 'GitSCM',
-        branches: [[name: '*/' + repoBranch]],
-        userRemoteConfigs: [[
+    withCredentials([usernamePassword(
+    credentialsId: 'githubtokenid',
+    usernameVariable: 'GITHUB_USER',
+    passwordVariable: 'GITHUB_TOKEN'
+)]) {
+    echo "GitHub username: ${GITHUB_USER}"
+
+    // Use GITHUB_TOKEN here without printing it
+    sh '''
+        git ls-remote https://github.com/hqzhang/solution-repo.git
+    '''
+}
+    //checkout([
+    //    $class: 'GitSCM',
+    //    branches: [[name: '*/' + repoBranch]],
+    /*    userRemoteConfigs: [[
             credentialsId: 'githubtokenid',
             url: 'https://github.com/hqzhang/solution-repo.git'
         ]]
-    ])
+    ])*/
   }
 }
 
