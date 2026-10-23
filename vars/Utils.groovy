@@ -13,11 +13,11 @@ def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
         $class: 'GitSCM',
         branches: [[name: '*/' + repoBranch]],
         userRemoteConfigs: [[
-            credentialsId: githubtokenid,
-            url: urlBaseGithub + repoName
+            credentialsId: 'githubtokenid',
+            url: 'https://github.com/hqzhang/solution-repo.git'
         ]]
     ])
-}
+  }
 }
 
 def hello(){
