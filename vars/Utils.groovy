@@ -17,9 +17,8 @@ def gitCloneGithub(String repoName, String repoBranch, String myDir=''){
     echo "GitHub username: ${GITHUB_USER}"
 
     // Use GITHUB_TOKEN here without printing it
-    sh '''
-        git ls-remote https://github.com/hqzhang/solution-repo.git
-    '''
+    git url: 'https://GITHUB_USER:GITHUB_TOKEN@github.com/hqzhang/solution-repo.git',
+    branch: repoBranch
 }
     //checkout([
     //    $class: 'GitSCM',
